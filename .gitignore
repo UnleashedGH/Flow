@@ -9,11 +9,17 @@ obj
 Flow/obj/Release/
 Flow/obj/Debug/
 
+obj/Release/
+obj/Debug/
+
 
 Flow/bin/Release/
 Flow/bin/Debug/
 
+bin/Release/
+bin/Debug/
 
+gitignore
 
 [Ll]ibrary/
 [Tt]emp/
@@ -39,4 +45,7 @@ ExportedObj/
 *.pdb
 *.opendb
 *.cache
+*.gitignore
+
+
 

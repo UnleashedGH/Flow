@@ -97,7 +97,9 @@ namespace Flow.Forms
             
             //test for serliaize
           
-
+            Xv2CoreLib.BCM.DirectionalInput a = (Xv2CoreLib.BCM.DirectionalInput)0x11;
+            MessageBox.Show(a.ToString());
+            File.AppendAllText("hello.dat", a.ToString());
 
             //ComboPanel.BackColor = Color.FromArgb(255, 33, 33, 33);
 
