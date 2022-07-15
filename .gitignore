@@ -38,4 +38,5 @@ ExportedObj/
 *.svd
 *.pdb
 *.opendb
+*.cache
 
