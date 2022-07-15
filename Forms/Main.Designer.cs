@@ -304,7 +304,7 @@
             this.MinimumSize = new System.Drawing.Size(1056, 619);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Flow";
+            this.Text = "Flow: Pre-Alpha";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

@@ -54,7 +54,7 @@ namespace Flow.Forms
 
         //Global Vars Private to Form1
         Graphics gr;
-        Pen GridPen = new Pen(Color.Black);
+        Pen GridPen = new Pen(Color.White);
 
         //find a solution to scrolling, mousemov?
         int autoScrollMinX = 0;
@@ -266,7 +266,7 @@ namespace Flow.Forms
             e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
 
-            //drawGrid(e.Graphics);
+            drawGrid(e.Graphics);
           
             SelectedLayerNode.DrawTree(e.Graphics);
 
@@ -698,13 +698,14 @@ namespace Flow.Forms
         private void saveFlowFileflowToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("temp.dat", FileMode.Create, FileAccess.Write);
-
-            formatter.Serialize(stream, root.bd);
-            stream.Close();
+            writeFlowBinary(root);
 
           
+        }
+
+        void writeFlowBinary(TreeNode<CircleNode> r)
+        {
+            
         }
 
     }

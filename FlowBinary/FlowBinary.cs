@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace Flow.FlowBinary
 {
    public class FlowBinary
-    {
+   {
     }
 }
