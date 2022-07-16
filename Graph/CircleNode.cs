@@ -35,7 +35,7 @@ namespace Flow.Graph
         }
 
         // Draw the object centered at (x, y).
-        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, string inputType,  string extra, string extra2)
+        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, string inputType,  string extra, string extra2, float scale)
         {
             // Fill and draw an ellipse at our location.
            // SizeF my_size = GetSize(gr, font);
@@ -43,9 +43,9 @@ namespace Flow.Graph
 
             SizeF txtSize = GetSize(gr, font); // calculate rectSize by string
             RectangleF rectText = new RectangleF(
-                (x - txtSize.Width / 2) ,
-                (y - txtSize.Height / 2),
-                txtSize.Width, txtSize.Height);
+                (x - txtSize.Width / 2)  * scale,
+                (y - txtSize.Height / 2) * scale,
+                (txtSize.Width) * scale,(txtSize.Height) * scale);
 
             Brush text_brush2 = Brushes.Black;
 
@@ -87,13 +87,13 @@ namespace Flow.Graph
 
                 }
                 if (inputType != "Root")
-                    gr.DrawString(inputType, font, text_brush, x , y, string_format);
+                    gr.DrawString(inputType, font, text_brush, x * scale , y * scale, string_format);
                     
                 if (extra != "")
-                    gr.DrawString(extra, font, text_brush, x+ 13, y+ 13, string_format);
+                    gr.DrawString(extra, font, text_brush, (x + 13) * scale, (y + 13) * scale, string_format);
                 if (Main.showIndices)
                     if (extra2 != "")
-                         gr.DrawString(extra2, font, text_brush2, x + 35 , y + 2  , string_format);
+                         gr.DrawString(extra2, font, text_brush2, (x + 35) * scale, (y + 2) * scale, string_format);
 
 
 
@@ -105,7 +105,7 @@ namespace Flow.Graph
         // Note: The equation for an ellipse with half
         // width w and half height h centered at the origin is:
         //      x*x/w/w + y*y/h/h <= 1.
-        bool IDrawable.IsAtPoint(Graphics gr, Font font, PointF center_pt, PointF target_pt)
+        bool IDrawable.IsAtPoint(Graphics gr, Font font, PointF center_pt, PointF target_pt, float scale)
         {
             // Get our size.
             SizeF my_size = GetSize(gr, font);
@@ -113,18 +113,18 @@ namespace Flow.Graph
             // translate so we can assume the
             // ellipse is centered at the origin.
 
-            center_pt.X += Main.scrollMarginX;
-            center_pt.Y += Main.scrollMarginY;
+            center_pt.X += (Main.scrollMarginX * scale);
+            center_pt.Y += (Main.scrollMarginY * scale);
 
 
-            target_pt.X -= center_pt.X;
-            target_pt.Y -= center_pt.Y;
+            target_pt.X -= (center_pt.X * scale);
+            target_pt.Y -= (center_pt.Y * scale);
 
             // Determine whether the target point is under our ellipse.
-            float w = my_size.Width / 2;
-            float h = my_size.Height / 2;
+            float w = (my_size.Width / 2) * scale;
+            float h = (my_size.Height / 2) * scale;
            
-            float check = ((target_pt.X * target_pt.X / w / w)+ (target_pt.Y * target_pt.Y / h / h));
+            float check = ((target_pt.X * target_pt.X / w / w) + (target_pt.Y * target_pt.Y / h / h));
             //MessageBox.Show(check.ToString());
             isOnNode = (check) <= 1.0f;
             return isOnNode;

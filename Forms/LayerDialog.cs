@@ -21,7 +21,8 @@ namespace Flow.Forms
 
         private void LayerForm_Load(object sender, EventArgs e)
         {
-            textBox1.Focus();
+           
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -32,6 +33,11 @@ namespace Flow.Forms
                 layerName = textBox1.Text;
             }
     
+        }
+
+        private void LayerDialog_Shown(object sender, EventArgs e)
+        {
+            textBox1.Focus();
         }
     }
 }

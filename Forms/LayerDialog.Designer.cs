@@ -51,6 +51,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(298, 29);
             this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "New Layer";
             // 
             // LayerDialog
             // 
@@ -65,6 +66,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Layer";
             this.Load += new System.EventHandler(this.LayerForm_Load);
+            this.Shown += new System.EventHandler(this.LayerDialog_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

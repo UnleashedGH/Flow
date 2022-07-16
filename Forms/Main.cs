@@ -71,13 +71,18 @@ namespace Flow.Forms
         public static int scrollMarginX = 0;
         public static int scrollMarginY = 0;
 
+        //mouse scroll vars
+        private float mouseOffsetX = 0.0f;
+        private float mouseOffsetY = 0.0f;
+
         //draw vars
         public static bool showIndices = false;
+        private bool showGrid = false;
+        private float scale = 1.0f;
 
         //BcmVars
-        static Xv2CoreLib.BCM.Parser bcmInstance;
+        static Xv2CoreLib.BCM.BCM_File bcmInstance;
         static Xv2CoreLib.BCM.Deserializer bcmOut;
-        static Xv2CoreLib.BCM.Deserializer bcmOutLocal;
         //Static Vars
 
 
@@ -94,12 +99,20 @@ namespace Flow.Forms
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            showGrid = (gridToolStripMenuItem.Checked);
             
             //test for serliaize
           
             Xv2CoreLib.BCM.DirectionalInput a = (Xv2CoreLib.BCM.DirectionalInput)0x11;
-            MessageBox.Show(a.ToString());
-            File.AppendAllText("hello.dat", a.ToString());
+            
+
+            string[] s = a.ToString().Split(new char[] { ',', ' ' });
+            string s2 = "";
+            for (int i = 0; i < s.Length; i++)
+            {
+                s2 += s[i];
+            }
+           // File.AppendAllText("hello.dat", s2);
 
             //ComboPanel.BackColor = Color.FromArgb(255, 33, 33, 33);
 
@@ -147,8 +160,8 @@ namespace Flow.Forms
 
 
 
-                float xmin = 25;//@
-                float ymin =10;
+                float xmin = 25.0f ;
+                float ymin = 10.0f ;
 
                 SelectedLayerNode.Arrange(gr, ref xmin, ref ymin);
 
@@ -173,11 +186,11 @@ namespace Flow.Forms
    
 
         // Set SelectedNode to the node under the mouse.
-        private void FindNodeUnderMouse(PointF pt)
+        private void FindNodeUnderMouse(PointF pt, float scale)
         {
             using (gr = (ComboPanel.CreateGraphics()))
             {
-                SelectedNode = SelectedLayerNode.NodeAtPoint(gr, pt);
+                SelectedNode = SelectedLayerNode.NodeAtPoint(gr, pt, scale);
             }
 
         }
@@ -198,14 +211,20 @@ namespace Flow.Forms
 
 
                 //handles scrolling
-                if (autoScrollMinX + 75 < int.MaxValue)
-                    autoScrollMinX += 75;
-                if (autoScrollMinY + 75 < int.MaxValue)
-                    autoScrollMinY += 75;
+                if (autoScrollMinX + (int)(75 * scale) < int.MaxValue)
+                    autoScrollMinX += (int)(75 * scale);
+                if (autoScrollMinY + (int)(75 * scale) < int.MaxValue)
+                    autoScrollMinY += (int)(75 * scale);
 
                 ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
                 // Rearrange the tree to show the new node.
                 ArrangeTree();
+
+                using (gr = (ComboPanel.CreateGraphics()))
+                {
+                    drawGrid(gr);
+                }
+
             }
         }
 
@@ -217,10 +236,26 @@ namespace Flow.Forms
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 // Delete the node and its subtree.
-                root.DeleteNode(SelectedNode);
+              root.DeleteNode(SelectedNode);
+               // int count = 0;
+                //int NumOfChildren = root.getTotalChildCount(ref count);
+                //MessageBox.Show(NumOfChildren.ToString());
+
+                if (autoScrollMinX - 75 >= 0)
+                    autoScrollMinX -= 75;
+                if (autoScrollMinY - 75 >= 0)
+                    autoScrollMinY -= 75;
+
+                ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
 
                 // Rearrange the tree to show the new structure.
                 ArrangeTree();
+
+                using (gr = (ComboPanel.CreateGraphics()))
+                {
+                    drawGrid(gr);
+                }
+
             }
         }
 
@@ -260,17 +295,22 @@ namespace Flow.Forms
             if (!isNodesPresentToDraw())
                 return;
 
-            scrollMarginX = ComboPanel.AutoScrollPosition.X;
-            scrollMarginY = ComboPanel.AutoScrollPosition.Y;
+            scrollMarginX = (int)(ComboPanel.AutoScrollPosition.X * scale);
+            scrollMarginY = (int)(ComboPanel.AutoScrollPosition.Y * scale);
 
-            e.Graphics.TranslateTransform(ComboPanel.AutoScrollPosition.X, ComboPanel.AutoScrollPosition.Y);
+
+
+
+
+            //e.Graphics.TranslateTransform(ComboPanel.AutoScrollPosition.X, ComboPanel.AutoScrollPosition.Y );
+            e.Graphics.TranslateTransform(mouseOffsetX, mouseOffsetY);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
 
             drawGrid(e.Graphics);
           
-            SelectedLayerNode.DrawTree(e.Graphics);
+            SelectedLayerNode.DrawTree(e.Graphics, scale);
 
             //ComboPanel.Invalidate();
         
@@ -283,15 +323,17 @@ namespace Flow.Forms
 
         private void drawGrid(Graphics gr)
         {
-           
+            if (!showGrid)
+                return;
             int x = 0;
             int y = 0;
-            for(int i = 0; i <= ComboPanel.Height / 60; i++)
+            float nodeSize = 60.0f * scale;
+            for(int i = 0; i <= (ComboPanel.Height + autoScrollMinY) / nodeSize; i++)
             {
-                for (int j = 0; j <= ComboPanel.Width / 60; j++)
+                for (int j = 0; j <= (ComboPanel.Width + autoScrollMinX) / nodeSize; j++)
                 {
-                    gr.DrawLine(GridPen, x, y + (i * 60), ComboPanel.Width, y + (i * 60));
-                    gr.DrawLine(GridPen, x + (j * 60), y, x + (j * 60), ComboPanel.Height);
+                    gr.DrawLine(GridPen, x, y + (i * nodeSize), (ComboPanel.Width + autoScrollMinX), y + (i * nodeSize));
+                    gr.DrawLine(GridPen, x + (j * nodeSize), y, x + (j * nodeSize), (ComboPanel.Height + autoScrollMinY));
                 }
             }
    
@@ -304,12 +346,20 @@ namespace Flow.Forms
 
         private void ComboPanel_MouseMove(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left)
+            {
+                var relativePoint = ComboPanel.PointToClient(Cursor.Position);
+                mouseOffsetX = relativePoint.X;
+                mouseOffsetY = relativePoint.Y;
+            }
+
+
             if (isNodesPresentToDraw() == false)
                 return;
 
 
             // Find the node under the mouse.
-            FindNodeUnderMouse(e.Location);
+            FindNodeUnderMouse(e.Location, scale);
 
             // If there is a node under the mouse,
             // display the node's text.
@@ -347,6 +397,8 @@ namespace Flow.Forms
 
         private void ComboPanel_MouseDown(object sender, MouseEventArgs e)
         {
+
+    
             if (!isNodesPresentToDraw())
                 return;
 
@@ -355,7 +407,7 @@ namespace Flow.Forms
          
 
             // Find the node under the mouse.
-            FindNodeUnderMouse(e.Location);
+            FindNodeUnderMouse(e.Location, scale);
 
             // If there is a node under the mouse,
             // display the context menu.
@@ -597,30 +649,41 @@ namespace Flow.Forms
         }
 
      
-   
+        void compileBcm(TreeNode<CircleNode> root, ref Xv2CoreLib.BCM.BCM_File bcmFile, ref Xv2CoreLib.BCM.BCM_Entry rootBcmEntry)
+        {
+            foreach (TreeNode<CircleNode> child in root.Children)
+            {
+                Xv2CoreLib.BCM.BCM_Entry cEntry = new Xv2CoreLib.BCM.BCM_Entry();
+                cEntry.I_08 = (Xv2CoreLib.BCM.ButtonInput)0x11;
+                if (rootBcmEntry.BCMEntries == null)
+                    rootBcmEntry.BCMEntries = new List<Xv2CoreLib.BCM.BCM_Entry>();
+                rootBcmEntry.BCMEntries.Add(cEntry);
+                compileBcm(child,ref  bcmFile, ref cEntry);
+            }
+        }
+
+
         private void compileMovesetBCMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
 
-                    bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance.bcmFile, saveFileDialog1.FileName);
-                    MessageBox.Show("File Saved Successfully");
+                    bcmInstance = new Xv2CoreLib.BCM.BCM_File();
+
+                    Xv2CoreLib.BCM.BCM_Entry rootEntry = new Xv2CoreLib.BCM.BCM_Entry();
+
+                    bcmInstance.BCMEntries.Add(rootEntry);
+
+                    compileBcm(root, ref bcmInstance, ref rootEntry);
+
+                    bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance, "out.bcm");
+                   
+
+                    MessageBox.Show("Compiled Successfully");
                     //isBCMLoaded = false;
-                }
+                
 
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error : Xv2CoreLib error during save process." + "\n" + ex.Message);
-                    //MessageBox.Show(w.ErrorCode.ToString());
-                    //MessageBox.Show(w.NativeErrorCode.ToString());
-                    //MessageBox.Show(w.StackTrace);
-                    //MessageBox.Show(w.Source);
-                    //Exception ee = w.GetBaseException();
-                    //MessageBox.Show(ee.Message);
-                    Application.Exit();
-                }
+           
 
 
             }
@@ -644,15 +707,26 @@ namespace Flow.Forms
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), "J", false);
+                TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), "NA", false);
                 newLayer.bd.LayerName = dlg.layerName;
                 //newLayer.ID = root.Children.Count;
                 root.Children.Add(newLayer);
-                listBox1.Items.Add(newLayer.bd.LayerName);
+                populateListBox();
                 ArrangeTree();
+
+              
+
             }
+        }
 
-
+        private void populateListBox()
+        {
+            listBox1.Items.Clear();
+            for (int i = 0; i < root.Children.Count;i++)
+            {
+                listBox1.Items.Add(root.Children[i].bd.LayerName);
+            }
+           
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -682,11 +756,8 @@ namespace Flow.Forms
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     root.Children[listBox1.SelectedIndex].bd.LayerName = dlg.layerName;
-                    listBox1.Items[listBox1.SelectedIndex] = dlg.layerName;
-                    listBox1.Refresh();
+                    populateListBox();
 
-                    //this is wrong
-                    //create code to repopulate listbox FROM The children list
                 }
                   
 
@@ -710,5 +781,55 @@ namespace Flow.Forms
             
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex >= 0)
+            {
+                root.Children.RemoveAt(listBox1.SelectedIndex);
+                populateListBox();
+            }
+         
+        }
+
+        private void modifyDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NodeTextDialog dlg = new NodeTextDialog();
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+            
+                SelectedNode.bd.InputType = dlg.btnInput;
+
+                ComboPanel.Refresh();
+            }
+        }
+
+        private void gridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //boolean trigger
+            showGrid = (showGrid == false);
+            ComboPanel.Refresh();
+        }
+
+     
+   
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            scale = 0.75f;
+            ComboPanel.Refresh();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            scale = 1.0f;
+            ComboPanel.Refresh();
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            scale = 1.25f;
+            ComboPanel.Refresh();
+        }
     }
 }

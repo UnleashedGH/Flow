@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Xv2CoreLib;
 
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Flow.Graph
 {
@@ -33,10 +34,10 @@ namespace Flow.Graph
         // Space to skip horizontally between siblings
         // and vertically between generations.
         public float HOffset = 5;
-        public float VOffset = 10;
+        public float VOffset = 75;
 
         // Spacing for verticaly orientation.
-        public float Indent = 20;
+        public float Indent = 30; //unused, prob should be used in vertical align
         public float SpotRadius = 5;
 
         //public vars that will help with handling the UI
@@ -54,7 +55,7 @@ namespace Flow.Graph
 
         // Drawing properties.
         public Font MyFont = null;
-        public Pen MyPen = new Pen(Color.Black);
+        public Pen MyPen = new Pen(Color.White);
         private Pen localPen = new Pen(Color.Black);
         public Brush FontBrush = Brushes.White;
         public Brush BgBrush = new SolidBrush(Color.FromArgb(255, 33, 33, 33));
@@ -76,7 +77,7 @@ namespace Flow.Graph
         }
 
         // Constructor.
-        public TreeNode(T new_data, string InputTypeReflect, bool collapse, string _LayerName = "New Layer")
+        public TreeNode(T new_data, string InputTypeReflect, bool collapse,  string _LayerName = "New Layer")
             : this(new_data, new Font("Arial", 14,FontStyle.Bold), InputTypeReflect, collapse, _LayerName)
         {
             Data = new_data;
@@ -86,7 +87,7 @@ namespace Flow.Graph
             Children = new List<TreeNode<T>>();
 
         }
-        public TreeNode(T new_data, Font fg_font, string InputTypeReflect, bool collapse, string _LayerName = "New Layer")
+        public TreeNode(T new_data, Font fg_font, string InputTypeReflect, bool collapse,  string _LayerName = "New Layer")
         {
             Data = new_data;
             MyFont = fg_font;
@@ -113,6 +114,7 @@ namespace Flow.Graph
         // Add a TreeNode to out Children list.
         public int AddChild(TreeNode<T> child)
         {
+            //WARN: what is this?
             if (child.bd.InputType == "J")
                 return -1;
 
@@ -121,15 +123,17 @@ namespace Flow.Graph
         }
 
         //TODO : fix
-        public void getTotalChildCount(ref int count)
+        public int getTotalChildCount(ref int count)
         {
-            count += 1;
+            
 
           
             foreach (TreeNode<T> child in Children)
             {
-                getTotalChildCount(ref count);
+                count +=  child.getTotalChildCount(ref count);
             }
+
+            return count;
         }
       
         // Arrange the node and its children in the allowed area.
@@ -146,26 +150,29 @@ namespace Flow.Graph
         // Arrange the subtree horizontally. (REMOVED)
 
         // Arrange the subtree vertically.
-        public void ArrangeVertically(Graphics gr, float xmin, ref float ymin )
+        public void ArrangeVertically(Graphics gr, float xmin, ref float ymin)
         {
             // See how big this node is.
             SizeF my_size = Data.GetSize(gr, MyFont);
-            my_size.Width += 3 * SpotRadius;
+            my_size.Width +=  (3 ) * SpotRadius ;
 
-         
+
+
             // Set the position of this node's data.
-         
-                DataCenter = new PointF(
-             (xmin) + SpotRadius,
-                ymin + (my_size.Height - 2 * SpotRadius) / 2);
-            
-         
-            
+
+            DataCenter = new PointF(
+            (xmin) + SpotRadius,
+            ymin + (my_size.Height - (2 * SpotRadius)) / 2);
+
+
+
 
             // Allow vertical room for this node.
             //ymin += my_size.Height + VOffset;
-        
-             ymin += 55;
+
+
+            //vertical position
+            ymin += (60 );
 
 
             //don't do arragement for child nodes if IsCollpased = true
@@ -175,40 +182,44 @@ namespace Flow.Graph
        
             foreach (TreeNode<T> child in Children)
             {
-             
+                //because of indent + 30, indent is now horz position
                 // Arrange this child's subtree.
-                child.ArrangeVertically(gr, xmin + Indent + 30, ref ymin);
+                child.ArrangeVertically(gr, (xmin) + (60 ), ref ymin);
            
             }
         }
 
         // Draw the subtree rooted at this node
         // with the given upper left corner.
-        public void DrawTree(Graphics gr, ref float x, float y)
+        public void DrawTree(Graphics gr, ref float x, float y, float s)
         {
+
+            //font size
+
+          
             // Arrange the tree.
             Arrange(gr, ref x, ref y);
 
             // Draw the tree.
-            DrawTree(gr);
+            DrawTree(gr, s);
         }
 
         // Draw the subtree rooted at this node.
-        public void DrawTree(Graphics gr)
+        public void DrawTree(Graphics gr, float s)
         {
             // Draw the links.
-            DrawSubtreeLinks(gr);
+            DrawSubtreeLinks(gr, s);
 
             // Draw the nodes.
-            DrawSubtreeNodes(gr);
+            DrawSubtreeNodes(gr, s);
         }
 
         // Draw the links for the subtree rooted at this node.
-        private void DrawSubtreeLinks(Graphics gr)
+        private void DrawSubtreeLinks(Graphics gr, float s)
         {
 
           
-                DrawSubtreeLinksVertical(gr);
+                DrawSubtreeLinksVertical(gr, s);
           
         }
 
@@ -216,7 +227,7 @@ namespace Flow.Graph
      
 
         // Draw the links for the subtree rooted at this node.
-        private void DrawSubtreeLinksVertical(Graphics gr)
+        private void DrawSubtreeLinksVertical(Graphics gr, float s)
         {
             //don't draw the child lines if the Parent was set to IsCollapsed = true
             if (isCollpased)
@@ -234,23 +245,20 @@ namespace Flow.Graph
 
                         // localPen.Color = Color.LightPink;
                         localPen.Color = Color.White;
-                        gr.DrawLine(localPen, DataCenter.X, DataCenter.Y, DataCenter.X, child.DataCenter.Y);
-                        gr.DrawLine(localPen, DataCenter.X, child.DataCenter.Y, child.DataCenter.X, child.DataCenter.Y);
+                
                     }
                     else if (child.bd.InputType == "H")
                     {
                         // localPen.Color = Color.LimeGreen;
                         localPen.Color = Color.White;
 
-                        gr.DrawLine(localPen, DataCenter.X, DataCenter.Y, DataCenter.X, child.DataCenter.Y);
-                        gr.DrawLine(localPen, DataCenter.X, child.DataCenter.Y, child.DataCenter.X, child.DataCenter.Y);
+            
                     }
                     else if (child.bd.InputType == "K")
                     {
                         localPen.Color = Color.White;
                         //localPen.Color = Color.OrangeRed;
-                        gr.DrawLine(localPen, DataCenter.X, DataCenter.Y, DataCenter.X, child.DataCenter.Y);
-                        gr.DrawLine(localPen, DataCenter.X, child.DataCenter.Y, child.DataCenter.X, child.DataCenter.Y);
+                   
                     }
 
                     else if (child.bd.InputType == "J")
@@ -258,15 +266,20 @@ namespace Flow.Graph
 
                         //localPen.Color = Color.SkyBlue;
                         localPen.Color = Color.White;
-                        gr.DrawLine(localPen, DataCenter.X, DataCenter.Y, DataCenter.X, child.DataCenter.Y);
-                        gr.DrawLine(localPen, DataCenter.X, child.DataCenter.Y, child.DataCenter.X, child.DataCenter.Y);
+                  
                     }
                     else
                     {
+                        //WARN: what is this? unused
                         Pen p = new Pen(Color.Black );
-                        gr.DrawLine(p, DataCenter.X, child.DataCenter.Y, child.DataCenter.X, child.DataCenter.Y);
+                        gr.DrawLine(p, DataCenter.X * s, child.DataCenter.Y * s, child.DataCenter.X * s, child.DataCenter.Y * s);
+                        MessageBox.Show("unused else statement?");
+                       
                     }
-                  
+
+                    gr.DrawLine(localPen, DataCenter.X * s, DataCenter.Y * s, DataCenter.X * s, child.DataCenter.Y * s);
+                    gr.DrawLine(localPen, DataCenter.X * s, child.DataCenter.Y * s, child.DataCenter.X * s, child.DataCenter.Y * s);
+
                 }
 
 
@@ -275,24 +288,26 @@ namespace Flow.Graph
 
                 // Draw the link between this node this child. (the straight line, always black)
                 
-                gr.DrawLine(MyPen, DataCenter.X, DataCenter.Y, DataCenter.X, child.DataCenter.Y);
+                gr.DrawLine(MyPen, DataCenter.X * s, DataCenter.Y * s, DataCenter.X * s, child.DataCenter.Y * s);
 
 
                 // Recursively make the child draw its subtree nodes.
-                child.DrawSubtreeLinksVertical(gr);
+                child.DrawSubtreeLinksVertical(gr, s);
                 i++;
             }
         }
 
         // Draw the nodes for the subtree rooted at this node.
-        private void DrawSubtreeNodes(Graphics gr)
+        private void DrawSubtreeNodes(Graphics gr, float s)
         {
+
+            MyFont = new Font("Arial", 14 * s, FontStyle.Bold);
             // change the Node transpareny depending if it was Collpased or not (IsCollapsed)
             //this is one method of indicaiting collapsed nodes.. might change.
             if (isCollpased)
-              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "+", bd.ID.ToString());
+              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "+", bd.ID.ToString(), s);
             else
-              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "", bd.ID.ToString());
+              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "", bd.ID.ToString(), s);
 
 
 
@@ -304,16 +319,16 @@ namespace Flow.Graph
 
             foreach (TreeNode<T> child in Children)
             {
-                child.DrawSubtreeNodes(gr);
+                child.DrawSubtreeNodes(gr, s);
             }
         }
 
         // Return the TreeNode at this point (or null if there isn't one there).
-        public TreeNode<T> NodeAtPoint(Graphics gr, PointF target_pt)
+        public TreeNode<T> NodeAtPoint(Graphics gr, PointF target_pt, float scale)
         {
             // See if the point is under this node.
        
-            if (Data.IsAtPoint(gr, MyFont, DataCenter, target_pt)) return this;
+            if (Data.IsAtPoint(gr, MyFont, DataCenter, target_pt, scale)) return this;
 
           
 
@@ -322,7 +337,7 @@ namespace Flow.Graph
             // See if the point is under a node in the subtree.
             foreach (TreeNode<T> child in Children)
             {
-                TreeNode<T> hit_node = child.NodeAtPoint(gr, target_pt);
+                TreeNode<T> hit_node = child.NodeAtPoint(gr, target_pt, scale);
                 if (hit_node != null) return hit_node;
             }
 
