@@ -15,6 +15,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Flow.Graph;
+using Flow.ClassExtensions;
 
 namespace Flow.Forms
 {
@@ -28,9 +29,9 @@ namespace Flow.Forms
             | BindingFlags.Instance | BindingFlags.NonPublic, null,
             ComboPanel, new object[] { true });
 
-            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty
-            | BindingFlags.Instance | BindingFlags.NonPublic, null,
-            listBox1, new object[] { true });
+          
+
+
 
 
 
@@ -98,7 +99,7 @@ namespace Flow.Forms
         // Make a tree.
         private void Form1_Load(object sender, EventArgs e)
         {
-
+     
             showGrid = (gridToolStripMenuItem.Checked);
             
             //test for serliaize
@@ -704,16 +705,20 @@ namespace Flow.Forms
 
         private void populateListBox()
         {
+            listBox1.BeginUpdate();
+        
+           
             listBox1.Items.Clear();
             for (int i = 0; i < root.Children.Count;i++)
             {
                 listBox1.Items.Add(root.Children[i].bd.LayerName);
             }
-           
+            listBox1.EndUpdate();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            listBox1.BeginUpdate();
             if (listBox1.SelectedIndex >= 0)
             {
                 SelectedLayerNode = root.Children[listBox1.SelectedIndex];
@@ -721,9 +726,9 @@ namespace Flow.Forms
 
 
             }
-             
+            listBox1.EndUpdate();
 
-          
+
         }
 
         private void addRemoteLinkToolStripMenuItem_Click(object sender, EventArgs e)
@@ -817,7 +822,8 @@ namespace Flow.Forms
 
         private void Main_Shown(object sender, EventArgs e)
         {
-            ComboPanel.Refresh();
+       
+            ListBoxExtensions.SetDoubleBuffered(listBox1);
         }
 
         private void compileToBCMToolStripMenuItem_Click(object sender, EventArgs e)
