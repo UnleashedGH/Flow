@@ -45,24 +45,24 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(212, 12);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(327, 225);
+            this.treeView1.Size = new System.Drawing.Size(327, 264);
             this.treeView1.TabIndex = 1;
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(440, 244);
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(430, 282);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 43);
+            this.button1.Size = new System.Drawing.Size(109, 25);
             this.button1.TabIndex = 2;
-            this.button1.Text = "Set";
+            this.button1.Text = "SET LINK";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // LayerRemoteLink
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 299);
+            this.ClientSize = new System.Drawing.Size(551, 317);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.listBox1);

@@ -40,6 +40,15 @@
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBox24 = new System.Windows.Forms.CheckBox();
+            this.checkBox25 = new System.Windows.Forms.CheckBox();
+            this.checkBox23 = new System.Windows.Forms.CheckBox();
+            this.checkBox22 = new System.Windows.Forms.CheckBox();
+            this.checkBox21 = new System.Windows.Forms.CheckBox();
+            this.checkBox20 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.checkBox19 = new System.Windows.Forms.CheckBox();
             this.checkBox17 = new System.Windows.Forms.CheckBox();
             this.checkBox18 = new System.Windows.Forms.CheckBox();
@@ -59,15 +68,7 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox20 = new System.Windows.Forms.CheckBox();
-            this.checkBox21 = new System.Windows.Forms.CheckBox();
-            this.checkBox22 = new System.Windows.Forms.CheckBox();
-            this.checkBox23 = new System.Windows.Forms.CheckBox();
-            this.checkBox24 = new System.Windows.Forms.CheckBox();
-            this.checkBox25 = new System.Windows.Forms.CheckBox();
+            this.checkBox26 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
@@ -232,6 +233,104 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Conditions";
             // 
+            // checkBox24
+            // 
+            this.checkBox24.AutoSize = true;
+            this.checkBox24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkBox24.Location = new System.Drawing.Point(320, 123);
+            this.checkBox24.Name = "checkBox24";
+            this.checkBox24.Size = new System.Drawing.Size(112, 20);
+            this.checkBox24.TabIndex = 37;
+            this.checkBox24.Text = "STM < 100%";
+            this.checkBox24.UseVisualStyleBackColor = true;
+            // 
+            // checkBox25
+            // 
+            this.checkBox25.AutoSize = true;
+            this.checkBox25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkBox25.Location = new System.Drawing.Point(320, 97);
+            this.checkBox25.Name = "checkBox25";
+            this.checkBox25.Size = new System.Drawing.Size(96, 20);
+            this.checkBox25.TabIndex = 36;
+            this.checkBox25.Text = "STM > 0%";
+            this.checkBox25.UseVisualStyleBackColor = true;
+            // 
+            // checkBox23
+            // 
+            this.checkBox23.AutoSize = true;
+            this.checkBox23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkBox23.Location = new System.Drawing.Point(19, 123);
+            this.checkBox23.Name = "checkBox23";
+            this.checkBox23.Size = new System.Drawing.Size(93, 20);
+            this.checkBox23.TabIndex = 35;
+            this.checkBox23.Text = "Ki < 100%";
+            this.checkBox23.UseVisualStyleBackColor = true;
+            // 
+            // checkBox22
+            // 
+            this.checkBox22.AutoSize = true;
+            this.checkBox22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkBox22.Location = new System.Drawing.Point(19, 97);
+            this.checkBox22.Name = "checkBox22";
+            this.checkBox22.Size = new System.Drawing.Size(77, 20);
+            this.checkBox22.TabIndex = 34;
+            this.checkBox22.Text = "Ki > 0%";
+            this.checkBox22.UseVisualStyleBackColor = true;
+            // 
+            // checkBox21
+            // 
+            this.checkBox21.AutoSize = true;
+            this.checkBox21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkBox21.Location = new System.Drawing.Point(320, 71);
+            this.checkBox21.Name = "checkBox21";
+            this.checkBox21.Size = new System.Drawing.Size(157, 20);
+            this.checkBox21.TabIndex = 33;
+            this.checkBox21.Text = "Is Touching Target";
+            this.checkBox21.UseVisualStyleBackColor = true;
+            // 
+            // checkBox20
+            // 
+            this.checkBox20.AutoSize = true;
+            this.checkBox20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkBox20.Location = new System.Drawing.Point(19, 71);
+            this.checkBox20.Name = "checkBox20";
+            this.checkBox20.Size = new System.Drawing.Size(150, 20);
+            this.checkBox20.TabIndex = 32;
+            this.checkBox20.Text = "Is Close to Target";
+            this.checkBox20.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkBox2.Location = new System.Drawing.Point(19, 45);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(134, 20);
+            this.checkBox2.TabIndex = 31;
+            this.checkBox2.Text = "Is in Base Form";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.checkBox1.Location = new System.Drawing.Point(320, 45);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(131, 20);
+            this.checkBox1.TabIndex = 30;
+            this.checkBox1.Text = "Is Transformed";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(275, 229);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 20);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "--->";
+            // 
             // checkBox19
             // 
             this.checkBox19.AutoSize = true;
@@ -385,6 +484,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBox26);
             this.groupBox1.Controls.Add(this.checkBox7);
             this.groupBox1.Controls.Add(this.checkBox6);
             this.groupBox1.Controls.Add(this.checkBox5);
@@ -453,103 +553,16 @@
             this.checkBox3.Text = "Light";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // checkBox26
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(275, 229);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 20);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "--->";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.checkBox1.Location = new System.Drawing.Point(320, 45);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(131, 20);
-            this.checkBox1.TabIndex = 30;
-            this.checkBox1.Text = "Is Transformed";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.checkBox2.Location = new System.Drawing.Point(19, 45);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(134, 20);
-            this.checkBox2.TabIndex = 31;
-            this.checkBox2.Text = "Is in Base Form";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox20
-            // 
-            this.checkBox20.AutoSize = true;
-            this.checkBox20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.checkBox20.Location = new System.Drawing.Point(19, 71);
-            this.checkBox20.Name = "checkBox20";
-            this.checkBox20.Size = new System.Drawing.Size(150, 20);
-            this.checkBox20.TabIndex = 32;
-            this.checkBox20.Text = "Is Close to Target";
-            this.checkBox20.UseVisualStyleBackColor = true;
-            // 
-            // checkBox21
-            // 
-            this.checkBox21.AutoSize = true;
-            this.checkBox21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.checkBox21.Location = new System.Drawing.Point(320, 71);
-            this.checkBox21.Name = "checkBox21";
-            this.checkBox21.Size = new System.Drawing.Size(157, 20);
-            this.checkBox21.TabIndex = 33;
-            this.checkBox21.Text = "Is Touching Target";
-            this.checkBox21.UseVisualStyleBackColor = true;
-            // 
-            // checkBox22
-            // 
-            this.checkBox22.AutoSize = true;
-            this.checkBox22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.checkBox22.Location = new System.Drawing.Point(19, 97);
-            this.checkBox22.Name = "checkBox22";
-            this.checkBox22.Size = new System.Drawing.Size(77, 20);
-            this.checkBox22.TabIndex = 34;
-            this.checkBox22.Text = "Ki > 0%";
-            this.checkBox22.UseVisualStyleBackColor = true;
-            // 
-            // checkBox23
-            // 
-            this.checkBox23.AutoSize = true;
-            this.checkBox23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.checkBox23.Location = new System.Drawing.Point(19, 123);
-            this.checkBox23.Name = "checkBox23";
-            this.checkBox23.Size = new System.Drawing.Size(93, 20);
-            this.checkBox23.TabIndex = 35;
-            this.checkBox23.Text = "Ki < 100%";
-            this.checkBox23.UseVisualStyleBackColor = true;
-            // 
-            // checkBox24
-            // 
-            this.checkBox24.AutoSize = true;
-            this.checkBox24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.checkBox24.Location = new System.Drawing.Point(320, 123);
-            this.checkBox24.Name = "checkBox24";
-            this.checkBox24.Size = new System.Drawing.Size(112, 20);
-            this.checkBox24.TabIndex = 37;
-            this.checkBox24.Text = "STM < 100%";
-            this.checkBox24.UseVisualStyleBackColor = true;
-            // 
-            // checkBox25
-            // 
-            this.checkBox25.AutoSize = true;
-            this.checkBox25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.checkBox25.Location = new System.Drawing.Point(320, 97);
-            this.checkBox25.Name = "checkBox25";
-            this.checkBox25.Size = new System.Drawing.Size(96, 20);
-            this.checkBox25.TabIndex = 36;
-            this.checkBox25.Text = "STM > 0%";
-            this.checkBox25.UseVisualStyleBackColor = true;
+            this.checkBox26.AutoSize = true;
+            this.checkBox26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox26.Location = new System.Drawing.Point(233, 21);
+            this.checkBox26.Name = "checkBox26";
+            this.checkBox26.Size = new System.Drawing.Size(64, 20);
+            this.checkBox26.TabIndex = 24;
+            this.checkBox26.Text = "Jump";
+            this.checkBox26.UseVisualStyleBackColor = true;
             // 
             // NodeTextDialog
             // 
@@ -576,7 +589,7 @@
             this.MaximizeBox = false;
             this.Name = "NodeTextDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Add Node";
+            this.Text = "Link";
             this.Load += new System.EventHandler(this.NodeTextDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
@@ -634,5 +647,6 @@
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox26;
     }
 }
