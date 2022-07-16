@@ -291,9 +291,12 @@ namespace Flow.Forms
         {
 
          
+
+            if (!isNodesPresentToDraw()) return;
             
-            if (!isNodesPresentToDraw())
-                return;
+             
+            
+               
 
             scrollMarginX = (int)(ComboPanel.AutoScrollPosition.X * scale);
             scrollMarginY = (int)(ComboPanel.AutoScrollPosition.Y * scale);
@@ -303,7 +306,7 @@ namespace Flow.Forms
 
 
             //e.Graphics.TranslateTransform(ComboPanel.AutoScrollPosition.X, ComboPanel.AutoScrollPosition.Y );
-            e.Graphics.TranslateTransform(mouseOffsetX, mouseOffsetY);
+           // e.Graphics.TranslateTransform(mouseOffsetX, mouseOffsetY);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
@@ -714,6 +717,7 @@ namespace Flow.Forms
                 populateListBox();
                 ArrangeTree();
 
+                ComboPanel.Refresh();
               
 
             }
@@ -829,6 +833,11 @@ namespace Flow.Forms
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
             scale = 1.25f;
+            ComboPanel.Refresh();
+        }
+
+        private void Main_Shown(object sender, EventArgs e)
+        {
             ComboPanel.Refresh();
         }
     }

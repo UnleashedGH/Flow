@@ -53,7 +53,6 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.unleashedTheCitadelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ComboPanel = new System.Windows.Forms.Panel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -61,6 +60,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.ComboPanel = new System.Windows.Forms.Panel();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -209,7 +209,7 @@
             // showIndicesToolStripMenuItem
             // 
             this.showIndicesToolStripMenuItem.Name = "showIndicesToolStripMenuItem";
-            this.showIndicesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showIndicesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.showIndicesToolStripMenuItem.Text = "Show Indices";
             this.showIndicesToolStripMenuItem.Click += new System.EventHandler(this.showIndicesToolStripMenuItem_Click);
             // 
@@ -219,7 +219,7 @@
             this.gridToolStripMenuItem.CheckOnClick = true;
             this.gridToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.gridToolStripMenuItem.Text = "Grid";
             this.gridToolStripMenuItem.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
             // 
@@ -230,27 +230,27 @@
             this.toolStripMenuItem2,
             this.toolStripMenuItem3});
             this.gridSizeToolStripMenuItem.Name = "gridSizeToolStripMenuItem";
-            this.gridSizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gridSizeToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.gridSizeToolStripMenuItem.Text = "Graph Size";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem4.Text = "125%";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem2.Text = "100%";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem3.Text = "75%";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
@@ -260,24 +260,6 @@
             this.unleashedTheCitadelToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.unleashedTheCitadelToolStripMenuItem.Text = "test";
             this.unleashedTheCitadelToolStripMenuItem.Click += new System.EventHandler(this.unleashedTheCitadelToolStripMenuItem_Click);
-            // 
-            // ComboPanel
-            // 
-            this.ComboPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ComboPanel.AutoScroll = true;
-            this.ComboPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ComboPanel.Location = new System.Drawing.Point(278, 27);
-            this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(750, 528);
-            this.ComboPanel.TabIndex = 8;
-            this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
-            this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
-            this.ComboPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ComboPanel_MouseDown);
-            this.ComboPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ComboPanel_MouseMove);
-            this.ComboPanel.Resize += new System.EventHandler(this.ComboPanel_Resize);
             // 
             // openFileDialog1
             // 
@@ -344,6 +326,26 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "Layers";
             // 
+            // ComboPanel
+            // 
+            this.ComboPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComboPanel.AutoScroll = true;
+            this.ComboPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.ComboPanel.BackgroundImage = global::Flow.Properties.Resources.Flow_banner;
+            this.ComboPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ComboPanel.Location = new System.Drawing.Point(278, 27);
+            this.ComboPanel.Name = "ComboPanel";
+            this.ComboPanel.Size = new System.Drawing.Size(750, 528);
+            this.ComboPanel.TabIndex = 8;
+            this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
+            this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
+            this.ComboPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ComboPanel_MouseDown);
+            this.ComboPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ComboPanel_MouseMove);
+            this.ComboPanel.Resize += new System.EventHandler(this.ComboPanel_Resize);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -364,6 +366,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Flow: Pre-Alpha";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Main_Shown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ctxNode.ResumeLayout(false);
