@@ -657,7 +657,7 @@ namespace Flow.Forms
             foreach (TreeNode<CircleNode> child in root.Children)
             {
                 Xv2CoreLib.BCM.BCM_Entry cEntry = new Xv2CoreLib.BCM.BCM_Entry();
-                cEntry.I_08 = (Xv2CoreLib.BCM.ButtonInput)0x11;
+                cEntry.I_08 = (Xv2CoreLib.BCM.ButtonInput)child.bd.buttonInputFlag;
                 if (rootBcmEntry.BCMEntries == null)
                     rootBcmEntry.BCMEntries = new List<Xv2CoreLib.BCM.BCM_Entry>();
                 rootBcmEntry.BCMEntries.Add(cEntry);
@@ -668,28 +668,7 @@ namespace Flow.Forms
 
         private void compileMovesetBCMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-
-                    bcmInstance = new Xv2CoreLib.BCM.BCM_File();
-
-                    Xv2CoreLib.BCM.BCM_Entry rootEntry = new Xv2CoreLib.BCM.BCM_Entry();
-
-                    bcmInstance.BCMEntries.Add(rootEntry);
-
-                    compileBcm(root, ref bcmInstance, ref rootEntry);
-
-                    bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance, "out.bcm");
-                   
-
-                    MessageBox.Show("Compiled Successfully");
-                    //isBCMLoaded = false;
-                
-
            
-
-
-            }
         }
 
         private void showIndicesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -717,7 +696,7 @@ namespace Flow.Forms
                 populateListBox();
                 ArrangeTree();
 
-                ComboPanel.Refresh();
+               
               
 
             }
@@ -839,6 +818,32 @@ namespace Flow.Forms
         private void Main_Shown(object sender, EventArgs e)
         {
             ComboPanel.Refresh();
+        }
+
+        private void compileToBCMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+                bcmInstance = new Xv2CoreLib.BCM.BCM_File();
+
+                Xv2CoreLib.BCM.BCM_Entry rootEntry = new Xv2CoreLib.BCM.BCM_Entry();
+
+                bcmInstance.BCMEntries.Add(rootEntry);
+
+                compileBcm(root, ref bcmInstance, ref rootEntry);
+
+                bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance, "out.bcm");
+
+
+                MessageBox.Show("Compiled Successfully");
+                //isBCMLoaded = false;
+
+
+
+
+
+            }
         }
     }
 }

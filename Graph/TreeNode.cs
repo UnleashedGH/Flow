@@ -14,6 +14,7 @@ namespace Flow.Graph
     public struct BinaryData
     {
         public string InputType;
+        public uint buttonInputFlag;
         public int ID;
         public string LayerName;
     }
@@ -97,6 +98,7 @@ namespace Flow.Graph
             bd = new Graph.BinaryData
             {
                 InputType = InputTypeReflect,
+                buttonInputFlag = 0x0,
                 LayerName = _LayerName,
                 ID = -1
 

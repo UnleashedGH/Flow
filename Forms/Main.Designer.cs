@@ -43,7 +43,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.readFlowFileflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFlowFileflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.compileMovesetBCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showIndicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,6 +60,11 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ComboPanel = new System.Windows.Forms.Panel();
+            this.bCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileToBCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decompileExistingBCMExpirementalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -85,9 +89,9 @@
             // 
             this.ctxNode.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ctxNodeAddChild,
+            this.addRemoteLinkToolStripMenuItem,
             this.modifyDataToolStripMenuItem,
             this.ctxNodeDelete,
-            this.addRemoteLinkToolStripMenuItem,
             this.copyNodeToolStripMenuItem,
             this.pasteNodeToolStripMenuItem,
             this.collapseToolStripMenuItem});
@@ -100,14 +104,14 @@
             // 
             this.ctxNodeAddChild.Name = "ctxNodeAddChild";
             this.ctxNodeAddChild.Size = new System.Drawing.Size(165, 22);
-            this.ctxNodeAddChild.Text = "&Add Link...";
+            this.ctxNodeAddChild.Text = "&Add New Link...";
             this.ctxNodeAddChild.Click += new System.EventHandler(this.ctxNodeAddChild_Click);
             // 
             // modifyDataToolStripMenuItem
             // 
             this.modifyDataToolStripMenuItem.Name = "modifyDataToolStripMenuItem";
             this.modifyDataToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.modifyDataToolStripMenuItem.Text = "Modify Data";
+            this.modifyDataToolStripMenuItem.Text = "Modifiy Node";
             this.modifyDataToolStripMenuItem.Click += new System.EventHandler(this.modifyDataToolStripMenuItem_Click);
             // 
             // ctxNodeDelete
@@ -149,6 +153,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.bCMToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.unleashedTheCitadelToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -161,9 +166,10 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newProjectToolStripMenuItem,
             this.readFlowFileflowToolStripMenuItem,
             this.saveFlowFileflowToolStripMenuItem,
-            this.compileMovesetBCMToolStripMenuItem,
+            this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -172,22 +178,15 @@
             // readFlowFileflowToolStripMenuItem
             // 
             this.readFlowFileflowToolStripMenuItem.Name = "readFlowFileflowToolStripMenuItem";
-            this.readFlowFileflowToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
-            this.readFlowFileflowToolStripMenuItem.Text = "Read Flow File (.flow)";
+            this.readFlowFileflowToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.readFlowFileflowToolStripMenuItem.Text = "Open Flow Project (.flp)";
             // 
             // saveFlowFileflowToolStripMenuItem
             // 
             this.saveFlowFileflowToolStripMenuItem.Name = "saveFlowFileflowToolStripMenuItem";
-            this.saveFlowFileflowToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
-            this.saveFlowFileflowToolStripMenuItem.Text = "Save Flow File (.flow)";
+            this.saveFlowFileflowToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.saveFlowFileflowToolStripMenuItem.Text = "Save Flow Project (.flip)";
             this.saveFlowFileflowToolStripMenuItem.Click += new System.EventHandler(this.saveFlowFileflowToolStripMenuItem_Click);
-            // 
-            // compileMovesetBCMToolStripMenuItem
-            // 
-            this.compileMovesetBCMToolStripMenuItem.Name = "compileMovesetBCMToolStripMenuItem";
-            this.compileMovesetBCMToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
-            this.compileMovesetBCMToolStripMenuItem.Text = "Compile Moveset to BCM File (.bcm)";
-            this.compileMovesetBCMToolStripMenuItem.Click += new System.EventHandler(this.compileMovesetBCMToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -333,7 +332,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ComboPanel.AutoScroll = true;
             this.ComboPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.ComboPanel.BackgroundImage = global::Flow.Properties.Resources.Flow_banner;
             this.ComboPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(278, 27);
@@ -345,6 +343,40 @@
             this.ComboPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ComboPanel_MouseDown);
             this.ComboPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ComboPanel_MouseMove);
             this.ComboPanel.Resize += new System.EventHandler(this.ComboPanel_Resize);
+            // 
+            // bCMToolStripMenuItem
+            // 
+            this.bCMToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compileToBCMToolStripMenuItem,
+            this.decompileExistingBCMExpirementalToolStripMenuItem});
+            this.bCMToolStripMenuItem.Name = "bCMToolStripMenuItem";
+            this.bCMToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.bCMToolStripMenuItem.Text = "BCM";
+            // 
+            // compileToBCMToolStripMenuItem
+            // 
+            this.compileToBCMToolStripMenuItem.Name = "compileToBCMToolStripMenuItem";
+            this.compileToBCMToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.compileToBCMToolStripMenuItem.Text = "Compile to BCM";
+            this.compileToBCMToolStripMenuItem.Click += new System.EventHandler(this.compileToBCMToolStripMenuItem_Click);
+            // 
+            // decompileExistingBCMExpirementalToolStripMenuItem
+            // 
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Name = "decompileExistingBCMExpirementalToolStripMenuItem";
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Text = "Decompile Existing BCM (Experimental)";
+            // 
+            // newProjectToolStripMenuItem
+            // 
+            this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
+            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.newProjectToolStripMenuItem.Text = "New Project";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // Main
             // 
@@ -392,7 +424,6 @@
         private System.Windows.Forms.ToolStripMenuItem copyNodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteNodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem collapseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem compileMovesetBCMToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
@@ -411,6 +442,11 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem bCMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compileToBCMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem decompileExistingBCMExpirementalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newProjectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 
