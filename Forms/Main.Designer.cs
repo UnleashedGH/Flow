@@ -33,17 +33,22 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ctxNode = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ctxNodeAddChild = new System.Windows.Forms.ToolStripMenuItem();
+            this.addRemoteLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modifyDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxNodeDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.addRemoteLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.readFlowFileflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFlowFileflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileToBCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decompileExistingBCMExpirementalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showIndicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,11 +65,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ComboPanel = new System.Windows.Forms.Panel();
-            this.bCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.compileToBCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decompileExistingBCMExpirementalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -107,6 +107,13 @@
             this.ctxNodeAddChild.Text = "&Add New Link...";
             this.ctxNodeAddChild.Click += new System.EventHandler(this.ctxNodeAddChild_Click);
             // 
+            // addRemoteLinkToolStripMenuItem
+            // 
+            this.addRemoteLinkToolStripMenuItem.Name = "addRemoteLinkToolStripMenuItem";
+            this.addRemoteLinkToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.addRemoteLinkToolStripMenuItem.Text = "Add Remote Link";
+            this.addRemoteLinkToolStripMenuItem.Click += new System.EventHandler(this.addRemoteLinkToolStripMenuItem_Click);
+            // 
             // modifyDataToolStripMenuItem
             // 
             this.modifyDataToolStripMenuItem.Name = "modifyDataToolStripMenuItem";
@@ -120,13 +127,6 @@
             this.ctxNodeDelete.Size = new System.Drawing.Size(165, 22);
             this.ctxNodeDelete.Text = "&Delete Node...";
             this.ctxNodeDelete.Click += new System.EventHandler(this.ctxNodeDelete_Click);
-            // 
-            // addRemoteLinkToolStripMenuItem
-            // 
-            this.addRemoteLinkToolStripMenuItem.Name = "addRemoteLinkToolStripMenuItem";
-            this.addRemoteLinkToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.addRemoteLinkToolStripMenuItem.Text = "Add Remote Link";
-            this.addRemoteLinkToolStripMenuItem.Click += new System.EventHandler(this.addRemoteLinkToolStripMenuItem_Click);
             // 
             // copyNodeToolStripMenuItem
             // 
@@ -175,6 +175,13 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // newProjectToolStripMenuItem
+            // 
+            this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
+            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.newProjectToolStripMenuItem.Text = "New Project";
+            this.newProjectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
+            // 
             // readFlowFileflowToolStripMenuItem
             // 
             this.readFlowFileflowToolStripMenuItem.Name = "readFlowFileflowToolStripMenuItem";
@@ -188,12 +195,40 @@
             this.saveFlowFileflowToolStripMenuItem.Text = "Save Flow Project (.flip)";
             this.saveFlowFileflowToolStripMenuItem.Click += new System.EventHandler(this.saveFlowFileflowToolStripMenuItem_Click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // bCMToolStripMenuItem
+            // 
+            this.bCMToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compileToBCMToolStripMenuItem,
+            this.decompileExistingBCMExpirementalToolStripMenuItem});
+            this.bCMToolStripMenuItem.Name = "bCMToolStripMenuItem";
+            this.bCMToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.bCMToolStripMenuItem.Text = "BCM";
+            // 
+            // compileToBCMToolStripMenuItem
+            // 
+            this.compileToBCMToolStripMenuItem.Name = "compileToBCMToolStripMenuItem";
+            this.compileToBCMToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.compileToBCMToolStripMenuItem.Text = "Compile to BCM";
+            this.compileToBCMToolStripMenuItem.Click += new System.EventHandler(this.compileToBCMToolStripMenuItem_Click);
+            // 
+            // decompileExistingBCMExpirementalToolStripMenuItem
+            // 
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Name = "decompileExistingBCMExpirementalToolStripMenuItem";
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Text = "Decompile Existing BCM (Experimental)";
             // 
             // viewToolStripMenuItem
             // 
@@ -343,40 +378,6 @@
             this.ComboPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ComboPanel_MouseDown);
             this.ComboPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ComboPanel_MouseMove);
             this.ComboPanel.Resize += new System.EventHandler(this.ComboPanel_Resize);
-            // 
-            // bCMToolStripMenuItem
-            // 
-            this.bCMToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.compileToBCMToolStripMenuItem,
-            this.decompileExistingBCMExpirementalToolStripMenuItem});
-            this.bCMToolStripMenuItem.Name = "bCMToolStripMenuItem";
-            this.bCMToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.bCMToolStripMenuItem.Text = "BCM";
-            // 
-            // compileToBCMToolStripMenuItem
-            // 
-            this.compileToBCMToolStripMenuItem.Name = "compileToBCMToolStripMenuItem";
-            this.compileToBCMToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
-            this.compileToBCMToolStripMenuItem.Text = "Compile to BCM";
-            this.compileToBCMToolStripMenuItem.Click += new System.EventHandler(this.compileToBCMToolStripMenuItem_Click);
-            // 
-            // decompileExistingBCMExpirementalToolStripMenuItem
-            // 
-            this.decompileExistingBCMExpirementalToolStripMenuItem.Name = "decompileExistingBCMExpirementalToolStripMenuItem";
-            this.decompileExistingBCMExpirementalToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
-            this.decompileExistingBCMExpirementalToolStripMenuItem.Text = "Decompile Existing BCM (Experimental)";
-            // 
-            // newProjectToolStripMenuItem
-            // 
-            this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.newProjectToolStripMenuItem.Text = "New Project";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.aboutToolStripMenuItem.Text = "About";
             // 
             // Main
             // 

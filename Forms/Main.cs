@@ -435,7 +435,7 @@ namespace Flow.Forms
 
                 if (e.Button == MouseButtons.Right)
                 {
-                    Point loc2 = new Point(e.Location.X + 5, e.Location.Y + 20); // +20 to bring the menu down a little bit (coordinate system is left sides)
+                    Point loc2 = new Point(e.Location.X + 5, e.Location.Y + 5); // +20 to bring the menu down a little bit (coordinate system is left sides)
                     ctxNode.Show(ComboPanel, loc2);
                     return;
                 }
@@ -463,10 +463,11 @@ namespace Flow.Forms
         {
         //TODO : implement a proper paste
            int index =  SelectedNode.AddChild(new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.InputType, bufferNode.isCollpased));
+          //  SelectedNode.Children = bufferNode.Children;
 
             int childCount = 0;
             bufferNode.getTotalChildCount(ref childCount);
-            MessageBox.Show(childCount.ToString());
+            //MessageBox.Show(childCount.ToString());
             for (int i = 0; i < 1; i++)
             {
 
@@ -482,6 +483,7 @@ namespace Flow.Forms
         {
             //TODO implement a proper paste
             bufferNode = new TreeNode<CircleNode>(new CircleNode(), SelectedNode.bd.InputType, SelectedNode.isCollpased);
+          //  bufferNode.Children = SelectedNode.Children;
 
         }
 
@@ -718,7 +720,7 @@ namespace Flow.Forms
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listBox1.BeginUpdate();
+         
             if (listBox1.SelectedIndex >= 0)
             {
                 SelectedLayerNode = root.Children[listBox1.SelectedIndex];
@@ -726,7 +728,7 @@ namespace Flow.Forms
 
 
             }
-            listBox1.EndUpdate();
+           
 
 
         }
@@ -850,6 +852,27 @@ namespace Flow.Forms
 
 
             }
+        }
+
+        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            listBox1.Items.Clear();
+            root.Children.Clear();
+            root = new TreeNode<CircleNode>(new CircleNode(), "Root", false);
+
+            TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), "NA", false);
+            newLayer.bd.LayerName = "New Layer";
+            //newLayer.ID = root.Children.Count;
+            root.Children.Add(newLayer);
+            populateListBox();
+            ArrangeTree();
+            listBox1.SelectedIndex = 0;
+
+
+
+
+            
         }
     }
 }

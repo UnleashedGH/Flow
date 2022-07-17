@@ -14,7 +14,7 @@ namespace Flow.Forms
    
     public partial class NodeTextDialog : Form
     {
-
+        //create list of checkboxes and loop through them
         public string btnInput = "L";
 
         List<CheckBox> btnflags = new List<CheckBox>();
@@ -78,8 +78,8 @@ namespace Flow.Forms
             else
                 ButtonInputBinary[1] = '0';
 
-            MessageBox.Show(ButtonInputBinary.ToString());
-            MessageBox.Show(btnflags[0].Checked.ToString ());
+            //MessageBox.Show(ButtonInputBinary.ToString());
+           // MessageBox.Show(btnflags[0].Checked.ToString ());
 
 
 

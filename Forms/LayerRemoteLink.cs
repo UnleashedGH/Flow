@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Flow.Graph;
 
 namespace Flow.Forms
 {
@@ -25,12 +26,47 @@ namespace Flow.Forms
                 "Use ShowDialog not Show to display this dialog");
         }
 
+        void addNodesFromGraph(TreeNode<CircleNode> rootGraphNode, TreeNode rootTreeNode, TreeView tv) 
+        {
+            foreach (TreeNode<CircleNode> child in rootGraphNode.Children)
+            {
+                TreeNode tn = new TreeNode();
+                tn.Text = child.bd.InputType;
+                tn.Tag = child.bd.ID;
+               
+
+                rootTreeNode.Nodes.Add(tn);
+                addNodesFromGraph(child, tn, tv);
+            }
+  
+        }
+
         private void LayerRemoteLink_Load(object sender, EventArgs e)
         {
            for (int i = 0; i < mainref.root.Children.Count; i++)
             {
                 listBox1.Items.Add(mainref.root.Children[i].bd.LayerName);
+      
             }
+
+    
+        }
+
+      
+     
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex >= 0)
+            {
+                //SelectedLayerNode = root.Children[listBox1.SelectedIndex];
+                //ArrangeTree();
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add(mainref.root.Children[listBox1.SelectedIndex].bd.InputType);
+                addNodesFromGraph(mainref.root.Children[listBox1.SelectedIndex], treeView1.Nodes[0], treeView1);
+
+
+            }
+
         }
     }
 }
