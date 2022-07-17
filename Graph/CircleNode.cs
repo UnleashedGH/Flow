@@ -35,7 +35,7 @@ namespace Flow.Graph
         }
 
         // Draw the object centered at (x, y).
-        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, string inputType,  string extra, string extra2, float scale)
+        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, string inputType,  string extra, string extra2, float scale, bool RemoteLink)
         {
             // Fill and draw an ellipse at our location.
            // SizeF my_size = GetSize(gr, font);
@@ -49,12 +49,68 @@ namespace Flow.Graph
 
             Brush text_brush2 = Brushes.Black;
 
+
+            //colors
+            Color light;
+            Color heavy;
+            Color kiblast;
+            Color jump;
+            Color multiinput;
+            Color na;
+
+      
+
+            //light
+            if (!RemoteLink)
+            {
+                 light = Color.FromArgb(255, 255, 136, 174);
+            }
+            else
+            {
+                 light = Color.FromArgb(127, 255, 136, 174);
+            }
+
+            //heavy
+            if (!RemoteLink)
+            {
+                heavy = Color.FromArgb(255, 57, 244, 1);
+            }
+            else
+            {
+                heavy = Color.FromArgb(127, 57, 244, 1);
+            }
+            //ki blast
+            if (!RemoteLink)
+            {
+                kiblast = Color.FromArgb(255, 255, 0, 0);
+            }
+            else
+            {
+                kiblast = Color.FromArgb(127, 255, 0, 0);
+            }
+            //jump
+            if (!RemoteLink)
+            {
+                jump = Color.FromArgb(255, 0, 164, 255);
+            }
+            else
+            {
+                jump = Color.FromArgb(127, 0, 164, 255);
+            }
+            //brushes
+
+            SolidBrush brush_light = new SolidBrush(light);
+            SolidBrush brush_heavy = new SolidBrush(heavy);
+            SolidBrush brush_kiblast = new SolidBrush(kiblast);
+            SolidBrush brush_jump = new SolidBrush(jump);
+        
+
             switch (inputType)
             {
-                case "L": pen.Color = Color.LightPink; break;
-                case "H": pen.Color = Color.LimeGreen; break;
-                case "K": pen.Color = Color.OrangeRed; break;
-                case "J": pen.Color = Color.SkyBlue; break;
+                case "L": pen.Color = light; break;
+                case "H": pen.Color = heavy; break;
+                case "K": pen.Color = kiblast; break;
+                case "J": pen.Color = jump; break;
 
             }
 
@@ -80,10 +136,10 @@ namespace Flow.Graph
 
              switch (inputType)
                 {
-                    case "L": text_brush = Brushes.LightPink; break;
-                    case "H": text_brush = Brushes.LimeGreen; break;
-                    case "K": text_brush = Brushes.OrangeRed; break;
-                    case "J": text_brush = Brushes.SkyBlue; break;
+                    case "L": text_brush = brush_light; break;
+                    case "H": text_brush = brush_heavy; break;
+                    case "K": text_brush = brush_kiblast; break;
+                    case "J": text_brush = brush_jump; break;
 
                 }
                 if (inputType != "Root")

@@ -306,7 +306,7 @@ namespace Flow.Forms
 
 
 
-            //e.Graphics.TranslateTransform(ComboPanel.AutoScrollPosition.X, ComboPanel.AutoScrollPosition.Y );
+            e.Graphics.TranslateTransform(ComboPanel.AutoScrollPosition.X, ComboPanel.AutoScrollPosition.Y );
            // e.Graphics.TranslateTransform(mouseOffsetX, mouseOffsetY);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
@@ -466,7 +466,7 @@ namespace Flow.Forms
 
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.InputType, bufferNode.isCollpased);
             
-           // int index =  SelectedNode.AddChild();
+           int index =  SelectedNode.AddChild(newChild);
            //SelectedNode.Children = bufferNode.Children;
 
             int childCount = 0;
@@ -878,6 +878,30 @@ namespace Flow.Forms
 
 
             
+        }
+
+        private void pasteRemoteLinkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //TODO : implement a proper paste
+
+            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.InputType, bufferNode.isCollpased);
+            newChild.bd.RemoteChild = true;
+
+            int index = SelectedNode.AddChild(newChild);
+            //SelectedNode.Children = bufferNode.Children;
+
+            int childCount = 0;
+            bufferNode.getTotalChildCount(ref childCount);
+            //MessageBox.Show(childCount.ToString());
+            for (int i = 0; i < 1; i++)
+            {
+
+
+                // SelectedNode.Children[index].Children.Add(new TreeNode<CircleNode>(new CircleNode(bufferNode.Children[i].Data.Text, bufferNode.Children[i].Data.inputType), bufferNode.Data.inputType));
+            }
+
+
+            ArrangeTree();
         }
     }
 }

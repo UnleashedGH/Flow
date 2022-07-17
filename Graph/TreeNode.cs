@@ -17,6 +17,7 @@ namespace Flow.Graph
         public uint buttonInputFlag;
         public int ID;
         public string LayerName;
+        public bool RemoteChild;
     }
     public class TreeNode<T> where T : IDrawable
     {
@@ -100,7 +101,8 @@ namespace Flow.Graph
                 InputType = InputTypeReflect,
                 buttonInputFlag = 0x0,
                 LayerName = _LayerName,
-                ID = -1
+                ID = -1,
+                RemoteChild = false
 
             };
                isCollpased = collapse;
@@ -307,9 +309,9 @@ namespace Flow.Graph
             // change the Node transpareny depending if it was Collpased or not (IsCollapsed)
             //this is one method of indicaiting collapsed nodes.. might change.
             if (isCollpased)
-              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "+", bd.ID.ToString(), s);
+              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "+", bd.ID.ToString(), s, bd.RemoteChild);
             else
-              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "", bd.ID.ToString(), s);
+              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "", bd.ID.ToString(), s, bd.RemoteChild);
 
 
 
