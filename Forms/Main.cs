@@ -461,9 +461,13 @@ namespace Flow.Forms
 
         private void pasteNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        //TODO : implement a proper paste
-           int index =  SelectedNode.AddChild(new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.InputType, bufferNode.isCollpased));
-          //  SelectedNode.Children = bufferNode.Children;
+
+            //TODO : implement a proper paste
+
+            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.InputType, bufferNode.isCollpased);
+            
+           // int index =  SelectedNode.AddChild();
+           //SelectedNode.Children = bufferNode.Children;
 
             int childCount = 0;
             bufferNode.getTotalChildCount(ref childCount);
@@ -483,6 +487,7 @@ namespace Flow.Forms
         {
             //TODO implement a proper paste
             bufferNode = new TreeNode<CircleNode>(new CircleNode(), SelectedNode.bd.InputType, SelectedNode.isCollpased);
+           // SelectedNode.Children.CopyTo(bufferNode.Children);
           //  bufferNode.Children = SelectedNode.Children;
 
         }
