@@ -29,7 +29,12 @@ namespace Flow.Forms
             | BindingFlags.Instance | BindingFlags.NonPublic, null,
             ComboPanel, new object[] { true });
 
-          
+
+            typeof(ListBox).InvokeMember("DoubleBuffered", BindingFlags.SetProperty
+            | BindingFlags.Instance | BindingFlags.NonPublic, null,
+            listBox1, new object[] { true });
+
+
 
 
 
@@ -58,8 +63,8 @@ namespace Flow.Forms
         Pen GridPen = new Pen(Color.White);
 
         //find a solution to scrolling, mousemov?
-        int autoScrollMinX = 0;
-        int autoScrollMinY = 0;
+        int autoScrollMinX = 4000;
+        int autoScrollMinY = 4000;
 
         bool isBCMLoaded = false;
         //Global Vars Private to Form1
@@ -99,20 +104,21 @@ namespace Flow.Forms
         // Make a tree.
         private void Form1_Load(object sender, EventArgs e)
         {
-     
+   
+   
             showGrid = (gridToolStripMenuItem.Checked);
             
             //test for serliaize
           
-            Xv2CoreLib.BCM.DirectionalInput a = (Xv2CoreLib.BCM.DirectionalInput)0x11;
+            //Xv2CoreLib.BCM.DirectionalInput a = (Xv2CoreLib.BCM.DirectionalInput)0x11;
             
 
-            string[] s = a.ToString().Split(new char[] { ',', ' ' });
-            string s2 = "";
-            for (int i = 0; i < s.Length; i++)
-            {
-                s2 += s[i];
-            }
+            //string[] s = a.ToString().Split(new char[] { ',', ' ' });
+            //string s2 = "";
+            //for (int i = 0; i < s.Length; i++)
+            //{
+            //    s2 += s[i];
+            //}
            // File.AppendAllText("hello.dat", s2);
 
             //ComboPanel.BackColor = Color.FromArgb(255, 33, 33, 33);
@@ -308,7 +314,7 @@ namespace Flow.Forms
 
             e.Graphics.TranslateTransform(ComboPanel.AutoScrollPosition.X, ComboPanel.AutoScrollPosition.Y );
            // e.Graphics.TranslateTransform(mouseOffsetX, mouseOffsetY);
-            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+           e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
 
@@ -830,7 +836,9 @@ namespace Flow.Forms
         private void Main_Shown(object sender, EventArgs e)
         {
        
-            ListBoxExtensions.SetDoubleBuffered(listBox1);
+      
+         
+
         }
 
         private void compileToBCMToolStripMenuItem_Click(object sender, EventArgs e)

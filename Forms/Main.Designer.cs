@@ -38,6 +38,7 @@
             this.ctxNodeDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.copyNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteRemoteLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +66,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ComboPanel = new System.Windows.Forms.Panel();
-            this.pasteRemoteLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -143,6 +143,13 @@
             this.pasteNodeToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.pasteNodeToolStripMenuItem.Text = "Paste Node";
             this.pasteNodeToolStripMenuItem.Click += new System.EventHandler(this.pasteNodeToolStripMenuItem_Click);
+            // 
+            // pasteRemoteLinkToolStripMenuItem
+            // 
+            this.pasteRemoteLinkToolStripMenuItem.Name = "pasteRemoteLinkToolStripMenuItem";
+            this.pasteRemoteLinkToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.pasteRemoteLinkToolStripMenuItem.Text = "Paste Remote Node";
+            this.pasteRemoteLinkToolStripMenuItem.Click += new System.EventHandler(this.pasteRemoteLinkToolStripMenuItem_Click);
             // 
             // collapseToolStripMenuItem
             // 
@@ -369,7 +376,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ComboPanel.AutoScroll = true;
             this.ComboPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.ComboPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(278, 27);
             this.ComboPanel.Name = "ComboPanel";
@@ -380,13 +386,6 @@
             this.ComboPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ComboPanel_MouseDown);
             this.ComboPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ComboPanel_MouseMove);
             this.ComboPanel.Resize += new System.EventHandler(this.ComboPanel_Resize);
-            // 
-            // pasteRemoteLinkToolStripMenuItem
-            // 
-            this.pasteRemoteLinkToolStripMenuItem.Name = "pasteRemoteLinkToolStripMenuItem";
-            this.pasteRemoteLinkToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.pasteRemoteLinkToolStripMenuItem.Text = "Paste Remote Node";
-            this.pasteRemoteLinkToolStripMenuItem.Click += new System.EventHandler(this.pasteRemoteLinkToolStripMenuItem_Click);
             // 
             // Main
             // 

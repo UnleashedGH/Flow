@@ -58,6 +58,12 @@
   <ItemGroup>
     <Compile Include="ClassExtensions\ListViewExtensions.cs" />
     <Compile Include="FlowBinary\FlowBinary.cs" />
+    <Compile Include="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LayerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,12 @@
     </Compile>
     <Compile Include="Forms\LayerRemoteLink.Designer.cs">
       <DependentUpon>LayerRemoteLink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LegendForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LegendForm.Designer.cs">
+      <DependentUpon>LegendForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\TestForm.cs">
       <SubType>Form</SubType>
