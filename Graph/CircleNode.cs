@@ -28,6 +28,7 @@ namespace Flow.Graph
         // Return the size of the string plus a 10 pixel margin.
         public SizeF GetSize(Graphics gr, Font font)
         {
+            //static size, not actually using the font set size by TreeNode (works for now)
             SizeF sizeReturn = new SizeF(50, 50);
            
             return sizeReturn;
@@ -165,24 +166,37 @@ namespace Flow.Graph
         {
             // Get our size.
             SizeF my_size = GetSize(gr, font);
+            my_size.Width *= scale;
+            my_size.Height *= scale;
 
             // translate so we can assume the
             // ellipse is centered at the origin.
 
-            center_pt.X += (Main.scrollMarginX * scale);
-            center_pt.Y += (Main.scrollMarginY * scale);
+            center_pt.X += (Main.scrollMarginX * (scale * 2 ));
+            center_pt.Y += (Main.scrollMarginY *( scale * 2) );
+
+           center_pt.X *= scale;
+           center_pt.Y *= scale;
 
 
-            target_pt.X -= (center_pt.X * scale);
-            target_pt.Y -= (center_pt.Y * scale);
+            target_pt.X -= (center_pt.X );
+            target_pt.Y -= (center_pt.Y );
+
+     
+
+            // target_pt.X *= scale;
+            // target_pt.Y *= scale;
 
             // Determine whether the target point is under our ellipse.
-            float w = (my_size.Width / 2) * scale;
-            float h = (my_size.Height / 2) * scale;
+            float w = (my_size.Width / 2) ;
+            float h = (my_size.Height / 2) ;
+
+           // gr.DrawEllipse(Pens.Red, target_pt.X * target_pt.X / w / w, target_pt.Y * target_pt.Y / h / h, 50, 50);
            
-            float check = ((target_pt.X * target_pt.X / w / w) + (target_pt.Y * target_pt.Y / h / h));
-            //MessageBox.Show(check.ToString());
-            isOnNode = (check) <= 1.0f;
+            float check = ((target_pt.X * target_pt.X / w / w)  + (target_pt.Y * target_pt.Y / h / h) );
+            Main.check = check;
+            isOnNode = (check  ) <= 1.0f;
+            
             return isOnNode;
         }
     }

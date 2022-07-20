@@ -36,8 +36,8 @@ namespace Flow.Forms
 
 
 
-
-
+            gr = (ComboPanel.CreateGraphics());
+            drawGrid(gr);
 
 
         }
@@ -61,10 +61,11 @@ namespace Flow.Forms
         //Global Vars Private to Form1
         Graphics gr;
         Pen GridPen = new Pen(Color.White);
+        Bitmap mBuffer;
 
         //find a solution to scrolling, mousemov?
-        int autoScrollMinX = 4000;
-        int autoScrollMinY = 4000;
+        int autoScrollMinX = 2000;
+        int autoScrollMinY = 2000;
 
         bool isBCMLoaded = false;
         //Global Vars Private to Form1
@@ -84,7 +85,8 @@ namespace Flow.Forms
         //draw vars
         public static bool showIndices = false;
         private bool showGrid = false;
-        private float scale = 1.0f;
+        private float scale = 0.85f;
+        private float oldScale = 1.0f;
 
         //BcmVars
         static Xv2CoreLib.BCM.BCM_File bcmInstance;
@@ -92,14 +94,18 @@ namespace Flow.Forms
         //Static Vars
 
 
-        //initite  the main moveset roots
-       
+        //paint
+         bool needsClearSelection = false;
+
+        //dbg
+        public static float check;
     
 
-    
 
-
-
+       public  void writecheck(float c)
+        {
+            this.Text = c.ToString();
+        }
 
         // Make a tree.
         private void Form1_Load(object sender, EventArgs e)
@@ -162,25 +168,26 @@ namespace Flow.Forms
             if (SelectedLayerNode == null)
                 return;
          
-            using (gr = (ComboPanel.CreateGraphics()))
-            {
-
+            
 
 
                 float xmin = 25.0f ;
                 float ymin = 10.0f ;
+            //using (gr = (ComboPanel.CreateGraphics()))
+            //{
 
-                SelectedLayerNode.Arrange(gr, ref xmin, ref ymin);
+            //    SelectedLayerNode.Arrange(gr, ref xmin, ref ymin);
+            //}
 
+            SelectedLayerNode.Arrange(gr, ref xmin, ref ymin);
 
-            }
 
             // Arrange the tree.
 
             //gr = Graphics.FromImage(MainDrawPanel);
             //float xmin = 30;//@
             //float ymin = xmin - 20;
-          
+
             //root.Arrange(gr, ref xmin, ref ymin);
 
             ComboPanel.Refresh();
@@ -195,17 +202,18 @@ namespace Flow.Forms
         // Set SelectedNode to the node under the mouse.
         private void FindNodeUnderMouse(PointF pt, float scale)
         {
-            using (gr = (ComboPanel.CreateGraphics()))
-            {
-                SelectedNode = SelectedLayerNode.NodeAtPoint(gr, pt, scale);
-            }
+            //using (gr = (ComboPanel.CreateGraphics()))
+            //{
+            //    SelectedNode = SelectedLayerNode.NodeAtPoint(gr, pt, scale);
+            //}
+            SelectedNode = SelectedLayerNode.NodeAtPoint(gr, pt, scale);
 
         }
 
         // Add a child to the selected node.
         private void ctxNodeAddChild_Click(object sender, EventArgs e)
         {
-      
+         
             NodeTextDialog dlg = new NodeTextDialog();
 
             if (dlg.ShowDialog() == DialogResult.OK)
@@ -218,19 +226,23 @@ namespace Flow.Forms
 
 
                 //handles scrolling
-                if (autoScrollMinX + (int)(75 * scale) < int.MaxValue)
-                    autoScrollMinX += (int)(75 * scale);
-                if (autoScrollMinY + (int)(75 * scale) < int.MaxValue)
-                    autoScrollMinY += (int)(75 * scale);
+                //if (autoScrollMinX + (int)(75 * scale) < int.MaxValue)
+                //    autoScrollMinX += (int)(75 * scale);
+                //if (autoScrollMinY + (int)(75 * scale) < int.MaxValue)
+                //    autoScrollMinY += (int)(75 * scale);
 
-                ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+               // ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+
                 // Rearrange the tree to show the new node.
                 ArrangeTree();
+                reindex();
 
-                using (gr = (ComboPanel.CreateGraphics()))
-                {
-                    drawGrid(gr);
-                }
+                //using (gr = (ComboPanel.CreateGraphics()))
+                //{
+                //    drawGrid(gr);
+                //}
+          
+
 
             }
         }
@@ -258,10 +270,11 @@ namespace Flow.Forms
                 // Rearrange the tree to show the new structure.
                 ArrangeTree();
 
-                using (gr = (ComboPanel.CreateGraphics()))
-                {
-                    drawGrid(gr);
-                }
+                //using (gr = (ComboPanel.CreateGraphics()))
+                //{
+                //    drawGrid(gr);
+                //}
+                drawGrid(gr);
 
             }
         }
@@ -297,16 +310,16 @@ namespace Flow.Forms
         private void ComboPanel_Paint(object sender, PaintEventArgs e)
         {
 
-         
+          
 
             if (!isNodesPresentToDraw()) return;
-            
-             
-            
-               
 
-            scrollMarginX = (int)(ComboPanel.AutoScrollPosition.X * scale);
-            scrollMarginY = (int)(ComboPanel.AutoScrollPosition.Y * scale);
+
+
+            listBox1.BeginUpdate();
+
+            scrollMarginX = (int)(ComboPanel.AutoScrollPosition.X );
+            scrollMarginY = (int)(ComboPanel.AutoScrollPosition.Y);
 
 
 
@@ -314,39 +327,58 @@ namespace Flow.Forms
 
             e.Graphics.TranslateTransform(ComboPanel.AutoScrollPosition.X, ComboPanel.AutoScrollPosition.Y );
            // e.Graphics.TranslateTransform(mouseOffsetX, mouseOffsetY);
-           e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
+            if (showGrid)
+            {
+              
+                 
+                e.Graphics.DrawImage(mBuffer, 0, 0);
 
-            drawGrid(e.Graphics);
-          
+            }
+
             SelectedLayerNode.DrawTree(e.Graphics, scale);
 
             //ComboPanel.Invalidate();
-        
-        
+
+
             //e.Graphics.DrawImage(MainDrawPanel,0,0);
-          
+     
+      
+
+
         }
 
-        //dud function.. prob will never use
+      
 
         private void drawGrid(Graphics gr)
         {
-            if (!showGrid)
-                return;
-            int x = 0;
-            int y = 0;
-            float nodeSize = 60.0f * scale;
-            for(int i = 0; i <= (ComboPanel.Height + autoScrollMinY) / nodeSize; i++)
+
+
+            mBuffer = new Bitmap(ComboPanel.Width + autoScrollMinX, ComboPanel.Height + autoScrollMinY, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            using (Graphics bg = Graphics.FromImage(mBuffer))
             {
-                for (int j = 0; j <= (ComboPanel.Width + autoScrollMinX) / nodeSize; j++)
+                // Draw your grid into "bg" here...
+            
+        
+                //what if you just dump that image and reload it instanly?
+
+         
+
+                int x = 0;
+                int y = 0;
+                float nodeSize = 60.0f * scale;
+                for(int i = 0; i <= (ComboPanel.Height + autoScrollMinY) / nodeSize; i++)
                 {
-                    gr.DrawLine(GridPen, x, y + (i * nodeSize), (ComboPanel.Width + autoScrollMinX), y + (i * nodeSize));
-                    gr.DrawLine(GridPen, x + (j * nodeSize), y, x + (j * nodeSize), (ComboPanel.Height + autoScrollMinY));
+                    for (int j = 0; j <= (ComboPanel.Width + autoScrollMinX) / nodeSize; j++)
+                    {
+                        bg.DrawLine(GridPen, x, y + (i * nodeSize), (ComboPanel.Width + autoScrollMinX), y + (i * nodeSize));
+                        bg.DrawLine(GridPen, x + (j * nodeSize), y, x + (j * nodeSize), (ComboPanel.Height + autoScrollMinY));
+                    }
                 }
             }
-   
+
         }
         //center  on the form
         private void ComboPanel_Resize(object sender, EventArgs e)
@@ -356,18 +388,18 @@ namespace Flow.Forms
 
         private void ComboPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                var relativePoint = ComboPanel.PointToClient(Cursor.Position);
-                mouseOffsetX = relativePoint.X;
-                mouseOffsetY = relativePoint.Y;
-            }
+            //if (e.Button == MouseButtons.Left)
+            //{
+            //    var relativePoint = ComboPanel.PointToClient(Cursor.Position);
+            //    mouseOffsetX = relativePoint.X;
+            //    mouseOffsetY = relativePoint.Y;
+            //}
 
-
+            this.Text = check.ToString();
             if (isNodesPresentToDraw() == false)
                 return;
 
-
+          
             // Find the node under the mouse.
             FindNodeUnderMouse(e.Location, scale);
 
@@ -375,12 +407,28 @@ namespace Flow.Forms
             // display the node's text.
             if (SelectedNode == null)
             {
+
+
                 lblNodeText.Text = "";
+
+                if (needsClearSelection)
+                {
+                    ComboPanel.Refresh();
+                    needsClearSelection = false;
+                    return;
+                }
+                else
+                {
+                    return;
+                
+                }
+                   
               
             }
+
             else
             {
-
+              
                 switch (SelectedNode.bd.InputType)
                 {
 
@@ -400,8 +448,14 @@ namespace Flow.Forms
                     default: lblNodeText.Text = SelectedNode.bd.InputType; break;
                 }
 
+             
+
             }
+            //put refresh outside so you clear out the yellow circle line
+
             ComboPanel.Refresh();
+            needsClearSelection = true;
+
             //ArrangeTree();
         }
 
@@ -458,6 +512,7 @@ namespace Flow.Forms
                 Point loc = new Point(e.Location.X, e.Location.Y+20); // +20 to bring the menu down a little bit (coordinate system is left sides)
                 ctxNode.Show(ComboPanel, loc);
             }
+
         }
 
         private void ComboPanel_Scroll(object sender, ScrollEventArgs e)
@@ -698,7 +753,7 @@ namespace Flow.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+         
             LayerDialog dlg = new LayerDialog();
 
             if (dlg.ShowDialog() == DialogResult.OK)
@@ -709,16 +764,21 @@ namespace Flow.Forms
                 root.Children.Add(newLayer);
                 populateListBox();
                 ArrangeTree();
+                reindex();
 
-               
-              
+
+
+
 
             }
+       
+           
         }
 
         private void populateListBox()
         {
-            listBox1.BeginUpdate();
+       
+
         
            
             listBox1.Items.Clear();
@@ -726,11 +786,16 @@ namespace Flow.Forms
             {
                 listBox1.Items.Add(root.Children[i].bd.LayerName);
             }
-            listBox1.EndUpdate();
+       
+        }
+        private void reindex()
+        {
+
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+         
          
             if (listBox1.SelectedIndex >= 0)
             {
@@ -739,8 +804,8 @@ namespace Flow.Forms
 
 
             }
-           
 
+           
 
         }
 
@@ -817,19 +882,31 @@ namespace Flow.Forms
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
+            if (oldScale == 0.75f)
+                return;
             scale = 0.75f;
+            oldScale = 0.75f;
+            drawGrid(gr);
             ComboPanel.Refresh();
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            if (oldScale == 1.0f)
+                return;
             scale = 1.0f;
+            oldScale = 1.0f;
+            drawGrid(gr);
             ComboPanel.Refresh();
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
+            if (oldScale == 1.25f)
+                return;
             scale = 1.25f;
+            oldScale = 1.25f;
+            drawGrid(gr);
             ComboPanel.Refresh();
         }
 
@@ -910,6 +987,12 @@ namespace Flow.Forms
 
 
             ArrangeTree();
+        }
+
+        private void listBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+        
+            listBox1.EndUpdate();
         }
     }
 }
