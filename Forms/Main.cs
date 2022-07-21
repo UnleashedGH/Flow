@@ -73,6 +73,7 @@ namespace Flow.Forms
 
 
         //Static Vars
+        static int index = 0;
 
         //scrollVars
         public static int scrollMarginX = 0;
@@ -85,7 +86,7 @@ namespace Flow.Forms
         //draw vars
         public static bool showIndices = false;
         private bool showGrid = false;
-        private float scale = 0.85f;
+        private float scale = 1.0f;
         private float oldScale = 1.0f;
 
         //BcmVars
@@ -113,11 +114,12 @@ namespace Flow.Forms
    
    
             showGrid = (gridToolStripMenuItem.Checked);
-            
+            showIndices = (showIndicesToolStripMenuItem.Checked);
+
             //test for serliaize
-          
+
             //Xv2CoreLib.BCM.DirectionalInput a = (Xv2CoreLib.BCM.DirectionalInput)0x11;
-            
+
 
             //string[] s = a.ToString().Split(new char[] { ',', ' ' });
             //string s2 = "";
@@ -125,7 +127,7 @@ namespace Flow.Forms
             //{
             //    s2 += s[i];
             //}
-           // File.AppendAllText("hello.dat", s2);
+            // File.AppendAllText("hello.dat", s2);
 
             //ComboPanel.BackColor = Color.FromArgb(255, 33, 33, 33);
 
@@ -213,7 +215,13 @@ namespace Flow.Forms
         // Add a child to the selected node.
         private void ctxNodeAddChild_Click(object sender, EventArgs e)
         {
-         
+            if (SelectedNode.bd.RemoteChildIndex >= 0)
+            {
+                MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
+                    "Add Link", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
             NodeTextDialog dlg = new NodeTextDialog();
 
             if (dlg.ShowDialog() == DialogResult.OK)
@@ -231,11 +239,14 @@ namespace Flow.Forms
                 //if (autoScrollMinY + (int)(75 * scale) < int.MaxValue)
                 //    autoScrollMinY += (int)(75 * scale);
 
-               // ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+                // ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
 
                 // Rearrange the tree to show the new node.
-                ArrangeTree();
                 reindex();
+
+
+                ArrangeTree();
+              
 
                 //using (gr = (ComboPanel.CreateGraphics()))
                 //{
@@ -250,31 +261,35 @@ namespace Flow.Forms
         // Delete this node from the tree.
         private void ctxNodeDelete_Click(object sender, EventArgs e)
         {
+            // ADD DIFFERENT LOGIC IF DELETING A REMOTE LINK!!!
+            // THE INDEX FROM THE PREVIOS NODE MUST BE SET TO 1
             if (MessageBox.Show("Are you sure you want to delete this node?",
                 "Delete Node?", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 // Delete the node and its subtree.
-              root.DeleteNode(SelectedNode);
-               // int count = 0;
+               root.DeleteNode(SelectedNode);
+                // int count = 0;
                 //int NumOfChildren = root.getTotalChildCount(ref count);
                 //MessageBox.Show(NumOfChildren.ToString());
 
-                if (autoScrollMinX - 75 >= 0)
-                    autoScrollMinX -= 75;
-                if (autoScrollMinY - 75 >= 0)
-                    autoScrollMinY -= 75;
+                //if (autoScrollMinX - 75 >= 0)
+                //    autoScrollMinX -= 75;
+                //if (autoScrollMinY - 75 >= 0)
+                //    autoScrollMinY -= 75;
 
-                ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+                // ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+                reindex();
 
                 // Rearrange the tree to show the new structure.
                 ArrangeTree();
+
 
                 //using (gr = (ComboPanel.CreateGraphics()))
                 //{
                 //    drawGrid(gr);
                 //}
-                drawGrid(gr);
+               // drawGrid(gr);
 
             }
         }
@@ -309,14 +324,14 @@ namespace Flow.Forms
         //draw the tree
         private void ComboPanel_Paint(object sender, PaintEventArgs e)
         {
-
+            
           
 
             if (!isNodesPresentToDraw()) return;
 
 
 
-            listBox1.BeginUpdate();
+          
 
             scrollMarginX = (int)(ComboPanel.AutoScrollPosition.X );
             scrollMarginY = (int)(ComboPanel.AutoScrollPosition.Y);
@@ -395,7 +410,9 @@ namespace Flow.Forms
             //    mouseOffsetY = relativePoint.Y;
             //}
 
+            //dbg
             this.Text = check.ToString();
+
             if (isNodesPresentToDraw() == false)
                 return;
 
@@ -417,6 +434,7 @@ namespace Flow.Forms
                     needsClearSelection = false;
                     return;
                 }
+
                 else
                 {
                     return;
@@ -426,6 +444,7 @@ namespace Flow.Forms
               
             }
 
+            //selected node is not null
             else
             {
               
@@ -453,7 +472,7 @@ namespace Flow.Forms
             }
             //put refresh outside so you clear out the yellow circle line
 
-            ComboPanel.Refresh();
+           ComboPanel.Refresh();
             needsClearSelection = true;
 
             //ArrangeTree();
@@ -466,6 +485,7 @@ namespace Flow.Forms
             if (!isNodesPresentToDraw())
                 return;
 
+            //only left or right mouse buttons are allowed
             if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right) return;
 
          
@@ -484,12 +504,13 @@ namespace Flow.Forms
                 // Don't let the user delete the root node.
                 // (The TreeNode class can't do that.)
 
-                ctxNodeDelete.Enabled = (SelectedNode != root);
+                ctxNodeDelete.Enabled = (SelectedNode != root && SelectedNode.bd.isLayerRoot == false );
 
                 ctxNodeAddChild.Enabled = (SelectedNode != root);
 
                 copyNodeToolStripMenuItem.Enabled = (SelectedNode != root);
                 pasteNodeToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode != root);
+
                 collapseToolStripMenuItem.Enabled = (SelectedNode.Children.Count > 0);
                 collapseToolStripMenuItem.Text = (SelectedNode.isCollpased) ? "Uncollapse" : "Collapse";
 
@@ -509,9 +530,11 @@ namespace Flow.Forms
                 
 
                 // Display the context menu.
-                Point loc = new Point(e.Location.X, e.Location.Y+20); // +20 to bring the menu down a little bit (coordinate system is left sides)
+                Point loc = new Point(e.Location.X + 5, e.Location.Y + 5); // +20 to bring the menu down a little bit (coordinate system is left sides)
                 ctxNode.Show(ComboPanel, loc);
             }
+
+            else { }
 
         }
 
@@ -547,9 +570,16 @@ namespace Flow.Forms
         private void copyNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //TODO implement a proper paste
+
+            // DON'T ALLOW COPY REMOTE LINK
+            MessageBox.Show(SelectedNode.bd.ID.ToString());
             bufferNode = new TreeNode<CircleNode>(new CircleNode(), SelectedNode.bd.InputType, SelectedNode.isCollpased);
-           // SelectedNode.Children.CopyTo(bufferNode.Children);
-          //  bufferNode.Children = SelectedNode.Children;
+            bufferNode.bd.ID = SelectedNode.bd.ID;
+            bufferNode.bd.isRemoteChild = SelectedNode.bd.isRemoteChild;
+            bufferNode.bd.RemoteChildIndex = SelectedNode.bd.RemoteChildIndex; 
+            MessageBox.Show(bufferNode.bd.ID.ToString());
+            // SelectedNode.Children.CopyTo(bufferNode.Children);
+            //  bufferNode.Children = SelectedNode.Children;
 
         }
 
@@ -744,6 +774,7 @@ namespace Flow.Forms
         {
             showIndicesToolStripMenuItem.Checked = (!showIndicesToolStripMenuItem.Checked);
             showIndices = showIndicesToolStripMenuItem.Checked;
+            ComboPanel.Refresh();
         }
 
         private void unleashedTheCitadelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -758,13 +789,20 @@ namespace Flow.Forms
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+             
                 TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), "NA", false);
                 newLayer.bd.LayerName = dlg.layerName;
+                newLayer.bd.isLayerRoot = true;
+               
                 //newLayer.ID = root.Children.Count;
                 root.Children.Add(newLayer);
                 populateListBox();
-                ArrangeTree();
                 reindex();
+
+
+                ArrangeTree();
+                
+              
 
 
 
@@ -775,7 +813,7 @@ namespace Flow.Forms
            
         }
 
-        private void populateListBox()
+        private void populateListBox(int index = -1)
         {
        
 
@@ -786,13 +824,67 @@ namespace Flow.Forms
             {
                 listBox1.Items.Add(root.Children[i].bd.LayerName);
             }
-       
+
+            if (index >= 0)
+                listBox1.SetSelected(index, true);
+
         }
+       
         private void reindex()
         {
 
+
+
+
+
+            Dictionary<int, int> mappings = new Dictionary<int, int>();
+            index = 0;
+            mappings[root.bd.ID] = index;
+       
+            reindexID(root, mappings);
+            reindexRemote(root, mappings);
+
         }
 
+        private void reindexID(TreeNode<CircleNode> r,  Dictionary<int, int> mappings)
+        {
+            
+            foreach (TreeNode<CircleNode> child in r.Children)
+            {
+                if (child.bd.isRemoteChild)
+                {
+                    child.bd.ID = 999;
+                    return;
+                }
+                  
+                index++;
+                mappings[child.bd.ID] = index;
+                child.bd.ID = index;
+               
+                reindexID(child, mappings);
+            }
+          
+        }
+
+        private void reindexRemote(TreeNode<CircleNode> r, Dictionary<int, int> mappings)
+        {
+            foreach (TreeNode<CircleNode> child in r.Children)
+            {
+                if (child.bd.isRemoteChild)
+                {
+                    child.bd.ID = 666;
+                    return;
+                }
+
+                if (child.bd.RemoteChildIndex >=0)
+                    if (mappings.ContainsKey(child.bd.RemoteChildIndex))
+                    child.bd.RemoteChildIndex = mappings[child.bd.RemoteChildIndex];
+
+
+
+                reindexRemote(child, mappings);
+            }
+        }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
          
@@ -801,6 +893,7 @@ namespace Flow.Forms
             {
                 SelectedLayerNode = root.Children[listBox1.SelectedIndex];
                 ArrangeTree();
+            
 
 
             }
@@ -851,8 +944,28 @@ namespace Flow.Forms
         {
             if (listBox1.SelectedIndex >= 0)
             {
-                root.Children.RemoveAt(listBox1.SelectedIndex);
-                populateListBox();
+              //  root.Children.RemoveAt(listBox1.SelectedIndex);
+                root.DeleteNode(root.Children[listBox1.SelectedIndex]);
+        
+                if ((listBox1.SelectedIndex - 1) >= 0)
+                {
+
+                    populateListBox(listBox1.SelectedIndex - 1);
+                }
+
+                else
+                {
+            
+                    SelectedLayerNode = null;
+                    populateListBox();
+                }
+
+             
+                reindex();
+                ComboPanel.Refresh();
+               // listBox1.SelectedIndex -= 1;
+              
+           
             }
          
         }
@@ -967,13 +1080,28 @@ namespace Flow.Forms
 
         private void pasteRemoteLinkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //TODO : implement a proper paste
+            if (SelectedNode.getPhyiscalChildCount() > 0)
+            {
+                MessageBox.Show("A Node cannot have a remote link if it already has phyiscal links",
+                 "Paste Remote Link", MessageBoxButtons.OK,
+                 MessageBoxIcon.Error);
+                return;
+            }
 
+
+            MessageBox.Show(bufferNode.bd.InputType.ToString());
+            MessageBox.Show(bufferNode.bd.ID.ToString());
+            MessageBox.Show(SelectedNode.bd.RemoteChildIndex.ToString());
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.InputType, bufferNode.isCollpased);
-            newChild.bd.RemoteChild = true;
+            newChild.bd.isRemoteChild = true;
 
             int index = SelectedNode.AddChild(newChild);
+            SelectedNode.bd.RemoteChildIndex = bufferNode.bd.ID;
+
             //SelectedNode.Children = bufferNode.Children;
+            MessageBox.Show(bufferNode.bd.InputType.ToString());
+            MessageBox.Show(bufferNode.bd.ID.ToString());
+            MessageBox.Show(SelectedNode.bd.RemoteChildIndex.ToString());
 
             int childCount = 0;
             bufferNode.getTotalChildCount(ref childCount);
@@ -985,14 +1113,19 @@ namespace Flow.Forms
                 // SelectedNode.Children[index].Children.Add(new TreeNode<CircleNode>(new CircleNode(bufferNode.Children[i].Data.Text, bufferNode.Children[i].Data.inputType), bufferNode.Data.inputType));
             }
 
-
+            reindex();
             ArrangeTree();
         }
 
         private void listBox1_MouseMove(object sender, MouseEventArgs e)
         {
         
-            listBox1.EndUpdate();
+            
+        }
+
+        private void showChildLinkInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(SelectedNode.bd.RemoteChildIndex.ToString());
         }
     }
 }

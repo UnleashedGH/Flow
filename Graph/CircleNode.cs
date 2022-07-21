@@ -36,7 +36,7 @@ namespace Flow.Graph
         }
 
         // Draw the object centered at (x, y).
-        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, string inputType,  string extra, string extra2, float scale, bool RemoteLink)
+        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, string inputType,  string extra, string extra2, float scale, bool isRemoteChild)
         {
             // Fill and draw an ellipse at our location.
            // SizeF my_size = GetSize(gr, font);
@@ -48,7 +48,7 @@ namespace Flow.Graph
                 (y - txtSize.Height / 2) * scale,
                 (txtSize.Width) * scale,(txtSize.Height) * scale);
 
-            Brush text_brush2 = Brushes.Black;
+            Brush text_brush2 = Brushes.White;
 
 
             //colors
@@ -62,7 +62,7 @@ namespace Flow.Graph
       
 
             //light
-            if (!RemoteLink)
+            if (!isRemoteChild)
             {
                  light = Color.FromArgb(255, 255, 136, 174);
             }
@@ -72,7 +72,7 @@ namespace Flow.Graph
             }
 
             //heavy
-            if (!RemoteLink)
+            if (!isRemoteChild)
             {
                 heavy = Color.FromArgb(255, 57, 244, 1);
             }
@@ -81,7 +81,7 @@ namespace Flow.Graph
                 heavy = Color.FromArgb(127, 57, 244, 1);
             }
             //ki blast
-            if (!RemoteLink)
+            if (!isRemoteChild)
             {
                 kiblast = Color.FromArgb(255, 255, 0, 0);
             }
@@ -90,7 +90,7 @@ namespace Flow.Graph
                 kiblast = Color.FromArgb(127, 255, 0, 0);
             }
             //jump
-            if (!RemoteLink)
+            if (!isRemoteChild)
             {
                 jump = Color.FromArgb(255, 0, 164, 255);
             }
@@ -148,9 +148,14 @@ namespace Flow.Graph
                     
                 if (extra != "")
                     gr.DrawString(extra, font, text_brush, (x + 13) * scale, (y + 13) * scale, string_format);
+
                 if (Main.showIndices)
+                {
+                    
                     if (extra2 != "")
-                         gr.DrawString(extra2, font, text_brush2, (x + 35) * scale, (y + 2) * scale, string_format);
+                        gr.DrawString(extra2, font, text_brush2, (x + 35) * scale, (y + 2) * scale, string_format);
+                }
+                 
 
 
 
@@ -172,8 +177,8 @@ namespace Flow.Graph
             // translate so we can assume the
             // ellipse is centered at the origin.
 
-            center_pt.X += (Main.scrollMarginX * (scale * 2 ));
-            center_pt.Y += (Main.scrollMarginY *( scale * 2) );
+            center_pt.X += (Main.scrollMarginX);
+            center_pt.Y += (Main.scrollMarginY );
 
            center_pt.X *= scale;
            center_pt.Y *= scale;

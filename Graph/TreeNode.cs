@@ -17,7 +17,9 @@ namespace Flow.Graph
         public uint buttonInputFlag;
         public int ID;
         public string LayerName;
-        public bool RemoteChild;
+        public int RemoteChildIndex;
+        public bool isRemoteChild;
+        public bool isLayerRoot;
     }
     public class TreeNode<T> where T : IDrawable
     {
@@ -102,7 +104,9 @@ namespace Flow.Graph
                 buttonInputFlag = 0x0,
                 LayerName = _LayerName,
                 ID = -1,
-                RemoteChild = false
+                RemoteChildIndex = -1,
+                isRemoteChild = false,
+                isLayerRoot = false
 
             };
                isCollpased = collapse;
@@ -119,8 +123,8 @@ namespace Flow.Graph
         public int AddChild(TreeNode<T> child)
         {
             //WARN: what is this?
-            if (child.bd.InputType == "J")
-                return -1;
+            //if (child.bd.InputType == "J")
+            //    return -1;
 
             Children.Add(child);
             return Children.Count-1;
@@ -137,6 +141,17 @@ namespace Flow.Graph
                 count +=  child.getTotalChildCount(ref count);
             }
 
+            return count;
+        }
+
+        public int getPhyiscalChildCount()
+        {
+            int count = 0;
+            foreach (TreeNode<T> child in Children)
+            {
+                if (!child.bd.isRemoteChild)
+                    count++;
+            }
             return count;
         }
       
@@ -247,37 +262,37 @@ namespace Flow.Graph
                     if(child.bd.InputType == "L")
                     {
 
-                        // localPen.Color = Color.LightPink;
-                        localPen.Color = Color.White;
+                         localPen.Color = Color.LightPink;
+                        //localPen.Color = Color.White;
                 
                     }
                     else if (child.bd.InputType == "H")
                     {
-                        // localPen.Color = Color.LimeGreen;
-                        localPen.Color = Color.White;
+                         localPen.Color = Color.LimeGreen;
+                        //localPen.Color = Color.White;
 
             
                     }
                     else if (child.bd.InputType == "K")
                     {
-                        localPen.Color = Color.White;
-                        //localPen.Color = Color.OrangeRed;
+                       // localPen.Color = Color.White;
+                        localPen.Color = Color.OrangeRed;
                    
                     }
 
                     else if (child.bd.InputType == "J")
                     {
 
-                        //localPen.Color = Color.SkyBlue;
-                        localPen.Color = Color.White;
+                        localPen.Color = Color.SkyBlue;
+                       // localPen.Color = Color.White;
                   
                     }
                     else
                     {
-                        //WARN: what is this? unused
+                        //NA Type
                         Pen p = new Pen(Color.Black );
                         gr.DrawLine(p, DataCenter.X * s, child.DataCenter.Y * s, child.DataCenter.X * s, child.DataCenter.Y * s);
-                        MessageBox.Show("unused else statement?");
+              
                        
                     }
 
@@ -309,9 +324,9 @@ namespace Flow.Graph
             // change the Node transpareny depending if it was Collpased or not (IsCollapsed)
             //this is one method of indicaiting collapsed nodes.. might change.
             if (isCollpased)
-              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "+", bd.ID.ToString(), s, bd.RemoteChild);
+              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "+", bd.ID.ToString(), s, bd.isRemoteChild);
             else
-              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "", bd.ID.ToString(), s, bd.RemoteChild);
+              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "", bd.ID.ToString(), s, bd.isRemoteChild);
 
 
 

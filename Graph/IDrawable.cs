@@ -19,6 +19,6 @@ namespace Flow.Graph
 
         // Draw the object centered at (x, y).
         void Draw(float x, float y, Graphics gr, Pen pen,
-            Brush bg_brush, Brush text_brush, Font font, string inputType, string extra, string extra2, float scale, bool RemoteLink);
+            Brush bg_brush, Brush text_brush, Font font, string inputType, string extra, string extra2, float scale, bool isRemoteChild);
     }
 }
