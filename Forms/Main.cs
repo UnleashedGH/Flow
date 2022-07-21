@@ -572,12 +572,12 @@ namespace Flow.Forms
             //TODO implement a proper paste
 
             // DON'T ALLOW COPY REMOTE LINK
-            MessageBox.Show(SelectedNode.bd.ID.ToString());
+   
             bufferNode = new TreeNode<CircleNode>(new CircleNode(), SelectedNode.bd.InputType, SelectedNode.isCollpased);
             bufferNode.bd.ID = SelectedNode.bd.ID;
             bufferNode.bd.isRemoteChild = SelectedNode.bd.isRemoteChild;
             bufferNode.bd.RemoteChildIndex = SelectedNode.bd.RemoteChildIndex; 
-            MessageBox.Show(bufferNode.bd.ID.ToString());
+
             // SelectedNode.Children.CopyTo(bufferNode.Children);
             //  bufferNode.Children = SelectedNode.Children;
 
@@ -1089,9 +1089,7 @@ namespace Flow.Forms
             }
 
 
-            MessageBox.Show(bufferNode.bd.InputType.ToString());
-            MessageBox.Show(bufferNode.bd.ID.ToString());
-            MessageBox.Show(SelectedNode.bd.RemoteChildIndex.ToString());
+   
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.InputType, bufferNode.isCollpased);
             newChild.bd.isRemoteChild = true;
 
@@ -1099,9 +1097,7 @@ namespace Flow.Forms
             SelectedNode.bd.RemoteChildIndex = bufferNode.bd.ID;
 
             //SelectedNode.Children = bufferNode.Children;
-            MessageBox.Show(bufferNode.bd.InputType.ToString());
-            MessageBox.Show(bufferNode.bd.ID.ToString());
-            MessageBox.Show(SelectedNode.bd.RemoteChildIndex.ToString());
+      
 
             int childCount = 0;
             bufferNode.getTotalChildCount(ref childCount);
