@@ -581,28 +581,31 @@ namespace Flow.Forms
             //TODO : implement a proper paste
 
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.buttonInputFlag, bufferNode.isCollpased);
-            
-           int index =  SelectedNode.AddChild(newChild);
 
 
+            //resursive copy children
 
-
-            //we need to do proper pasting.. ah
-            //ignore the remove links
-           //SelectedNode.Children = bufferNode.Children;
-
-            int childCount = 0;
-            bufferNode.getTotalChildCount(ref childCount);
-            //MessageBox.Show(childCount.ToString());
-            for (int i = 0; i < 1; i++)
+            foreach (TreeNode<CircleNode> child in bufferNode.Children)
             {
 
-             
-               // SelectedNode.Children[index].Children.Add(new TreeNode<CircleNode>(new CircleNode(bufferNode.Children[i].Data.Text, bufferNode.Children[i].Data.inputType), bufferNode.Data.inputType));
             }
 
-            
+
+
+
+
+            SelectedNode.AddChild(newChild);
+            reindex();
             ArrangeTree();
+        }
+
+        public void pasterecursive(TreeNode<CircleNode> newCopyChild, TreeNode<CircleNode> pasteChild)
+        {
+            foreach (TreeNode<CircleNode> child in bufferNode.Children)
+            {
+                TreeNode<CircleNode> newChild = new TreeNode<CircleNode>();
+               
+            }
         }
 
         private void copyNodeToolStripMenuItem_Click(object sender, EventArgs e)

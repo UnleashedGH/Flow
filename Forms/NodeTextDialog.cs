@@ -51,7 +51,10 @@ namespace Flow.Forms
             ScrollContainer.HorizontalScroll.Visible = false;
             ScrollContainer.HorizontalScroll.Maximum = 0;
             ScrollContainer.AutoScroll = true;
+
+            numericUpDown1.Maximum = Int32.MaxValue;
         }
+
     }
   
  }
