@@ -31,7 +31,7 @@ namespace Flow.Forms
             foreach (TreeNode<CircleNode> child in rootGraphNode.Children)
             {
                 TreeNode tn = new TreeNode();
-                tn.Text = child.bd.InputType;
+                tn.Text = child.bd.buttonInputFlag.ToString();
                 tn.Tag = child.bd.ID;
                
 
@@ -61,7 +61,7 @@ namespace Flow.Forms
                 //SelectedLayerNode = root.Children[listBox1.SelectedIndex];
                 //ArrangeTree();
                 treeView1.Nodes.Clear();
-                treeView1.Nodes.Add(mainref.root.Children[listBox1.SelectedIndex].bd.InputType);
+                treeView1.Nodes.Add(mainref.root.Children[listBox1.SelectedIndex].bd.buttonInputFlag.ToString());
                 addNodesFromGraph(mainref.root.Children[listBox1.SelectedIndex], treeView1.Nodes[0], treeView1);
 
 

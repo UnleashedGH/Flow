@@ -36,17 +36,24 @@ namespace Flow.Graph
         }
 
         // Draw the object centered at (x, y).
-        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, string inputType,  string extra, string extra2, float scale, bool isRemoteChild)
+        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, uint btnInputFlag,  string extra, string extra2, float scale, bool isRemoteChild)
         {
             // Fill and draw an ellipse at our location.
-           // SizeF my_size = GetSize(gr, font);
-          
+            // SizeF my_size = GetSize(gr, font);
+
+            string btnInput = Utils.Utils.translateButtonInputFlag(btnInputFlag);
 
             SizeF txtSize = GetSize(gr, font); // calculate rectSize by string
             RectangleF rectText = new RectangleF(
                 (x - txtSize.Width / 2)  * scale,
                 (y - txtSize.Height / 2) * scale,
                 (txtSize.Width) * scale,(txtSize.Height) * scale);
+
+            RectangleF rectText2 = new RectangleF(
+           ((x - txtSize.Width / 2) * scale) + 12,
+           ((y - txtSize.Height / 2) * scale) + 12,
+           (txtSize.Width * 0.5f) * scale, (txtSize.Height * 0.5f) * scale);
+
 
             Brush text_brush2 = Brushes.White;
 
@@ -106,7 +113,7 @@ namespace Flow.Graph
             SolidBrush brush_jump = new SolidBrush(jump);
         
 
-            switch (inputType)
+            switch (btnInput)
             {
                 case "L": pen.Color = light; break;
                 case "H": pen.Color = heavy; break;
@@ -119,10 +126,22 @@ namespace Flow.Graph
                 pen.Color = Color.Yellow;
                
             }
-            if(inputType != "Other")
+            if(btnInput != "Other")
             {
-                gr.FillEllipse(bg_brush, rectText);
-                gr.DrawEllipse(pen, rectText);
+                if (isRemoteChild)
+                {
+                    gr.FillEllipse(bg_brush, rectText);
+                    gr.DrawEllipse(pen, rectText);
+                    gr.FillEllipse(bg_brush, rectText2);
+                    gr.DrawEllipse(pen, rectText2);
+
+                }
+                else
+                {
+                    gr.FillEllipse(bg_brush, rectText);
+                    gr.DrawEllipse(pen, rectText);
+                }
+  
             }
         
 
@@ -135,7 +154,7 @@ namespace Flow.Graph
             
 
 
-             switch (inputType)
+             switch (btnInput)
                 {
                     case "L": text_brush = brush_light; break;
                     case "H": text_brush = brush_heavy; break;
@@ -143,8 +162,8 @@ namespace Flow.Graph
                     case "J": text_brush = brush_jump; break;
 
                 }
-                if (inputType != "Root")
-                    gr.DrawString(inputType, font, text_brush, x * scale , y * scale, string_format);
+                if (btnInput != "Root")
+                    gr.DrawString(btnInput, font, text_brush, x * scale , y * scale, string_format);
                     
                 if (extra != "")
                     gr.DrawString(extra, font, text_brush, (x + 13) * scale, (y + 13) * scale, string_format);
@@ -152,8 +171,11 @@ namespace Flow.Graph
                 if (Main.showIndices)
                 {
                     
-                    if (extra2 != "")
-                        gr.DrawString(extra2, font, text_brush2, (x + 35) * scale, (y + 2) * scale, string_format);
+                        if (isRemoteChild)
+                            gr.DrawString("", font, text_brush2, (x + 35) * scale, (y + 2) * scale, string_format);
+                        else
+                            gr.DrawString(extra2, font, text_brush2, (x + 35) * scale, (y + 2) * scale, string_format);
+
                 }
                  
 

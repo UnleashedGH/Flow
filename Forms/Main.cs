@@ -47,7 +47,7 @@ namespace Flow.Forms
 
         // the absloute root node.. this node is never drawn (nor its child lines)
         public TreeNode<CircleNode> root =
-            new TreeNode<CircleNode>(new CircleNode(), "Root", false);
+            new TreeNode<CircleNode>(new CircleNode(), 0x0, false);
 
      
 
@@ -215,6 +215,9 @@ namespace Flow.Forms
         // Add a child to the selected node.
         private void ctxNodeAddChild_Click(object sender, EventArgs e)
         {
+            if (SelectedNode == null)
+                return;
+
             if (SelectedNode.bd.RemoteChildIndex >= 0)
             {
                 MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
@@ -227,7 +230,7 @@ namespace Flow.Forms
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 TreeNode<CircleNode> child =
-                    new TreeNode<CircleNode>(new CircleNode(), dlg.btnInput, false);
+                    new TreeNode<CircleNode>(new CircleNode(), 0x1, false);
                 SelectedNode.isCollpased = false;
                 SelectedNode.AddChild(child);
 
@@ -261,12 +264,21 @@ namespace Flow.Forms
         // Delete this node from the tree.
         private void ctxNodeDelete_Click(object sender, EventArgs e)
         {
+            if (SelectedNode == null)
+                return;
+
             // ADD DIFFERENT LOGIC IF DELETING A REMOTE LINK!!!
             // THE INDEX FROM THE PREVIOS NODE MUST BE SET TO 1
             if (MessageBox.Show("Are you sure you want to delete this node?",
                 "Delete Node?", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
+
+                if (SelectedNode.bd.isRemoteChild)
+                {
+                    SelectedNode.bd.RemoteChildParentRef.bd.RemoteChildIndex = -1;
+                }
+
                 // Delete the node and its subtree.
                root.DeleteNode(SelectedNode);
                 // int count = 0;
@@ -448,26 +460,38 @@ namespace Flow.Forms
             else
             {
               
-                switch (SelectedNode.bd.InputType)
+                if (SelectedNode.bd.isRemoteChild)
+                {
+                    //there's 2 ways to get the ID now that we have 2 refs in bd..
+                    //might change
+                    lblNodeText.Text = "Remote Link for Node with index: " + SelectedNode.bd.RemoteChildParentRef.bd.RemoteChildIndex.ToString();
+                }
+                //if not remove child
+                else
                 {
 
-                    case "Root": lblNodeText.Text = "Root"; break;
-                    //case "Root": lblNodeText.Text = "Base Moveset Root"; break;
+               
+                    switch (Utils.Utils.translateButtonInputFlag(SelectedNode.bd.buttonInputFlag))
+                    {
 
-                    case "L": lblNodeText.Text = "Light Attack Input"; break;
+                        case "Root": lblNodeText.Text = "Root"; break;
+                        //case "Root": lblNodeText.Text = "Base Moveset Root"; break;
 
-
-                    case "H": lblNodeText.Text = "Heavy Attack Input"; break;
-
-                    case "K": lblNodeText.Text = "Ki Blast Input"; break;
-
-                    case "J": lblNodeText.Text = "Jump Input"; break;
+                        case "L": lblNodeText.Text = "Light Attack Input"; break;
 
 
-                    default: lblNodeText.Text = SelectedNode.bd.InputType; break;
+                        case "H": lblNodeText.Text = "Heavy Attack Input"; break;
+
+                        case "K": lblNodeText.Text = "Ki Blast Input"; break;
+
+                        case "J": lblNodeText.Text = "Jump Input"; break;
+
+
+                        default: lblNodeText.Text = Utils.Utils.translateButtonInputFlag(SelectedNode.bd.buttonInputFlag); break;
+                    }
                 }
 
-             
+
 
             }
             //put refresh outside so you clear out the yellow circle line
@@ -499,17 +523,22 @@ namespace Flow.Forms
             {
              
 
-                if (SelectedNode.bd.InputType == "Other")
+                if (Utils.Utils.translateButtonInputFlag(SelectedNode.bd.buttonInputFlag) == "Other")
                     return;
                 // Don't let the user delete the root node.
                 // (The TreeNode class can't do that.)
 
-                ctxNodeDelete.Enabled = (SelectedNode != root && SelectedNode.bd.isLayerRoot == false );
+                ctxNodeDelete.Enabled = ( SelectedNode.bd.isLayerRoot == false );
 
                 ctxNodeAddChild.Enabled = (SelectedNode != root);
 
-                copyNodeToolStripMenuItem.Enabled = (SelectedNode != root);
-                pasteNodeToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode != root);
+                copyNodeToolStripMenuItem.Enabled = (SelectedNode != root) && (SelectedNode.bd.isRemoteChild == false);
+                pasteNodeToolStripMenuItem.Enabled = (bufferNode != null)  && (SelectedNode.bd.isRemoteChild == false);
+                pasteRemoteLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
+
+                modifyDataToolStripMenuItem.Enabled =  (SelectedNode.bd.isRemoteChild == false);
+
+                ctxNodeAddChild.Enabled =  (SelectedNode.bd.isRemoteChild == false);
 
                 collapseToolStripMenuItem.Enabled = (SelectedNode.Children.Count > 0);
                 collapseToolStripMenuItem.Text = (SelectedNode.isCollpased) ? "Uncollapse" : "Collapse";
@@ -546,11 +575,20 @@ namespace Flow.Forms
         private void pasteNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            if (SelectedNode == null || bufferNode == null)
+                return;
+
             //TODO : implement a proper paste
 
-            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.InputType, bufferNode.isCollpased);
+            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.buttonInputFlag, bufferNode.isCollpased);
             
            int index =  SelectedNode.AddChild(newChild);
+
+
+
+
+            //we need to do proper pasting.. ah
+            //ignore the remove links
            //SelectedNode.Children = bufferNode.Children;
 
             int childCount = 0;
@@ -569,14 +607,25 @@ namespace Flow.Forms
 
         private void copyNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            if (SelectedNode == null)
+                return;
             //TODO implement a proper paste
 
-            // DON'T ALLOW COPY REMOTE LINK
-   
-            bufferNode = new TreeNode<CircleNode>(new CircleNode(), SelectedNode.bd.InputType, SelectedNode.isCollpased);
-            bufferNode.bd.ID = SelectedNode.bd.ID;
-            bufferNode.bd.isRemoteChild = SelectedNode.bd.isRemoteChild;
-            bufferNode.bd.RemoteChildIndex = SelectedNode.bd.RemoteChildIndex; 
+            //we need bufferNode because it holds copy, as SelectedNode can change later
+
+            //bufferNode = new TreeNode<CircleNode>(new CircleNode(), SelectedNode.bd.buttonInputFlag, SelectedNode.isCollpased);
+            //bufferNode.bd.ID = SelectedNode.bd.ID;
+            //bufferNode.bd.isRemoteChild = SelectedNode.bd.isRemoteChild;
+            //bufferNode.bd.RemoteChildIndex = SelectedNode.bd.RemoteChildIndex;
+
+            //I THOUGHT THIS WOULDN'T WORK?
+            //apparently the selected node reference won't chnagne buffernode when itself changes (recursive ref)
+            //its a static ref to the last referenced node? that's very useful
+
+            //before then before node was a NEw node of selected node, which is a new intance and not a ref
+            bufferNode = SelectedNode;
+
 
             // SelectedNode.Children.CopyTo(bufferNode.Children);
             //  bufferNode.Children = SelectedNode.Children;
@@ -585,6 +634,9 @@ namespace Flow.Forms
 
         private void collapseToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (SelectedNode == null)
+                return;
+
             SelectedNode.isCollpased = !SelectedNode.isCollpased;
             ArrangeTree();
         }
@@ -708,7 +760,7 @@ namespace Flow.Forms
                 it = "J";
             }
             TreeNode<CircleNode> f =
-            new TreeNode<CircleNode>(new CircleNode(), it, true);
+            new TreeNode<CircleNode>(new CircleNode(), (uint)e.I_08, true);
             //FIXTHIS
             f.bd.ID = index;
             index++;
@@ -790,7 +842,7 @@ namespace Flow.Forms
             if (dlg.ShowDialog() == DialogResult.OK)
             {
              
-                TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), "NA", false);
+                TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), 0x0, false);
                 newLayer.bd.LayerName = dlg.layerName;
                 newLayer.bd.isLayerRoot = true;
                
@@ -853,7 +905,7 @@ namespace Flow.Forms
             {
                 if (child.bd.isRemoteChild)
                 {
-                    child.bd.ID = 999;
+                    //child.bd.ID = 999;
                     return;
                 }
                   
@@ -872,15 +924,23 @@ namespace Flow.Forms
             {
                 if (child.bd.isRemoteChild)
                 {
-                    child.bd.ID = 666;
+                   // child.bd.ID = 666;
                     return;
                 }
 
-                if (child.bd.RemoteChildIndex >=0)
+                if (child.bd.RemoteChildIndex >= 0)
                     if (mappings.ContainsKey(child.bd.RemoteChildIndex))
-                    child.bd.RemoteChildIndex = mappings[child.bd.RemoteChildIndex];
+                        child.bd.RemoteChildIndex = mappings[child.bd.RemoteChildIndex];
+                    else
+                    {
+                        child.bd.RemoteChildIndex = -1;
+                        if (child.Children[0] != null) // should always be true if all went well..
+                          root.DeleteNode(child.Children[0]);
+                    }
+                       
 
 
+           
 
                 reindexRemote(child, mappings);
             }
@@ -972,12 +1032,15 @@ namespace Flow.Forms
 
         private void modifyDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (SelectedNode == null)
+                return;
+
             NodeTextDialog dlg = new NodeTextDialog();
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
             
-                SelectedNode.bd.InputType = dlg.btnInput;
+                SelectedNode.bd.buttonInputFlag = 0x2;
 
                 ComboPanel.Refresh();
             }
@@ -1062,9 +1125,9 @@ namespace Flow.Forms
 
             listBox1.Items.Clear();
             root.Children.Clear();
-            root = new TreeNode<CircleNode>(new CircleNode(), "Root", false);
+            root = new TreeNode<CircleNode>(new CircleNode(), 0x0, false);
 
-            TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), "NA", false);
+            TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), 0x0, false);
             newLayer.bd.LayerName = "New Layer";
             //newLayer.ID = root.Children.Count;
             root.Children.Add(newLayer);
@@ -1080,6 +1143,10 @@ namespace Flow.Forms
 
         private void pasteRemoteLinkToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            if (SelectedNode == null || bufferNode == null)
+                return;
+
             if (SelectedNode.getPhyiscalChildCount() > 0)
             {
                 MessageBox.Show("A Node cannot have a remote link if it already has phyiscal links",
@@ -1089,25 +1156,17 @@ namespace Flow.Forms
             }
 
 
-   
-            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.InputType, bufferNode.isCollpased);
+            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), 0x0, bufferNode.isCollpased);
+            //TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.buttonInputFlag, bufferNode.isCollpased);
             newChild.bd.isRemoteChild = true;
+            newChild.bd.RemoteChildParentRef = SelectedNode;
+            newChild.bd.RemoteChildPointToRef = bufferNode;
 
             int index = SelectedNode.AddChild(newChild);
             SelectedNode.bd.RemoteChildIndex = bufferNode.bd.ID;
 
-            //SelectedNode.Children = bufferNode.Children;
+        
       
-
-            int childCount = 0;
-            bufferNode.getTotalChildCount(ref childCount);
-            //MessageBox.Show(childCount.ToString());
-            for (int i = 0; i < 1; i++)
-            {
-
-
-                // SelectedNode.Children[index].Children.Add(new TreeNode<CircleNode>(new CircleNode(bufferNode.Children[i].Data.Text, bufferNode.Children[i].Data.inputType), bufferNode.Data.inputType));
-            }
 
             reindex();
             ArrangeTree();
@@ -1121,6 +1180,8 @@ namespace Flow.Forms
 
         private void showChildLinkInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (SelectedNode == null)
+                return;
             MessageBox.Show(SelectedNode.bd.RemoteChildIndex.ToString());
         }
     }

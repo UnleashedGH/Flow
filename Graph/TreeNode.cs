@@ -13,12 +13,24 @@ namespace Flow.Graph
     [Serializable]
     public struct BinaryData
     {
-        public string InputType;
+
         public uint buttonInputFlag;
+
+
         public int ID;
         public string LayerName;
+
+
+
         public int RemoteChildIndex;
         public bool isRemoteChild;
+        public TreeNode<CircleNode> RemoteChildParentRef; //the parent node of the remote child
+        public TreeNode<CircleNode> RemoteChildPointToRef; // the node the remote child points to
+
+
+
+
+
         public bool isLayerRoot;
     }
     public class TreeNode<T> where T : IDrawable
@@ -81,8 +93,8 @@ namespace Flow.Graph
         }
 
         // Constructor.
-        public TreeNode(T new_data, string InputTypeReflect, bool collapse,  string _LayerName = "New Layer")
-            : this(new_data, new Font("Arial", 14,FontStyle.Bold), InputTypeReflect, collapse, _LayerName)
+        public TreeNode(T new_data, uint btnInputFlag, bool collapse,  string _LayerName = "New Layer")
+            : this(new_data, new Font("Arial", 14,FontStyle.Bold), btnInputFlag, collapse, _LayerName)
         {
             Data = new_data;
             MyPen.Width = 2.0f;
@@ -91,7 +103,7 @@ namespace Flow.Graph
             Children = new List<TreeNode<T>>();
 
         }
-        public TreeNode(T new_data, Font fg_font, string InputTypeReflect, bool collapse,  string _LayerName = "New Layer")
+        public TreeNode(T new_data, Font fg_font, uint btnInputFlag, bool collapse,  string _LayerName = "New Layer")
         {
             Data = new_data;
             MyFont = fg_font;
@@ -100,13 +112,17 @@ namespace Flow.Graph
             Children = new List<TreeNode<T>>();
             bd = new Graph.BinaryData
             {
-                InputType = InputTypeReflect,
-                buttonInputFlag = 0x0,
+                buttonInputFlag = btnInputFlag,
                 LayerName = _LayerName,
                 ID = -1,
                 RemoteChildIndex = -1,
                 isRemoteChild = false,
-                isLayerRoot = false
+                isLayerRoot = false,
+                RemoteChildParentRef = null,
+                RemoteChildPointToRef = null
+             
+
+
 
             };
                isCollpased = collapse;
@@ -144,6 +160,7 @@ namespace Flow.Graph
             return count;
         }
 
+        //to ignore remote child nodes out of count
         public int getPhyiscalChildCount()
         {
             int count = 0;
@@ -154,10 +171,11 @@ namespace Flow.Graph
             }
             return count;
         }
-      
+
         // Arrange the node and its children in the allowed area.
         // Set xmin to indicate the right edge of our subtree.
         // Set ymin to indicate the bottom edge of our subtree.
+        //this is called to arrange the tree, this is seperated from drawing the actual tree
         public void Arrange(Graphics gr, ref float xmin, ref float ymin)
         {
           
@@ -167,6 +185,8 @@ namespace Flow.Graph
         }
 
         // Arrange the subtree horizontally. (REMOVED)
+
+
 
         // Arrange the subtree vertically.
         public void ArrangeVertically(Graphics gr, float xmin, ref float ymin)
@@ -210,12 +230,15 @@ namespace Flow.Graph
 
         // Draw the subtree rooted at this node
         // with the given upper left corner.
+        //this is called when ComboPanel is refrshed
         public void DrawTree(Graphics gr, ref float x, float y, float s)
         {
 
             //font size
 
           
+        
+
             // Arrange the tree.
             Arrange(gr, ref x, ref y);
 
@@ -226,6 +249,10 @@ namespace Flow.Graph
         // Draw the subtree rooted at this node.
         public void DrawTree(Graphics gr, float s)
         {
+      
+       
+     
+
             // Draw the links.
             DrawSubtreeLinks(gr, s);
 
@@ -256,31 +283,34 @@ namespace Flow.Graph
 
             foreach (TreeNode<T> child in Children)
             {
+                string childBtnInput = Utils.Utils.translateButtonInputFlag(child.bd.buttonInputFlag);
                 //hanldes line colors corruposing to Node color (the horzonial line)
-                if (bd.InputType != "Other")
+
+                if (Utils.Utils.translateButtonInputFlag(bd.buttonInputFlag) != "Other")
                 {
-                    if(child.bd.InputType == "L")
+
+                    if(childBtnInput == "L")
                     {
 
                          localPen.Color = Color.LightPink;
                         //localPen.Color = Color.White;
                 
                     }
-                    else if (child.bd.InputType == "H")
+                    else if (childBtnInput == "H")
                     {
                          localPen.Color = Color.LimeGreen;
                         //localPen.Color = Color.White;
 
             
                     }
-                    else if (child.bd.InputType == "K")
+                    else if (childBtnInput == "K")
                     {
                        // localPen.Color = Color.White;
                         localPen.Color = Color.OrangeRed;
                    
                     }
 
-                    else if (child.bd.InputType == "J")
+                    else if (childBtnInput == "J")
                     {
 
                         localPen.Color = Color.SkyBlue;
@@ -289,14 +319,17 @@ namespace Flow.Graph
                     }
                     else
                     {
-                        //NA Type
-                        Pen p = new Pen(Color.Black );
-                        gr.DrawLine(p, DataCenter.X * s, child.DataCenter.Y * s, child.DataCenter.X * s, child.DataCenter.Y * s);
+                        //NoInputType Type
+                        localPen.Color = Color.White;
+                       // gr.DrawLine(p, DataCenter.X * s, child.DataCenter.Y * s, child.DataCenter.X * s, child.DataCenter.Y * s);
               
                        
                     }
 
-                    gr.DrawLine(localPen, DataCenter.X * s, DataCenter.Y * s, DataCenter.X * s, child.DataCenter.Y * s);
+                    //this seems unneeded, its the vertical line that gets overriden by the outer white line anywy
+                    //gr.DrawLine(localPen, DataCenter.X * s, DataCenter.Y * s, DataCenter.X * s, child.DataCenter.Y * s);
+
+                    //once the color is decided, draw the unique horz line color
                     gr.DrawLine(localPen, DataCenter.X * s, child.DataCenter.Y * s, child.DataCenter.X * s, child.DataCenter.Y * s);
 
                 }
@@ -305,7 +338,7 @@ namespace Flow.Graph
 
 
 
-                // Draw the link between this node this child. (the straight line, always black)
+                // Draw the vertical link between this node this child. (the straight line, always white)
                 
                 gr.DrawLine(MyPen, DataCenter.X * s, DataCenter.Y * s, DataCenter.X * s, child.DataCenter.Y * s);
 
@@ -319,14 +352,36 @@ namespace Flow.Graph
         // Draw the nodes for the subtree rooted at this node.
         private void DrawSubtreeNodes(Graphics gr, float s)
         {
+            //why is this redefined evertytime? hmm?
+            //MyFont = new Font("Arial", 14 * s, FontStyle.Bold);
 
-            MyFont = new Font("Arial", 14 * s, FontStyle.Bold);
+
+
+            if (bd.isRemoteChild)
+            {
+          
+                bd.buttonInputFlag = bd.RemoteChildPointToRef.bd.buttonInputFlag;
+
+               
+                    
+
+            }
+
+
+
             // change the Node transpareny depending if it was Collpased or not (IsCollapsed)
             //this is one method of indicaiting collapsed nodes.. might change.
+
+            //might wanna include iscollapsed as a bool to draw instead of extra string...
+
             if (isCollpased)
-              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "+", bd.ID.ToString(), s, bd.isRemoteChild);
+                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.buttonInputFlag, "+", bd.ID.ToString(), s, bd.isRemoteChild);
             else
-              Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.InputType, "", bd.ID.ToString(), s, bd.isRemoteChild);
+
+                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.buttonInputFlag, "", bd.ID.ToString(), s, bd.isRemoteChild);
+            
+
+
 
 
 

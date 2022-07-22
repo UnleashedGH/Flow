@@ -104,6 +104,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LegendForm.resx">
+      <DependentUpon>LegendForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -140,6 +146,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Graph\TreeNode.cs" />
+    <Compile Include="Utils\Utils.cs" />
     <Compile Include="XV2CoreLib\BCM_File.cs" />
     <Compile Include="XV2CoreLib\Deserializer.cs" />
     <Compile Include="XV2CoreLib\Parser.cs" />
