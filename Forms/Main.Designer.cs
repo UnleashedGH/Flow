@@ -408,7 +408,7 @@
             this.MinimumSize = new System.Drawing.Size(1056, 619);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Flow: New Project";
+            this.Text = "Flow";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Main_Shown);
             this.statusStrip1.ResumeLayout(false);

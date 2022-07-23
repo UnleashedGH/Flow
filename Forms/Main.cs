@@ -47,7 +47,7 @@ namespace Flow.Forms
 
         // the absloute root node.. this node is never drawn (nor its child lines)
         public TreeNode<CircleNode> root =
-            new TreeNode<CircleNode>(new CircleNode(), 0x0, false);
+            new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
 
      
 
@@ -230,7 +230,10 @@ namespace Flow.Forms
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 TreeNode<CircleNode> child =
-                    new TreeNode<CircleNode>(new CircleNode(), 0x1, false);
+                    new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+
+                child.bd.buttonInputFlag = dlg.primarybuttininput;
+
                 SelectedNode.isCollpased = false;
                 SelectedNode.AddChild(child);
 
@@ -423,7 +426,7 @@ namespace Flow.Forms
             //}
 
             //dbg
-            this.Text = check.ToString();
+            //this.Text = check.ToString();
 
             if (isNodesPresentToDraw() == false)
                 return;
@@ -578,34 +581,40 @@ namespace Flow.Forms
             if (SelectedNode == null || bufferNode == null)
                 return;
 
-            //TODO : implement a proper paste
+         
 
-            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.buttonInputFlag, bufferNode.isCollpased);
+            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd, bufferNode.isCollpased);
 
 
             //resursive copy children
 
-            foreach (TreeNode<CircleNode> child in bufferNode.Children)
-            {
-
-            }
 
 
 
 
 
-            SelectedNode.AddChild(newChild);
+            //SelectedNode.AddChild(newChild);
+            SelectedNode.AddChild(pasterecursive(bufferNode));
             reindex();
             ArrangeTree();
         }
 
-        public void pasterecursive(TreeNode<CircleNode> newCopyChild, TreeNode<CircleNode> pasteChild)
+        public TreeNode<CircleNode> pasterecursive( TreeNode<CircleNode> pasteChild)
         {
-            foreach (TreeNode<CircleNode> child in bufferNode.Children)
+            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), pasteChild.bd, false);
+
+
+            foreach (TreeNode<CircleNode> child in pasteChild.Children)
             {
-                TreeNode<CircleNode> newChild = new TreeNode<CircleNode>();
+                //because the contructor of treenode sets child index to -1, this should be safe and not copy remote child
+                //but do this too, this feels right
+                if (child.bd.isRemoteChild)
+                    return newChild;
+
+                newChild.AddChild(pasterecursive(child));
                
             }
+            return newChild;
         }
 
         private void copyNodeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -763,9 +772,10 @@ namespace Flow.Forms
                 it = "J";
             }
             TreeNode<CircleNode> f =
-            new TreeNode<CircleNode>(new CircleNode(), (uint)e.I_08, true);
+            new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), true);
             //FIXTHIS
             f.bd.ID = index;
+            f.bd.buttonInputFlag = (uint)e.I_08;
             index++;
 
 
@@ -810,6 +820,9 @@ namespace Flow.Forms
         {
             foreach (TreeNode<CircleNode> child in root.Children)
             {
+
+                if (child.bd.isRemoteChild)
+                    return;
                 Xv2CoreLib.BCM.BCM_Entry cEntry = new Xv2CoreLib.BCM.BCM_Entry();
                 cEntry.I_08 = (Xv2CoreLib.BCM.ButtonInput)child.bd.buttonInputFlag;
                 if (rootBcmEntry.BCMEntries == null)
@@ -845,7 +858,7 @@ namespace Flow.Forms
             if (dlg.ShowDialog() == DialogResult.OK)
             {
              
-                TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), 0x0, false);
+                TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
                 newLayer.bd.LayerName = dlg.layerName;
                 newLayer.bd.isLayerRoot = true;
                
@@ -877,7 +890,7 @@ namespace Flow.Forms
             listBox1.Items.Clear();
             for (int i = 0; i < root.Children.Count;i++)
             {
-                listBox1.Items.Add(root.Children[i].bd.LayerName);
+                listBox1.Items.Add(i.ToString() + " - " + root.Children[i].bd.LayerName);
             }
 
             if (index >= 0)
@@ -931,19 +944,24 @@ namespace Flow.Forms
                     return;
                 }
 
-                if (child.bd.RemoteChildIndex >= 0)
+                if (child.bd.RemoteChildIndex >= 0) { 
                     if (mappings.ContainsKey(child.bd.RemoteChildIndex))
                         child.bd.RemoteChildIndex = mappings[child.bd.RemoteChildIndex];
+
                     else
                     {
                         child.bd.RemoteChildIndex = -1;
-                        if (child.Children[0] != null) // should always be true if all went well..
-                          root.DeleteNode(child.Children[0]);
+                        //if (child.Children != null)
+                        //    if (child.Children.Count() > 0)
+                                if (child.Children[0] != null) // should always be true if all went well..
+                                    root.DeleteNode(child.Children[0]);
+                        
+                    
                     }
-                       
 
 
-           
+                }
+
 
                 reindexRemote(child, mappings);
             }
@@ -1038,12 +1056,12 @@ namespace Flow.Forms
             if (SelectedNode == null)
                 return;
 
-            NodeTextDialog dlg = new NodeTextDialog();
+            NodeTextDialog dlg = new NodeTextDialog(SelectedNode);
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
             
-                SelectedNode.bd.buttonInputFlag = 0x2;
+                SelectedNode.bd.buttonInputFlag = dlg.primarybuttininput;
 
                 ComboPanel.Refresh();
             }
@@ -1128,9 +1146,9 @@ namespace Flow.Forms
 
             listBox1.Items.Clear();
             root.Children.Clear();
-            root = new TreeNode<CircleNode>(new CircleNode(), 0x0, false);
+            root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
 
-            TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), 0x0, false);
+            TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
             newLayer.bd.LayerName = "New Layer";
             //newLayer.ID = root.Children.Count;
             root.Children.Add(newLayer);
@@ -1159,7 +1177,7 @@ namespace Flow.Forms
             }
 
 
-            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), 0x0, bufferNode.isCollpased);
+            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), bufferNode.isCollpased);
             //TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.buttonInputFlag, bufferNode.isCollpased);
             newChild.bd.isRemoteChild = true;
             newChild.bd.RemoteChildParentRef = SelectedNode;

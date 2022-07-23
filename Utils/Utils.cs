@@ -26,7 +26,7 @@ namespace Flow.Utils
                         return "L";
                     case "heavy":
                         return "H";
-                    case "kiblast":
+                    case "blast":
                         return "K";
                     case "jump":
                         return "J";
@@ -37,5 +37,8 @@ namespace Flow.Utils
             }
             return "";
         }
+
+
+        //should probably add the rest of the colors here
     }
 }

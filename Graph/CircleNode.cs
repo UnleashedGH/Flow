@@ -105,13 +105,25 @@ namespace Flow.Graph
             {
                 jump = Color.FromArgb(127, 0, 164, 255);
             }
+            //multi-input
+            if (!isRemoteChild)
+            {
+                multiinput = Color.FromArgb(255, 128, 128, 255);
+            }
+            else
+            {
+                multiinput = Color.FromArgb(127, 128, 128, 255);
+            }
+
+
             //brushes
 
             SolidBrush brush_light = new SolidBrush(light);
             SolidBrush brush_heavy = new SolidBrush(heavy);
             SolidBrush brush_kiblast = new SolidBrush(kiblast);
             SolidBrush brush_jump = new SolidBrush(jump);
-        
+            SolidBrush brush_multiinput = new SolidBrush(multiinput);
+
 
             switch (btnInput)
             {
@@ -119,6 +131,7 @@ namespace Flow.Graph
                 case "H": pen.Color = heavy; break;
                 case "K": pen.Color = kiblast; break;
                 case "J": pen.Color = jump; break;
+                case "M": pen.Color = multiinput; break;
 
             }
 
@@ -160,6 +173,7 @@ namespace Flow.Graph
                     case "H": text_brush = brush_heavy; break;
                     case "K": text_brush = brush_kiblast; break;
                     case "J": text_brush = brush_jump; break;
+                    case "M": text_brush = brush_multiinput; break;
 
                 }
                 if (btnInput != "Root")
@@ -221,7 +235,7 @@ namespace Flow.Graph
            // gr.DrawEllipse(Pens.Red, target_pt.X * target_pt.X / w / w, target_pt.Y * target_pt.Y / h / h, 50, 50);
            
             float check = ((target_pt.X * target_pt.X / w / w)  + (target_pt.Y * target_pt.Y / h / h) );
-            Main.check = check;
+            //Main.check = check;
             isOnNode = (check  ) <= 1.0f;
             
             return isOnNode;

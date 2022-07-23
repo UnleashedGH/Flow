@@ -17,12 +17,12 @@ namespace Flow.Graph
         public uint buttonInputFlag;
 
 
-        public int ID;
+        public int ID;  //should be initlized as -1, because its index
         public string LayerName;
 
 
 
-        public int RemoteChildIndex;
+        public int RemoteChildIndex; //should be initlized as -1, because its index
         public bool isRemoteChild;
         public TreeNode<CircleNode> RemoteChildParentRef; //the parent node of the remote child
         public TreeNode<CircleNode> RemoteChildPointToRef; // the node the remote child points to
@@ -93,8 +93,8 @@ namespace Flow.Graph
         }
 
         // Constructor.
-        public TreeNode(T new_data, uint btnInputFlag, bool collapse,  string _LayerName = "New Layer")
-            : this(new_data, new Font("Arial", 14,FontStyle.Bold), btnInputFlag, collapse, _LayerName)
+        public TreeNode(T new_data, BinaryData _bd, bool collapse,  string _LayerName = "New Layer")
+            : this(new_data, new Font("Arial", 14,FontStyle.Bold), _bd, collapse, _LayerName)
         {
             Data = new_data;
             MyPen.Width = 2.0f;
@@ -103,7 +103,7 @@ namespace Flow.Graph
             Children = new List<TreeNode<T>>();
 
         }
-        public TreeNode(T new_data, Font fg_font, uint btnInputFlag, bool collapse,  string _LayerName = "New Layer")
+        public TreeNode(T new_data, Font fg_font, BinaryData _bd, bool collapse,  string _LayerName = "New Layer")
         {
             Data = new_data;
             MyFont = fg_font;
@@ -112,20 +112,28 @@ namespace Flow.Graph
             Children = new List<TreeNode<T>>();
             bd = new Graph.BinaryData
             {
-                buttonInputFlag = btnInputFlag,
+                buttonInputFlag = _bd.buttonInputFlag,
                 LayerName = _LayerName,
-                ID = -1,
-                RemoteChildIndex = -1,
-                isRemoteChild = false,
-                isLayerRoot = false,
-                RemoteChildParentRef = null,
-                RemoteChildPointToRef = null
-             
+                ID = _bd.ID,
+                RemoteChildIndex = _bd.RemoteChildIndex,
+                isRemoteChild = _bd.isRemoteChild,
+                isLayerRoot = _bd.isLayerRoot,
+                RemoteChildParentRef = _bd.RemoteChildParentRef,
+                RemoteChildPointToRef = _bd.RemoteChildPointToRef,
+
 
 
 
             };
-               isCollpased = collapse;
+
+          
+            bd.RemoteChildIndex = -1;
+            bd.ID = -1;
+  
+
+          
+            
+           isCollpased = collapse;
        
         }
 
@@ -143,7 +151,8 @@ namespace Flow.Graph
             //    return -1;
 
             Children.Add(child);
-            return Children.Count-1;
+            return 0;
+            //return Children.Count-1;
         }
 
         //TODO : fix
@@ -316,6 +325,14 @@ namespace Flow.Graph
                         localPen.Color = Color.SkyBlue;
                        // localPen.Color = Color.White;
                   
+                    }
+
+                    else if (childBtnInput == "M")
+                    {
+
+                        localPen.Color = Color.FromArgb(255, 128, 128, 255);
+                        // localPen.Color = Color.White;
+
                     }
                     else
                     {
