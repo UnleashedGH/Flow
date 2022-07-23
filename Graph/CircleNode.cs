@@ -213,11 +213,18 @@ namespace Flow.Graph
             // translate so we can assume the
             // ellipse is centered at the origin.
 
-            center_pt.X += (Main.scrollMarginX);
-            center_pt.Y += (Main.scrollMarginY );
+            //all i had to do is flip the operation... wow
+            //as objects get smaller, the scroll margin need to get bigger (because more reletive distance travelled)
+            //and vice versa
+            //i thought i had to flip the float value and keep the multiply operation
+            //but its faster to just divide instead
+            center_pt.X += (float)(Main.scrollMarginX / scale);
+            center_pt.Y += (float)(Main.scrollMarginY / scale );
 
-           center_pt.X *= scale;
-           center_pt.Y *= scale;
+      
+
+            center_pt.X *= scale;
+            center_pt.Y *= scale;
 
 
             target_pt.X -= (center_pt.X );

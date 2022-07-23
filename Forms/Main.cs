@@ -87,7 +87,7 @@ namespace Flow.Forms
         public static bool showIndices = false;
         private bool showGrid = false;
         private float scale = 1.0f;
-        private float oldScale = 1.0f;
+     
 
         //BcmVars
         static Xv2CoreLib.BCM.BCM_File bcmInstance;
@@ -348,8 +348,8 @@ namespace Flow.Forms
 
           
 
-            scrollMarginX = (int)(ComboPanel.AutoScrollPosition.X );
-            scrollMarginY = (int)(ComboPanel.AutoScrollPosition.Y);
+            scrollMarginX = (ComboPanel.AutoScrollPosition.X );
+            scrollMarginY = (ComboPanel.AutoScrollPosition.Y);
 
 
 
@@ -362,8 +362,8 @@ namespace Flow.Forms
 
             if (showGrid)
             {
-              
-                 
+
+            
                 e.Graphics.DrawImage(mBuffer, 0, 0);
 
             }
@@ -380,7 +380,7 @@ namespace Flow.Forms
 
         }
 
-      
+
 
         private void drawGrid(Graphics gr)
         {
@@ -390,25 +390,32 @@ namespace Flow.Forms
             using (Graphics bg = Graphics.FromImage(mBuffer))
             {
                 // Draw your grid into "bg" here...
-            
-        
+
+
                 //what if you just dump that image and reload it instanly?
 
-         
 
+
+
+                //optimize algo so it draws faster
                 int x = 0;
                 int y = 0;
                 float nodeSize = 60.0f * scale;
-                for(int i = 0; i <= (ComboPanel.Height + autoScrollMinY) / nodeSize; i++)
-                {
-                    for (int j = 0; j <= (ComboPanel.Width + autoScrollMinX) / nodeSize; j++)
-                    {
-                        bg.DrawLine(GridPen, x, y + (i * nodeSize), (ComboPanel.Width + autoScrollMinX), y + (i * nodeSize));
-                        bg.DrawLine(GridPen, x + (j * nodeSize), y, x + (j * nodeSize), (ComboPanel.Height + autoScrollMinY));
-                    }
-                }
-            }
+         
 
+                for (int i = 0; i <= (ComboPanel.Height + autoScrollMinY) / nodeSize; i++)
+                {
+                    bg.DrawLine(GridPen, x, y + (i * nodeSize), (ComboPanel.Width + autoScrollMinX), y + (i * nodeSize));
+                }
+                for (int j = 0; j <= (ComboPanel.Width + autoScrollMinX) / nodeSize; j++)
+                {
+                   
+                    bg.DrawLine(GridPen, x + (j * nodeSize), y, x + (j * nodeSize), (ComboPanel.Height + autoScrollMinY));
+                }
+
+
+
+            }
         }
         //center  on the form
         private void ComboPanel_Resize(object sender, EventArgs e)
@@ -1051,35 +1058,6 @@ namespace Flow.Forms
      
    
 
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            if (oldScale == 0.75f)
-                return;
-            scale = 0.75f;
-            oldScale = 0.75f;
-            drawGrid(gr);
-            ComboPanel.Refresh();
-        }
-
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            if (oldScale == 1.0f)
-                return;
-            scale = 1.0f;
-            oldScale = 1.0f;
-            drawGrid(gr);
-            ComboPanel.Refresh();
-        }
-
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
-        {
-            if (oldScale == 1.25f)
-                return;
-            scale = 1.25f;
-            oldScale = 1.25f;
-            drawGrid(gr);
-            ComboPanel.Refresh();
-        }
 
         private void Main_Shown(object sender, EventArgs e)
         {
@@ -1194,25 +1172,8 @@ namespace Flow.Forms
             }
         }
 
-        private void decreaseGridSizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if ((autoScrollMinX - (int)(500 * scale) < int.MaxValue) )
-                autoScrollMinX -= (int)(500 * scale);
-            if ((autoScrollMinY - (int)(500 * scale) < int.MaxValue) )
-                autoScrollMinY -= (int)(500 * scale);
-
-            ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
-        }
-
-        private void increaseGridSizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (autoScrollMinX + (int)(500 * scale) < int.MaxValue)
-                autoScrollMinX += (int)(500 * scale);
-            if (autoScrollMinY + (int)(500 * scale) < int.MaxValue)
-                autoScrollMinY += (int)(500 * scale);
-
-            ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
-        }
+    
+    
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1238,5 +1199,28 @@ namespace Flow.Forms
 
             ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (scale + 0.25f <= 2.0f)
+            {
+                scale += 0.25f;
+                drawGrid(gr);
+                ComboPanel.Refresh();
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (scale - 0.25f > 0)
+            {
+                scale -= 0.25f;
+                drawGrid(gr);
+                ComboPanel.Refresh();
+            }
+           
+        }
+
+       
     }
 }
