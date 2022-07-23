@@ -239,6 +239,7 @@
             this.decompileExistingBCMExpirementalToolStripMenuItem.Name = "decompileExistingBCMExpirementalToolStripMenuItem";
             this.decompileExistingBCMExpirementalToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.decompileExistingBCMExpirementalToolStripMenuItem.Text = "Decompile Existing BCM (Experimental)";
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Click += new System.EventHandler(this.decompileExistingBCMExpirementalToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 

@@ -186,9 +186,9 @@ namespace Flow.Graph
                 {
                     
                         if (isRemoteChild)
-                            gr.DrawString("", font, text_brush2, (x + 35) * scale, (y + 2) * scale, string_format);
+                            gr.DrawString("", font, text_brush2, (x + 40) * scale, (y + 2) * scale, string_format);
                         else
-                            gr.DrawString(extra2, font, text_brush2, (x + 35) * scale, (y + 2) * scale, string_format);
+                            gr.DrawString(extra2, font, text_brush2, (x + 40) * scale, (y + 2) * scale, string_format);
 
                 }
                  
