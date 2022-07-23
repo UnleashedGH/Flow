@@ -11,21 +11,22 @@ namespace Xv2CoreLib.BCM
     [Flags]
     public  enum ButtonInput : uint
     {
+        None = 0,
       //[YAXEnum("Light")]
-        light = 1, //Square
+        Light = 1, //Square
                    //[YAXEnum("Heavy")]
-        heavy = 2, //Trianlge
+        Heavy = 2, //Trianlge
                    //  [YAXEnum("Blast")]
-        blast = 4, //Circle
+        Kiblast = 4, //Circle
                    //  [YAXEnum("Jump")]
-        jump = 8, //X
+        Jump = 8, //X
                   // [YAXEnum("SkillMenu")]
         skillmenu = 16, //R2
                         // [YAXEnum("Boost")]
-        boost = 32, //L2
+        Boost = 32, //L2
                     // [YAXEnum("Guard")]
-        guard = 64, //L1
-                    // [YAXEnum("LockOn")]
+        Guard = 64, //L1
+                   // [YAXEnum("LockOn")]
         unk8 = 128,
         // [YAXEnum("SuperSkill1")]
         superskill1 = 256,
@@ -174,41 +175,7 @@ namespace Xv2CoreLib.BCM
 
     public static class EnumValues
     {
-        public static Dictionary<ButtonInput, string> ButtonInput = new Dictionary<ButtonInput, string>()
-        {
-            { BCM.ButtonInput.blast , "Blast" },
-            { BCM.ButtonInput.boost , "Boost" },
-            { BCM.ButtonInput.guard , "Guard" },
-            { BCM.ButtonInput.heavy , "Heavy" },
-            { BCM.ButtonInput.jump , "Jump" },
-            { BCM.ButtonInput.light , "Light" },
-            { BCM.ButtonInput.unk8 , "Unk8" },
-            { BCM.ButtonInput.skillmenu , "SuperMenu" },
-            { BCM.ButtonInput.superskill1 , "SuperSkill1" },
-            { BCM.ButtonInput.superskill2 , "SuperSkill2" },
-            { BCM.ButtonInput.superskill3 , "SuperSkill3" },
-            { BCM.ButtonInput.superskill4 , "SuperSkill4" },
-            { BCM.ButtonInput.ultimateskill1 , "UltimateSkill1" },
-            { BCM.ButtonInput.ultimateskill2 , "UltimateSkill2" },
-            { BCM.ButtonInput.awokenskill , "AwokenSkill" },
-            { BCM.ButtonInput.evasiveskill , "EvasiveSkill" },
-            { BCM.ButtonInput.additionalinput , "AdditionalInput" },
-            { BCM.ButtonInput.supermenu_duplicate , "SuperMenu2" },
-            { BCM.ButtonInput.ultimatemenu , "UltimateMenu" },
-            { BCM.ButtonInput.unk20 , "Unk20" },
-            { BCM.ButtonInput.lockon , "LockOn" },
-            { BCM.ButtonInput.descend , "Descend" },
-            { BCM.ButtonInput.dragonradar , "DragonRadar" },
-            { BCM.ButtonInput.unk24 , "Unk24" },
-            { BCM.ButtonInput.unk25 , "Unk25" },
-            { BCM.ButtonInput.unk26 , "Unk26" },
-            { BCM.ButtonInput.unk27 , "Unk27" },
-            { BCM.ButtonInput.unk28 , "Unk28" },
-            { BCM.ButtonInput.ultimatemenu_duplicate , "UltimateMenu2" },
-            { BCM.ButtonInput.unk30 , "Unk30" },
-            { BCM.ButtonInput.unk31 , "Unk31" },
-            { BCM.ButtonInput.unk32 , "Unk32" },
-         };
+       
 
         public static Dictionary<DirectionalInput, string> DirInput = new Dictionary<DirectionalInput, string>()
         {
@@ -339,29 +306,7 @@ namespace Xv2CoreLib.BCM
             }
         }
 
-        public void TestSearch()
-        {
-            TestSearch_Recursive(BCMEntries);
-        }
 
-        private void TestSearch_Recursive(List<BCM_Entry> entries)
-        {
-            if (entries == null) return;
-
-            foreach (var entry in entries)
-            {
-                if (entry.BCMEntries != null)
-                {
-                    TestSearch_Recursive(entry.BCMEntries);
-                }
-
-                if (entry.I_08.HasFlag(ButtonInput.boost))
-                {
-                    Console.WriteLine("This");
-                    Console.Read();
-                }
-            }
-        }
     }
 
     // [YAXSerializeAs("BCMEntry")]

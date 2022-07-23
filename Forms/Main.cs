@@ -473,25 +473,10 @@ namespace Flow.Forms
                 else
                 {
 
-               
-                    switch (Utils.Utils.translateButtonInputFlag(SelectedNode.bd.buttonInputFlag))
-                    {
 
-                        case "Root": lblNodeText.Text = "Root"; break;
-                        //case "Root": lblNodeText.Text = "Base Moveset Root"; break;
-
-                        case "L": lblNodeText.Text = "Light Attack Input"; break;
+                    lblNodeText.Text = ((Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.buttonInputFlag).ToString();
 
 
-                        case "H": lblNodeText.Text = "Heavy Attack Input"; break;
-
-                        case "K": lblNodeText.Text = "Ki Blast Input"; break;
-
-                        case "J": lblNodeText.Text = "Jump Input"; break;
-
-
-                        default: lblNodeText.Text = Utils.Utils.translateButtonInputFlag(SelectedNode.bd.buttonInputFlag); break;
-                    }
                 }
 
 
@@ -499,7 +484,7 @@ namespace Flow.Forms
             }
             //put refresh outside so you clear out the yellow circle line
 
-           ComboPanel.Refresh();
+            ComboPanel.Refresh();
             needsClearSelection = true;
 
             //ArrangeTree();
@@ -1207,6 +1192,26 @@ namespace Flow.Forms
 
 
             }
+        }
+
+        private void decreaseGridSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((autoScrollMinX - (int)(500 * scale) < int.MaxValue) )
+                autoScrollMinX -= (int)(500 * scale);
+            if ((autoScrollMinY - (int)(500 * scale) < int.MaxValue) )
+                autoScrollMinY -= (int)(500 * scale);
+
+            ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+        }
+
+        private void increaseGridSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (autoScrollMinX + (int)(500 * scale) < int.MaxValue)
+                autoScrollMinX += (int)(500 * scale);
+            if (autoScrollMinY + (int)(500 * scale) < int.MaxValue)
+                autoScrollMinY += (int)(500 * scale);
+
+            ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
         }
     }
 }
