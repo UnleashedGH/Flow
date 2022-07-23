@@ -1218,5 +1218,25 @@ namespace Flow.Forms
         {
             (new About()).Show();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (autoScrollMinX + (int)(500 * scale) < int.MaxValue)
+                autoScrollMinX += (int)(500 * scale);
+            if (autoScrollMinY + (int)(500 * scale) < int.MaxValue)
+                autoScrollMinY += (int)(500 * scale);
+
+            ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if ((autoScrollMinX - (int)(500 * scale) < int.MaxValue))
+                autoScrollMinX -= (int)(500 * scale);
+            if ((autoScrollMinY - (int)(500 * scale) < int.MaxValue))
+                autoScrollMinY -= (int)(500 * scale);
+
+            ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+        }
     }
 }

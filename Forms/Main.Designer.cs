@@ -57,6 +57,9 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.increaseGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decreaseGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unleashedTheCitadelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -66,9 +69,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ComboPanel = new System.Windows.Forms.Panel();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.gridToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.increaseGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decreaseGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -304,6 +306,29 @@
             this.toolStripMenuItem3.Text = "75%";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
+            // gridToolStripMenuItem1
+            // 
+            this.gridToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.increaseGridSizeToolStripMenuItem,
+            this.decreaseGridSizeToolStripMenuItem});
+            this.gridToolStripMenuItem1.Name = "gridToolStripMenuItem1";
+            this.gridToolStripMenuItem1.Size = new System.Drawing.Size(41, 20);
+            this.gridToolStripMenuItem1.Text = "Grid";
+            // 
+            // increaseGridSizeToolStripMenuItem
+            // 
+            this.increaseGridSizeToolStripMenuItem.Name = "increaseGridSizeToolStripMenuItem";
+            this.increaseGridSizeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.increaseGridSizeToolStripMenuItem.Text = "Increase Grid Size";
+            this.increaseGridSizeToolStripMenuItem.Click += new System.EventHandler(this.increaseGridSizeToolStripMenuItem_Click);
+            // 
+            // decreaseGridSizeToolStripMenuItem
+            // 
+            this.decreaseGridSizeToolStripMenuItem.Name = "decreaseGridSizeToolStripMenuItem";
+            this.decreaseGridSizeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.decreaseGridSizeToolStripMenuItem.Text = "Decrease Grid Size";
+            this.decreaseGridSizeToolStripMenuItem.Click += new System.EventHandler(this.decreaseGridSizeToolStripMenuItem_Click);
+            // 
             // unleashedTheCitadelToolStripMenuItem
             // 
             this.unleashedTheCitadelToolStripMenuItem.Name = "unleashedTheCitadelToolStripMenuItem";
@@ -359,9 +384,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft PhagsPa", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(7, 101);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 27);
+            this.label1.Size = new System.Drawing.Size(75, 27);
             this.label1.TabIndex = 13;
-            this.label1.Text = "Layers";
+            this.label1.Text = "Layers:";
             // 
             // ComboPanel
             // 
@@ -373,7 +398,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(278, 27);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(750, 522);
+            this.ComboPanel.Size = new System.Drawing.Size(713, 522);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
@@ -395,28 +420,29 @@
             this.listView1.View = System.Windows.Forms.View.List;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
-            // gridToolStripMenuItem1
+            // button4
             // 
-            this.gridToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.increaseGridSizeToolStripMenuItem,
-            this.decreaseGridSizeToolStripMenuItem});
-            this.gridToolStripMenuItem1.Name = "gridToolStripMenuItem1";
-            this.gridToolStripMenuItem1.Size = new System.Drawing.Size(41, 20);
-            this.gridToolStripMenuItem1.Text = "Grid";
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(997, 27);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(41, 35);
+            this.button4.TabIndex = 15;
+            this.button4.Text = "G+";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // increaseGridSizeToolStripMenuItem
+            // button5
             // 
-            this.increaseGridSizeToolStripMenuItem.Name = "increaseGridSizeToolStripMenuItem";
-            this.increaseGridSizeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.increaseGridSizeToolStripMenuItem.Text = "Increase Grid Size";
-            this.increaseGridSizeToolStripMenuItem.Click += new System.EventHandler(this.increaseGridSizeToolStripMenuItem_Click);
-            // 
-            // decreaseGridSizeToolStripMenuItem
-            // 
-            this.decreaseGridSizeToolStripMenuItem.Name = "decreaseGridSizeToolStripMenuItem";
-            this.decreaseGridSizeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.decreaseGridSizeToolStripMenuItem.Text = "Decrease Grid Size";
-            this.decreaseGridSizeToolStripMenuItem.Click += new System.EventHandler(this.decreaseGridSizeToolStripMenuItem_Click);
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.button5.Location = new System.Drawing.Point(997, 68);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(41, 35);
+            this.button5.TabIndex = 16;
+            this.button5.Text = "G-";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Main
             // 
@@ -424,6 +450,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1040, 580);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button3);
@@ -491,6 +519,8 @@
         private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem increaseGridSizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decreaseGridSizeToolStripMenuItem;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }
 
