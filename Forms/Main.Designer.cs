@@ -56,16 +56,17 @@
             this.unleashedTheCitadelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ComboPanel = new System.Windows.Forms.Panel();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.pasteSingleLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -94,68 +95,69 @@
             this.copyNodeToolStripMenuItem,
             this.ctxNodeDelete,
             this.pasteNodeToolStripMenuItem,
+            this.pasteSingleLinkToolStripMenuItem,
             this.pasteRemoteLinkToolStripMenuItem,
             this.collapseToolStripMenuItem,
             this.showChildLinkInfoToolStripMenuItem});
             this.ctxNode.Name = "ctxNode";
-            this.ctxNode.Size = new System.Drawing.Size(184, 180);
+            this.ctxNode.Size = new System.Drawing.Size(218, 202);
             this.ctxNode.Text = "ContextMenuNode";
             this.ctxNode.Opening += new System.ComponentModel.CancelEventHandler(this.ctxNode_Opening);
             // 
             // ctxNodeAddChild
             // 
             this.ctxNodeAddChild.Name = "ctxNodeAddChild";
-            this.ctxNodeAddChild.Size = new System.Drawing.Size(183, 22);
+            this.ctxNodeAddChild.Size = new System.Drawing.Size(217, 22);
             this.ctxNodeAddChild.Text = "&Add New Link...";
             this.ctxNodeAddChild.Click += new System.EventHandler(this.ctxNodeAddChild_Click);
             // 
             // modifyDataToolStripMenuItem
             // 
             this.modifyDataToolStripMenuItem.Name = "modifyDataToolStripMenuItem";
-            this.modifyDataToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.modifyDataToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.modifyDataToolStripMenuItem.Text = "Modifiy Node";
             this.modifyDataToolStripMenuItem.Click += new System.EventHandler(this.modifyDataToolStripMenuItem_Click);
             // 
             // copyNodeToolStripMenuItem
             // 
             this.copyNodeToolStripMenuItem.Name = "copyNodeToolStripMenuItem";
-            this.copyNodeToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.copyNodeToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.copyNodeToolStripMenuItem.Text = "Copy Node";
             this.copyNodeToolStripMenuItem.Click += new System.EventHandler(this.copyNodeToolStripMenuItem_Click);
             // 
             // ctxNodeDelete
             // 
             this.ctxNodeDelete.Name = "ctxNodeDelete";
-            this.ctxNodeDelete.Size = new System.Drawing.Size(183, 22);
+            this.ctxNodeDelete.Size = new System.Drawing.Size(217, 22);
             this.ctxNodeDelete.Text = "&Delete Node...";
             this.ctxNodeDelete.Click += new System.EventHandler(this.ctxNodeDelete_Click);
             // 
             // pasteNodeToolStripMenuItem
             // 
             this.pasteNodeToolStripMenuItem.Name = "pasteNodeToolStripMenuItem";
-            this.pasteNodeToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.pasteNodeToolStripMenuItem.Text = "Paste Node";
+            this.pasteNodeToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.pasteNodeToolStripMenuItem.Text = "Paste With All Links (if any)";
             this.pasteNodeToolStripMenuItem.Click += new System.EventHandler(this.pasteNodeToolStripMenuItem_Click);
             // 
             // pasteRemoteLinkToolStripMenuItem
             // 
             this.pasteRemoteLinkToolStripMenuItem.Name = "pasteRemoteLinkToolStripMenuItem";
-            this.pasteRemoteLinkToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.pasteRemoteLinkToolStripMenuItem.Text = "Paste Remote Node";
+            this.pasteRemoteLinkToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.pasteRemoteLinkToolStripMenuItem.Text = "Paste Remote Link";
             this.pasteRemoteLinkToolStripMenuItem.Click += new System.EventHandler(this.pasteRemoteLinkToolStripMenuItem_Click);
             // 
             // collapseToolStripMenuItem
             // 
             this.collapseToolStripMenuItem.Name = "collapseToolStripMenuItem";
-            this.collapseToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.collapseToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.collapseToolStripMenuItem.Text = "Collapse";
             this.collapseToolStripMenuItem.Click += new System.EventHandler(this.collapseToolStripMenuItem_Click);
             // 
             // showChildLinkInfoToolStripMenuItem
             // 
             this.showChildLinkInfoToolStripMenuItem.Name = "showChildLinkInfoToolStripMenuItem";
-            this.showChildLinkInfoToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.showChildLinkInfoToolStripMenuItem.Text = "Show Child Link Info";
+            this.showChildLinkInfoToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.showChildLinkInfoToolStripMenuItem.Text = "Show Extended Link Info";
             this.showChildLinkInfoToolStripMenuItem.Click += new System.EventHandler(this.showChildLinkInfoToolStripMenuItem_Click);
             // 
             // menuStrip1
@@ -285,18 +287,6 @@
             // 
             this.saveFileDialog1.Filter = "BCM files|*.bcm";
             // 
-            // button3
-            // 
-            this.button3.BackgroundImage = global::Flow.Properties.Resources.pen;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button3.Font = new System.Drawing.Font("Microsoft PhagsPa", 15.75F);
-            this.button3.Location = new System.Drawing.Point(190, 27);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(38, 37);
-            this.button3.TabIndex = 12;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -339,41 +329,50 @@
             this.listView1.View = System.Windows.Forms.View.List;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
-            // button4
+            // pasteSingleLinkToolStripMenuItem
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(997, 473);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(41, 35);
-            this.button4.TabIndex = 15;
-            this.button4.Text = "G+";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.pasteSingleLinkToolStripMenuItem.Name = "pasteSingleLinkToolStripMenuItem";
+            this.pasteSingleLinkToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.pasteSingleLinkToolStripMenuItem.Text = "Paste Single Link";
+            this.pasteSingleLinkToolStripMenuItem.Click += new System.EventHandler(this.pasteSingleLinkToolStripMenuItem_Click);
             // 
-            // button5
+            // button7
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.button5.Location = new System.Drawing.Point(997, 514);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(41, 35);
-            this.button5.TabIndex = 16;
-            this.button5.Text = "G-";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button7.BackgroundImage = global::Flow.Properties.Resources.magnifying_glass;
+            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Location = new System.Drawing.Point(997, 68);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(41, 35);
+            this.button7.TabIndex = 18;
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button1
+            // button6
             // 
-            this.button1.BackgroundImage = global::Flow.Properties.Resources.plus;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Font = new System.Drawing.Font("Microsoft PhagsPa", 15.75F);
-            this.button1.Location = new System.Drawing.Point(234, 27);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(38, 37);
-            this.button1.TabIndex = 10;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.BackgroundImage = global::Flow.Properties.Resources.zoom_in;
+            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(997, 27);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(41, 35);
+            this.button6.TabIndex = 17;
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button3
+            // 
+            this.button3.BackgroundImage = global::Flow.Properties.Resources.pen;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.Font = new System.Drawing.Font("Microsoft PhagsPa", 15.75F);
+            this.button3.Location = new System.Drawing.Point(190, 27);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(38, 37);
+            this.button3.TabIndex = 12;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -387,29 +386,43 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button6
+            // button1
             // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(997, 27);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(41, 35);
-            this.button6.TabIndex = 17;
-            this.button6.Text = "Z+";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.button1.BackgroundImage = global::Flow.Properties.Resources.plus;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Font = new System.Drawing.Font("Microsoft PhagsPa", 15.75F);
+            this.button1.Location = new System.Drawing.Point(234, 27);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(38, 37);
+            this.button1.TabIndex = 10;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button7
+            // button5
             // 
-            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(997, 68);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(41, 35);
-            this.button7.TabIndex = 18;
-            this.button7.Text = "Z-";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.BackgroundImage = global::Flow.Properties.Resources.minimize;
+            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.button5.Location = new System.Drawing.Point(997, 514);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(41, 35);
+            this.button5.TabIndex = 16;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.BackgroundImage = global::Flow.Properties.Resources.maximize;
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(997, 473);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(41, 35);
+            this.button4.TabIndex = 15;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Main
             // 
@@ -485,6 +498,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.ToolStripMenuItem pasteSingleLinkToolStripMenuItem;
     }
 }
 

@@ -573,19 +573,14 @@ namespace Flow.Forms
             if (SelectedNode == null || bufferNode == null)
                 return;
 
-         
-
-            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd, bufferNode.isCollpased);
-
-
-            //resursive copy children
+   
 
 
 
 
 
 
-            //SelectedNode.AddChild(newChild);
+     
             SelectedNode.AddChild(pasterecursive(bufferNode));
             reindex();
             ArrangeTree();
@@ -594,7 +589,7 @@ namespace Flow.Forms
         public TreeNode<CircleNode> pasterecursive( TreeNode<CircleNode> pasteChild)
         {
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), pasteChild.bd, false);
-
+            newChild.bd.isLayerRoot = false;
 
             foreach (TreeNode<CircleNode> child in pasteChild.Children)
             {
@@ -1132,7 +1127,8 @@ namespace Flow.Forms
 
 
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), bufferNode.isCollpased);
-            //TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd.buttonInputFlag, bufferNode.isCollpased);
+            newChild.bd.isLayerRoot = false;
+        
             newChild.bd.isRemoteChild = true;
             newChild.bd.RemoteChildParentRef = SelectedNode;
             newChild.bd.RemoteChildPointToRef = bufferNode;
@@ -1188,6 +1184,8 @@ namespace Flow.Forms
                 autoScrollMinY += (int)(500 * scale);
 
             ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+            drawGrid(gr);
+            ComboPanel.Refresh();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -1198,6 +1196,8 @@ namespace Flow.Forms
                 autoScrollMinY -= (int)(500 * scale);
 
             ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+            drawGrid(gr);
+            ComboPanel.Refresh();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -1224,6 +1224,24 @@ namespace Flow.Forms
         private void decompileExistingBCMExpirementalToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void pasteSingleLinkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SelectedNode == null || bufferNode == null)
+                return;
+
+
+
+            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd, bufferNode.isCollpased);
+
+            newChild.bd.isLayerRoot = false;
+            SelectedNode.AddChild(newChild);
+   
+
+
+            reindex();
+            ArrangeTree();
         }
     }
 }
