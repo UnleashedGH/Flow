@@ -30,9 +30,9 @@ namespace Flow.Forms
             ComboPanel, new object[] { true });
 
 
-            typeof(ListBox).InvokeMember("DoubleBuffered", BindingFlags.SetProperty
+            typeof(ListView).InvokeMember("DoubleBuffered", BindingFlags.SetProperty
             | BindingFlags.Instance | BindingFlags.NonPublic, null,
-            listBox1, new object[] { true });
+            listView1, new object[] { true });
 
 
 
@@ -73,7 +73,7 @@ namespace Flow.Forms
 
 
         //Static Vars
-        static int index = 0;
+        static int extern_index = 0;
 
         //scrollVars
         public static int scrollMarginX = 0;
@@ -887,14 +887,19 @@ namespace Flow.Forms
 
         
            
-            listBox1.Items.Clear();
+            listView1.Items.Clear();
             for (int i = 0; i < root.Children.Count;i++)
             {
-                listBox1.Items.Add(i.ToString() + " - " + root.Children[i].bd.LayerName);
+                listView1.Items.Add(i.ToString() + " - " + root.Children[i].bd.LayerName);
             }
 
             if (index >= 0)
-                listBox1.SetSelected(index, true);
+            {
+                listView1.Items[index].Focused = true;
+                listView1.Items[index].Selected = true;
+                listView1.Items[index].EnsureVisible();
+            }
+            
 
         }
        
@@ -906,8 +911,8 @@ namespace Flow.Forms
 
 
             Dictionary<int, int> mappings = new Dictionary<int, int>();
-            index = 0;
-            mappings[root.bd.ID] = index;
+            extern_index = 0;
+            mappings[root.bd.ID] = extern_index;
        
             reindexID(root, mappings);
             reindexRemote(root, mappings);
@@ -924,10 +929,10 @@ namespace Flow.Forms
                     //child.bd.ID = 999;
                     return;
                 }
-                  
-                index++;
-                mappings[child.bd.ID] = index;
-                child.bd.ID = index;
+
+                extern_index++;
+                mappings[child.bd.ID] = extern_index;
+                child.bd.ID = extern_index;
                
                 reindexID(child, mappings);
             }
@@ -966,23 +971,7 @@ namespace Flow.Forms
                 reindexRemote(child, mappings);
             }
         }
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-         
-         
-            if (listBox1.SelectedIndex >= 0)
-            {
-                SelectedLayerNode = root.Children[listBox1.SelectedIndex];
-                ArrangeTree();
-            
-
-
-            }
-
-           
-
-        }
-
+     
         private void addRemoteLinkToolStripMenuItem_Click(object sender, EventArgs e)
         {
            (new LayerRemoteLink(this)).Show();
@@ -990,12 +979,12 @@ namespace Flow.Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex >= 0)
+            if (listView1.SelectedIndices.Count > 0)
             {
                 LayerDialog dlg = new LayerDialog();
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    root.Children[listBox1.SelectedIndex].bd.LayerName = dlg.layerName;
+                    root.Children[listView1.SelectedIndices[0]].bd.LayerName = dlg.layerName;
                     populateListBox();
 
                 }
@@ -1023,15 +1012,15 @@ namespace Flow.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex >= 0)
+            if (listView1.SelectedIndices.Count > 0)
             {
               //  root.Children.RemoveAt(listBox1.SelectedIndex);
-                root.DeleteNode(root.Children[listBox1.SelectedIndex]);
+                root.DeleteNode(root.Children[listView1.SelectedIndices[0]]);
         
-                if ((listBox1.SelectedIndex - 1) >= 0)
+                if ((listView1.SelectedIndices[0] - 1) >= 0)
                 {
 
-                    populateListBox(listBox1.SelectedIndex - 1);
+                    populateListBox(listView1.SelectedIndices[0] - 1);
                 }
 
                 else
@@ -1144,7 +1133,7 @@ namespace Flow.Forms
         private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            listBox1.Items.Clear();
+            listView1.Items.Clear();
             root.Children.Clear();
             root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
 
@@ -1154,12 +1143,14 @@ namespace Flow.Forms
             root.Children.Add(newLayer);
             populateListBox();
             ArrangeTree();
-            listBox1.SelectedIndex = 0;
+            listView1.Items[0].Focused = true;
+            listView1.Items[0].Selected = true;
+            listView1.Items[0].EnsureVisible();
 
 
 
 
-            
+
         }
 
         private void pasteRemoteLinkToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1204,6 +1195,18 @@ namespace Flow.Forms
             if (SelectedNode == null)
                 return;
             MessageBox.Show(SelectedNode.bd.RemoteChildIndex.ToString());
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                SelectedLayerNode = root.Children[listView1.SelectedIndices[0]];
+                ArrangeTree();
+
+
+
+            }
         }
     }
 }
