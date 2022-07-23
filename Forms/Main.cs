@@ -1213,5 +1213,10 @@ namespace Flow.Forms
 
             ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (new About()).Show();
+        }
     }
 }

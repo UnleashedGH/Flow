@@ -66,6 +66,7 @@ namespace Flow.Forms
 
          
             primarybuttininput = Convert.ToUInt32(binary0, 2);
+         
 
             /////////////////////////////
 

@@ -23,13 +23,13 @@ namespace Flow.Utils
             {
                 switch (s[0])
                 {
-                    case "light":
+                    case "Light":
                         return "L";
-                    case "heavy":
+                    case "Heavy":
                         return "H";
-                    case "blast":
+                    case "Kiblast":
                         return "K";
-                    case "jump":
+                    case "Jump":
                         return "J";
                     case "":
                         return "";
