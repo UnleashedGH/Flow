@@ -301,36 +301,36 @@ namespace Flow.Graph
                     if(childBtnInput == "L")
                     {
 
-                         localPen.Color = Color.LightPink;
+                         localPen.Color = Utils.Utils.Light;
                         //localPen.Color = Color.White;
                 
                     }
                     else if (childBtnInput == "H")
                     {
-                         localPen.Color = Color.LimeGreen;
+                         localPen.Color = Utils.Utils.heavy;
                         //localPen.Color = Color.White;
 
-            
+
                     }
                     else if (childBtnInput == "K")
                     {
                        // localPen.Color = Color.White;
-                        localPen.Color = Color.OrangeRed;
-                   
+                        localPen.Color = Utils.Utils.kiblast;
+
                     }
 
                     else if (childBtnInput == "J")
                     {
 
-                        localPen.Color = Color.SkyBlue;
-                       // localPen.Color = Color.White;
-                  
+                        localPen.Color = Utils.Utils.jump;
+                        // localPen.Color = Color.White;
+
                     }
 
                     else if (childBtnInput == "M")
                     {
 
-                        localPen.Color = Color.FromArgb(255, 128, 128, 255);
+                        localPen.Color = Utils.Utils.multiinput;
                         // localPen.Color = Color.White;
 
                     }

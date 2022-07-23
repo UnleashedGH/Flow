@@ -71,48 +71,48 @@ namespace Flow.Graph
             //light
             if (!isRemoteChild)
             {
-                 light = Color.FromArgb(255, 255, 136, 174);
+                light = Utils.Utils.Light;
             }
             else
             {
-                 light = Color.FromArgb(127, 255, 136, 174);
+                light = Utils.Utils.LightTransparent;
             }
 
             //heavy
             if (!isRemoteChild)
             {
-                heavy = Color.FromArgb(255, 57, 244, 1);
+                heavy = Utils.Utils.heavy;
             }
             else
             {
-                heavy = Color.FromArgb(127, 57, 244, 1);
+                heavy = Utils.Utils.heavyTransparent;
             }
             //ki blast
             if (!isRemoteChild)
             {
-                kiblast = Color.FromArgb(255, 255, 0, 0);
+                kiblast = Utils.Utils.kiblast;
             }
             else
             {
-                kiblast = Color.FromArgb(127, 255, 0, 0);
+                kiblast = Utils.Utils.kiblastTransparent; 
             }
             //jump
             if (!isRemoteChild)
             {
-                jump = Color.FromArgb(255, 0, 164, 255);
+                jump = Utils.Utils.jump;
             }
             else
             {
-                jump = Color.FromArgb(127, 0, 164, 255);
+                jump = Utils.Utils.jumpTransparent;
             }
             //multi-input
             if (!isRemoteChild)
             {
-                multiinput = Color.FromArgb(255, 128, 128, 255);
+                multiinput = Utils.Utils.multiinput;
             }
             else
             {
-                multiinput = Color.FromArgb(127, 128, 128, 255);
+                multiinput = Utils.Utils.multiinputTransparent;
             }
 
 
