@@ -897,7 +897,7 @@ namespace Flow.Forms
            
         }
 
-        private void populateListBox(int index = -1)
+        private void populateListBox(int index = -1, string forceLayerName = "")
         {
             //so we don't get scrollbar flickers when deleting and adding items
             listView1.BeginUpdate();
@@ -913,7 +913,17 @@ namespace Flow.Forms
             listView1.Items.Clear();
             for (int i = 0; i < root.Children.Count;i++)
             {
-                listView1.Items.Add(i.ToString() + " - " + root.Children[i].bd.LayerName);
+                if (forceLayerName == "")
+                    listView1.Items.Add(i.ToString() + " - " + root.Children[i].bd.LayerName);
+                else
+                {
+                    root.Children[i].bd.LayerName = forceLayerName;
+                    listView1.Items.Add(i.ToString() + " - " + root.Children[i].bd.LayerName);
+                }
+                  
+
+
+
                 if (root.Children[i].bd.LayerName.Length > longestNameLen)
                     longestNameLen = root.Children[i].bd.LayerName.Length;
             }
@@ -1375,7 +1385,7 @@ namespace Flow.Forms
                 //isBCMLoaded = true;
                 reindex();
                 ArrangeTree();
-                populateListBox();
+                populateListBox(-1, "Unknown Layer");
             }
         }
 
