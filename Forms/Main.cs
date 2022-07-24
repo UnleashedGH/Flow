@@ -729,10 +729,6 @@ namespace Flow.Forms
          
          localRoot.Children.AddRange(traverseAndAddChild(bcmEntries[parentBcmIndex], ref index).Children);
 
-      
-
-
-
 
 
         }
@@ -810,11 +806,24 @@ namespace Flow.Forms
 
                 if (child.bd.isRemoteChild)
                     return;
+
                 Xv2CoreLib.BCM.BCM_Entry cEntry = new Xv2CoreLib.BCM.BCM_Entry();
+
                 cEntry.I_08 = (Xv2CoreLib.BCM.ButtonInput)child.bd.buttonInputFlag;
+                cEntry.Index = child.bd.ID.ToString();
+                string childGoto = child.bd.RemoteChildIndex.ToString();
+                if (childGoto != "-1")
+                {
+                    MessageBox.Show(childGoto);
+                    cEntry.LoopAsChild = child.bd.RemoteChildIndex.ToString();
+                }
+         
+
                 if (rootBcmEntry.BCMEntries == null)
                     rootBcmEntry.BCMEntries = new List<Xv2CoreLib.BCM.BCM_Entry>();
+
                 rootBcmEntry.BCMEntries.Add(cEntry);
+
                 compileBcm(child,ref  bcmFile, ref cEntry);
             }
         }
@@ -1064,6 +1073,8 @@ namespace Flow.Forms
 
         private void compileToBCMToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            //compile BCM
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
 
@@ -1075,10 +1086,13 @@ namespace Flow.Forms
 
                 compileBcm(root, ref bcmInstance, ref rootEntry);
 
-                bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance, "out.bcm");
+                bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance, saveFileDialog1.FileName);
 
 
-                MessageBox.Show("Compiled Successfully");
+           
+                MessageBox.Show("Compiled Successfully",
+                  "Compiled BCM", MessageBoxButtons.OK,
+                  MessageBoxIcon.Information);
                 //isBCMLoaded = false;
 
 
