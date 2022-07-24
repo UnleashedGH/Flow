@@ -50,9 +50,9 @@ namespace Flow.Graph
                 (txtSize.Width) * scale,(txtSize.Height) * scale);
 
             RectangleF rectText2 = new RectangleF(
-           ((x - txtSize.Width / 2) * scale) + (12 * scale),
-           ((y - txtSize.Height / 2) * scale) + (12 * scale),
-           (txtSize.Width * (0.5f )) * scale, (txtSize.Height * (0.5f )) * scale);
+           ((x - txtSize.Width / 2) * scale) + (11 * scale),
+           ((y - txtSize.Height / 2) * scale) + (11 * scale),
+           (txtSize.Width * (0.55f )) * scale, (txtSize.Height * (0.55f )) * scale);
 
 
             Brush text_brush2 = Brushes.White;
