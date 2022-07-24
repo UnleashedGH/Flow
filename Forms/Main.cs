@@ -750,12 +750,13 @@ namespace Flow.Forms
 
 
       
-        private TreeNode<CircleNode> traverseAndAddChild(Xv2CoreLib.BCM.BCM_Entry e, ref int index)
+        private TreeNode<CircleNode> traverseAndAddChild(Xv2CoreLib.BCM.BCM_Entry e, ref int index , ref Dictionary<int, TreeNode<CircleNode>> nodemappings)
         {
 
             // MessageBox.Show(e.Index);
-           
-       
+
+   
+
             TreeNode<CircleNode> f =
             new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), true);
             //FIXTHIS
@@ -763,7 +764,7 @@ namespace Flow.Forms
 
             f.bd.buttonInputFlag = (uint)e.I_08;
 
-    
+            nodemappings[index] = f;
 
             if (e.BCMEntries == null)
             {
@@ -783,7 +784,11 @@ namespace Flow.Forms
 
                     newChild.bd.isRemoteChild = true;
                     newChild.bd.RemoteChildParentRef = f;
-                    newChild.bd.RemoteChildPointToRef = f;
+                    if (nodemappings.ContainsKey(f.bd.RemoteChildIndex))
+                    {
+                        newChild.bd.RemoteChildPointToRef = nodemappings[f.bd.RemoteChildIndex];
+                    }
+              
 
                     newChild.isCollpased = false;
 
@@ -799,7 +804,7 @@ namespace Flow.Forms
 
             index++;
             foreach (Xv2CoreLib.BCM.BCM_Entry child in e.BCMEntries)
-                    f.AddChild(traverseAndAddChild(child, ref index));
+                    f.AddChild(traverseAndAddChild(child, ref index, ref nodemappings));
 
              
 
@@ -807,7 +812,7 @@ namespace Flow.Forms
 
 
         }
-
+        //probably won't need a seperate function for this
         void fillRemoteChildPointToRefGoTo()
         {
 
@@ -1356,13 +1361,14 @@ namespace Flow.Forms
                 //   MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
 
                 r = bcmInstance.bcmFile.BCMEntries[0];
-                
-        
 
+
+                Dictionary<int, TreeNode<CircleNode>> nodemappings =
+           new Dictionary<int, TreeNode<CircleNode>>();
 
                 int index = 0;
 
-                root.Children.AddRange(traverseAndAddChild(r, ref index).Children);
+                root.Children.AddRange(traverseAndAddChild(r, ref index , ref nodemappings).Children);
 
 
            
