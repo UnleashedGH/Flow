@@ -43,7 +43,76 @@ namespace Flow.Forms
         }
 
 
+        //ChildCollection class (helper for dict)
+        public class ChildCollection
+        {
 
+
+            List<Xv2CoreLib.BCM.BCM_Entry> m_items;
+            public ChildCollection(List<Xv2CoreLib.BCM.BCM_Entry> items)
+            {
+                // DIs = new Xv2CoreLib.BCM.DirectionalInput[itemCount];
+                m_items = items;
+            }
+
+
+            public override bool Equals(Object obj)
+            {
+                //Check for null and compare run-time types.
+                if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+                {
+                    return false;
+                }
+
+                else
+                {
+
+                    ChildCollection childCol = (ChildCollection)obj;
+
+                    if ((m_items.Count != childCol.m_items.Count))
+                        return false;
+
+
+
+
+                    bool flag = true;
+
+                    for (int i = 0; i < m_items.Count; i++)
+                    {
+                        if (!m_items[i].Compare(childCol.m_items[i]))
+                        {
+                            flag = false;
+                            break;
+                        }
+
+
+                    }
+
+                  
+                    
+                    
+
+                    return flag;
+                }
+            }
+            public override int GetHashCode()
+            {
+                unchecked // Overflow is fine, just wrap
+                {
+                    int hash = (int)2166136261;
+                    for (int i = 0; i < m_items.Count; i++)
+                    {
+                        hash = (hash * 16777619) ^ m_items[i].GetHashCode();
+                    }
+
+                    // Suitable nullity checks etc, of course :)
+
+
+                    return hash;
+                }
+            }
+
+        }
 
         // the absloute root node.. this node is never drawn (nor its child lines)
         public TreeNode<CircleNode> root =
@@ -55,7 +124,7 @@ namespace Flow.Forms
         private TreeNode<CircleNode> bufferNode = null;
         // The currently selected node.
         private TreeNode<CircleNode> SelectedNode;
-
+        //the selected layer in the layer list
         private TreeNode<CircleNode> SelectedLayerNode;
 
         //Global Vars Private to Form1
@@ -87,10 +156,11 @@ namespace Flow.Forms
         public static bool showIndices = false;
         private bool showGrid = false;
         private float scale = 1.0f;
-     
+
 
         //BcmVars
-        static Xv2CoreLib.BCM.BCM_File bcmInstance;
+        static Xv2CoreLib.BCM.Parser bcmInstance;
+        static Xv2CoreLib.BCM.BCM_File bcmFile;
         static Xv2CoreLib.BCM.Deserializer bcmOut;
         //Static Vars
 
@@ -108,6 +178,7 @@ namespace Flow.Forms
             this.Text = c.ToString();
         }
 
+
         // Make a tree.
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -124,6 +195,15 @@ namespace Flow.Forms
 
             ComboPanel.BackColor = Color.FromArgb(255, 51, 51, 51);
 
+            listView1.Scrollable = true;
+            listView1.View = View.Details;
+
+            ColumnHeader header = new ColumnHeader();
+            header.Text = "";
+            header.Name = "col1";
+            //header.Width = listView1.Size.Width;
+            listView1.Columns.Add(header);
+
             //TreeNode<CircleNode> c_node = new TreeNode<CircleNode>(new CircleNode("K" ,"K"), "K", false);
             //TreeNode<CircleNode> d_node = new TreeNode<CircleNode>(new CircleNode("K", "K"), "K" , false);
             //SelectedLayerNode = root;
@@ -135,7 +215,7 @@ namespace Flow.Forms
             //LRoot.AddChild(c_node);
             //HRoot.AddChild(d_node);
 
-           
+
 
 
 
@@ -669,16 +749,17 @@ namespace Flow.Forms
         {
             //first, lay all the BCMentries in a continues array/list to make it easier to track child indices.
 
-            List<Xv2CoreLib.BCM.BCM_Entry> bcmEntries = new List<Xv2CoreLib.BCM.BCM_Entry>();
-            traverseAndAppend(e, ref bcmEntries);
+            //List<Xv2CoreLib.BCM.BCM_Entry> bcmEntries = new List<Xv2CoreLib.BCM.BCM_Entry>();
+            //traverseAndAppend(e, ref bcmEntries);
 
 
             int index = 0;
 
             //build light string
-            //findBACPrimaryEntryandReturnParentBcmIndex(301, bcmEntries, LRoot, ref index);
+            //findBACPrimaryEntryandReturnParentBcmIndex(1, bcmEntries, root, ref index);
+            root.Children.AddRange(traverseAndAddChild(e, ref index).Children);
             //build heavy string
-            //findBACPrimaryEntryandReturnParentBcmIndex(335, bcmEntries, HRoot, ref index);
+            // findBACPrimaryEntryandReturnParentBcmIndex(335, bcmEntries, HRoot, ref index);
 
 
             //for (int i = 0; i < bcmEntries.Count; i++)
@@ -687,6 +768,7 @@ namespace Flow.Forms
             //}
 
             //bcmEntries[bcmEntries.Count - 1].I_08 = (Xv2CoreLib.BCM.ButtonInput)0x8;
+
 
 
 
@@ -704,7 +786,7 @@ namespace Flow.Forms
         //        a.Children.Add((TreeNode<CircleNode>)child);
         //    }
         //}
-     
+
 
         private void findBACPrimaryEntryandReturnParentBcmIndex(int BacEntryPrimary, List<Xv2CoreLib.BCM.BCM_Entry> bcmEntries, TreeNode<CircleNode> localRoot, ref int index)
         {
@@ -737,23 +819,7 @@ namespace Flow.Forms
 
             // MessageBox.Show(e.Index);
            
-            string it = "";
-            if (e.I_08 == (Xv2CoreLib.BCM.ButtonInput)0x1)
-            {
-                it = "L";
-            }
-            else if(e.I_08 == (Xv2CoreLib.BCM.ButtonInput)0x2)
-            {
-                it = "H";
-            }
-            else if(e.I_08 == (Xv2CoreLib.BCM.ButtonInput)0x4)
-            {
-                it = "K";
-            }
-            else if (e.I_08 == (Xv2CoreLib.BCM.ButtonInput)0x8)
-            {
-                it = "J";
-            }
+       
             TreeNode<CircleNode> f =
             new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), true);
             //FIXTHIS
@@ -761,30 +827,46 @@ namespace Flow.Forms
             f.bd.buttonInputFlag = (uint)e.I_08;
             index++;
 
-
-       
+          //  MessageBox.Show(e.Index);
+            //MessageBox.Show(e.I_08.ToString());
+            //MessageBox.Show(e.BCMEntries.Count.ToString());
 
             if (e.BCMEntries == null)
             {
-                f.isCollpased = false;
-                return f;
-            }
-            bool ChildenAreOnlyJumps = true;
-            for (int i = 0; i < e.BCMEntries.Count; i++)
-            {
-                if (e.BCMEntries[i].I_08 != (Xv2CoreLib.BCM.ButtonInput)0x8)
+                MessageBox.Show(index.ToString() + " /// " + e.LoopAsChild);
+                if (e.LoopAsChild == "-1")
+                  f.isCollpased = false;
+                else
                 {
-                    ChildenAreOnlyJumps = false;
-                    break;
+                    TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+                    newChild.bd.isLayerRoot = false;
+                    f.bd.RemoteChildIndex = Convert.ToInt32(e.LoopAsChild);
+
+                    newChild.bd.isRemoteChild = true;
+                    newChild.bd.RemoteChildParentRef = f;
+                    newChild.bd.RemoteChildPointToRef = null;
+
+                    f.AddChild(newChild);
+                    f.isCollpased = true;
                 }
-
-            }
-
-            if (ChildenAreOnlyJumps)
-            {
-                f.isCollpased = false;
                 return f;
             }
+            //bool ChildenAreOnlyJumps = true;
+            //for (int i = 0; i < e.BCMEntries.Count; i++)
+            //{
+            //    if (e.BCMEntries[i].I_08 != (Xv2CoreLib.BCM.ButtonInput)0x8)
+            //    {
+            //        ChildenAreOnlyJumps = false;
+            //        break;
+            //    }
+
+            //}
+
+            //if (ChildenAreOnlyJumps)
+            //{
+            //    f.isCollpased = false;
+            //    return f;
+            //}
                
 
 
@@ -795,6 +877,11 @@ namespace Flow.Forms
 
             return f;
 
+
+        }
+
+        void fillRemoteChildPointToRefGoTo()
+        {
 
         }
 
@@ -879,23 +966,46 @@ namespace Flow.Forms
 
         private void populateListBox(int index = -1)
         {
-       
+            //so we don't get scrollbar flickers when deleting and adding items
+            listView1.BeginUpdate();
 
-        
-           
+            //find longest layer name length to increase column width
+            int longestNameLen = 0;
+
+            int oldselectedindex = -1;
+
+            if (listView1.SelectedIndices.Count > 0)
+                oldselectedindex = listView1.SelectedIndices[0];
+
             listView1.Items.Clear();
             for (int i = 0; i < root.Children.Count;i++)
             {
                 listView1.Items.Add(i.ToString() + " - " + root.Children[i].bd.LayerName);
+                if (root.Children[i].bd.LayerName.Length > longestNameLen)
+                    longestNameLen = root.Children[i].bd.LayerName.Length;
             }
 
+            //when deleting layers and going back to the previous layer, this is an optional param
             if (index >= 0)
             {
                 listView1.Items[index].Focused = true;
                 listView1.Items[index].Selected = true;
                 listView1.Items[index].EnsureVisible();
             }
-            
+
+            //increase the column size that was added in form Load method based of layer name length + the index + the spacing
+            listView1.Columns[0].Width = (index.ToString().Length +  longestNameLen + 3) * 14;
+
+            //to maintain scroll index (its not amazing, but its better than going back to index 0
+            if (oldselectedindex >= 0)
+            {
+                listView1.Items[oldselectedindex].Focused = true;
+                listView1.Items[oldselectedindex].Selected = true;
+                listView1.Items[oldselectedindex].EnsureVisible();
+                
+            }
+            //so we don't get scrollbar flickers when deleting and adding items
+            listView1.EndUpdate();
 
         }
        
@@ -977,7 +1087,7 @@ namespace Flow.Forms
         {
             if (listView1.SelectedIndices.Count > 0)
             {
-                LayerDialog dlg = new LayerDialog();
+                LayerDialog dlg = new LayerDialog(root.Children[listView1.SelectedIndices[0]].bd.LayerName);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     root.Children[listView1.SelectedIndices[0]].bd.LayerName = dlg.layerName;
@@ -1078,15 +1188,15 @@ namespace Flow.Forms
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
 
-                bcmInstance = new Xv2CoreLib.BCM.BCM_File();
+                bcmFile = new Xv2CoreLib.BCM.BCM_File();
 
                 Xv2CoreLib.BCM.BCM_Entry rootEntry = new Xv2CoreLib.BCM.BCM_Entry();
 
-                bcmInstance.BCMEntries.Add(rootEntry);
+                bcmFile.BCMEntries.Add(rootEntry);
 
-                compileBcm(root, ref bcmInstance, ref rootEntry);
+                compileBcm(root, ref bcmFile, ref rootEntry);
 
-                bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance, saveFileDialog1.FileName);
+                bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmFile, saveFileDialog1.FileName);
 
 
            
@@ -1114,6 +1224,7 @@ namespace Flow.Forms
             //newLayer.ID = root.Children.Count;
             root.Children.Add(newLayer);
             populateListBox();
+            reindex();
             ArrangeTree();
             listView1.Items[0].Focused = true;
             listView1.Items[0].Selected = true;
@@ -1242,10 +1353,90 @@ namespace Flow.Forms
             }
            
         }
+        public void traverseAndCompress(Xv2CoreLib.BCM.BCM_Entry e, Dictionary<ChildCollection, string> dict)
+        {
+
+
+            if (e.BCMEntries == null)
+                return;
+
+
+
+            ChildCollection childs = new ChildCollection(e.BCMEntries);
+
+            if (dict.ContainsKey(childs))
+            {
+                //if the BCM entry has children, delete them
+                if (e.BCMEntries != null)
+                {
+                  
+                    e.BCMEntries = null;
+                    //set a GoTo Child loop from the previous BCM child index
+                    e.LoopAsChild = dict[childs];
+                    return;
+
+                }
+            }
+
+            //new BacEntryPrimary
+
+            else //if it was children, add the BCM children structure in the dictonary, then add the BCM child index
+                if (e.BCMEntries != null)
+                dict.Add(childs, e.BCMEntries[0].Index);
+
+
+
+
+            foreach (Xv2CoreLib.BCM.BCM_Entry child in e.BCMEntries)
+                traverseAndCompress(child, dict);
+
+
+
+        }
 
         private void decompileExistingBCMExpirementalToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
 
+
+                listView1.Items.Clear();
+                root.Children.Clear();
+                root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+
+                bcmInstance = new Xv2CoreLib.BCM.Parser(openFileDialog1.FileName, false);
+
+
+                //list of all BCM entries non tree
+                Xv2CoreLib.BCM.BCM_Entry r = bcmInstance.bcmFile.BCMEntries[0];
+
+                Dictionary<ChildCollection, string> dict =
+              new Dictionary<ChildCollection, string>();
+
+                //first, compress a vanilla bcm
+                traverseAndCompress(r, dict);
+
+                //sort everything after compress... (need better method)
+                // we NEED a function to sort the bcm after deleting entries
+
+                //              MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
+
+                //IS THIS NEEDED?
+                //bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance.bcmFile);
+                //bcmInstance = new Xv2CoreLib.BCM.Parser(bcmOut.rawBytesAfterSort);
+               // r = bcmInstance.bcmFile.BCMEntries[0];
+                //   MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
+
+              
+                AnalyzeCombos(r);
+
+
+               // MessageBox.Show(root.Children.Count().ToString());
+                //isBCMLoaded = true;
+                reindex();
+                ArrangeTree();
+                populateListBox();
+            }
         }
 
         private void pasteSingleLinkToolStripMenuItem_Click(object sender, EventArgs e)

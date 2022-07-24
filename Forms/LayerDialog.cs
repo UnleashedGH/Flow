@@ -13,15 +13,23 @@ namespace Flow.Forms
     public partial class LayerDialog : Form
     {
         public string layerName = "New Layer";
-        public LayerDialog(bool rename = false)
+        private string layernameref = "";
+        public LayerDialog(string renameStr = "")
         {
-           
+            layernameref = renameStr;
             InitializeComponent();
         }
 
         private void LayerForm_Load(object sender, EventArgs e)
         {
-           
+            if (layernameref != "")
+            {
+                textBox1.Text = layernameref;
+            }
+            else
+            {
+                textBox1.Text = "New Layer";
+            }
            
         }
 

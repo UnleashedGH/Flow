@@ -488,7 +488,7 @@ namespace Xv2CoreLib.BCM
         /// <returns></returns>
         public bool Compare(BCM_Entry entry)
         {
-            if (I_00 == entry.I_00 && I_04 == entry.I_04 &&
+            if (I_00 == entry.I_00 && I_04 == entry.I_04 &&  I_08 == entry.I_08 &&
                 I_12 == entry.I_12 && I_16 == entry.I_16 &&
                 I_20 == entry.I_20 && I_22 == entry.I_22 &&
                 I_24 == entry.I_24 && I_28 == entry.I_28 &&
@@ -499,7 +499,7 @@ namespace Xv2CoreLib.BCM
                 I_64 == entry.I_64 && I_68 == entry.I_68 &&
                 I_72 == entry.I_72 && I_80 == entry.I_80 &&
                 I_84 == entry.I_84 && I_88 == entry.I_88 &&
-                I_92 == entry.I_92 && I_100 == entry.I_100 &&
+                I_92 == entry.I_92 && I_100 == entry.I_100 && F_96 == entry.F_96 &&
                 I_102 == entry.I_102 && I_104 == entry.I_104 &&
                 I_108 == entry.I_108 && I_76 == entry.I_76
                 )
@@ -512,6 +512,47 @@ namespace Xv2CoreLib.BCM
             }
         }
 
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                int hash = 17;
+                // Suitable nullity checks etc, of course :)
+                hash = hash * 23 + I_00.GetHashCode();
+                hash = hash * 23 + I_04.GetHashCode();
+                hash = hash * 23 + I_08.GetHashCode();
+                hash = hash * 23 + I_100.GetHashCode();
+                hash = hash * 23 + I_102.GetHashCode();
+                hash = hash * 23 + I_104.GetHashCode();
+                hash = hash * 23 + I_108.GetHashCode();
+                hash = hash * 23 + I_12.GetHashCode();
+                hash = hash * 23 + I_16.GetHashCode();
+                hash = hash * 23 + I_20.GetHashCode();
+                hash = hash * 23 + I_22.GetHashCode();
+                hash = hash * 23 + I_24.GetHashCode();
+                hash = hash * 23 + I_28.GetHashCode();
+                hash = hash * 23 + I_32.GetHashCode();
+                hash = hash * 23 + I_34.GetHashCode();
+                hash = hash * 23 + I_36.GetHashCode();
+                hash = hash * 23 + I_38.GetHashCode();
+                hash = hash * 23 + I_40.GetHashCode();
+                hash = hash * 23 + I_42.GetHashCode();
+                hash = hash * 23 + I_44.GetHashCode();
+                hash = hash * 23 + I_46.GetHashCode();
+                hash = hash * 23 + I_64.GetHashCode();
+                hash = hash * 23 + I_68.GetHashCode();
+                hash = hash * 23 + I_72.GetHashCode();
+                hash = hash * 23 + I_76.GetHashCode();
+                hash = hash * 23 + I_80.GetHashCode();
+                hash = hash * 23 + I_84.GetHashCode();
+                hash = hash * 23 + I_88.GetHashCode();
+                hash = hash * 23 + I_92.GetHashCode();
+                hash = hash * 23 + F_96.GetHashCode();
+
+
+                return hash;
+            }
+        }
     }
 
 
