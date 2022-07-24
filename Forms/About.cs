@@ -19,7 +19,7 @@ namespace Flow.Forms
 
         private void About_Load(object sender, EventArgs e)
         {
-            this.BackColor = Color.FromArgb(255, 51, 51, 51);
+          
         }
     }
 }

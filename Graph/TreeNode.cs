@@ -7,6 +7,7 @@ using Xv2CoreLib;
 
 using System.Drawing;
 using System.Windows.Forms;
+using Flow.Forms;
 
 namespace Flow.Graph
 {
@@ -94,11 +95,11 @@ namespace Flow.Graph
 
         // Constructor.
         public TreeNode(T new_data, BinaryData _bd, bool collapse,  string _LayerName = "New Layer")
-            : this(new_data, new Font("Arial", 14,FontStyle.Bold), _bd, collapse, _LayerName)
+            : this(new_data, new Font("Arial", 14, FontStyle.Bold), _bd, collapse, _LayerName)
         {
             Data = new_data;
-            MyPen.Width = 2.0f;
-            localPen.Width = 2.0f;
+            MyPen.Width = 2.75f;
+            localPen.Width = 2.75f;
             isCollpased = collapse;
             Children = new List<TreeNode<T>>();
 
@@ -107,8 +108,8 @@ namespace Flow.Graph
         {
             Data = new_data;
             MyFont = fg_font;
-            MyPen.Width = 2.0f;
-            localPen.Width = 2.0f;
+            MyPen.Width = 2.75f;
+            localPen.Width = 2.75f;
             Children = new List<TreeNode<T>>();
             bd = new Graph.BinaryData
             {
@@ -187,8 +188,9 @@ namespace Flow.Graph
         //this is called to arrange the tree, this is seperated from drawing the actual tree
         public void Arrange(Graphics gr, ref float xmin, ref float ymin)
         {
-          
-           
+       
+
+
                 ArrangeVertically(gr, xmin, ref ymin);
            
         }
@@ -243,10 +245,8 @@ namespace Flow.Graph
         public void DrawTree(Graphics gr, ref float x, float y, float s)
         {
 
-            //font size
+       
 
-          
-        
 
             // Arrange the tree.
             Arrange(gr, ref x, ref y);
@@ -258,10 +258,13 @@ namespace Flow.Graph
         // Draw the subtree rooted at this node.
         public void DrawTree(Graphics gr, float s)
         {
-      
-       
-     
 
+
+
+            //font size
+           // MessageBox.Show((14 * s).ToString());
+           //MyFont = new Font("Arial", 14 * s, FontStyle.Bold);
+        
             // Draw the links.
             DrawSubtreeLinks(gr, s);
 
@@ -334,6 +337,13 @@ namespace Flow.Graph
                         // localPen.Color = Color.White;
 
                     }
+                    else if (childBtnInput == "N")
+                    {
+
+                        localPen.Color = Utils.Utils.noinput;
+                        // localPen.Color = Color.White;
+
+                    }
                     else
                     {
                         //NoInputType Type
@@ -369,20 +379,17 @@ namespace Flow.Graph
         // Draw the nodes for the subtree rooted at this node.
         private void DrawSubtreeNodes(Graphics gr, float s)
         {
-            //why is this redefined evertytime? hmm?
-            //MyFont = new Font("Arial", 14 * s, FontStyle.Bold);
-
+            // i guess i have to redefine this everytime?
+            MyFont.Dispose();
+            MyFont = new Font("Arial", 14 * s, FontStyle.Bold);
+         
+                
 
 
             if (bd.isRemoteChild)
-            {
-          
                 bd.buttonInputFlag = bd.RemoteChildPointToRef.bd.buttonInputFlag;
 
-               
-                    
-
-            }
+           
 
 
 

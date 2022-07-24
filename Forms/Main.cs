@@ -64,8 +64,8 @@ namespace Flow.Forms
         Bitmap mBuffer;
 
         //find a solution to scrolling, mousemov?
-        int autoScrollMinX = 2000;
-        int autoScrollMinY = 2000;
+        int autoScrollMinX = 1000;
+        int autoScrollMinY = 1000;
 
         bool isBCMLoaded = false;
         //Global Vars Private to Form1
@@ -116,20 +116,8 @@ namespace Flow.Forms
             showGrid = (gridToolStripMenuItem.Checked);
             showIndices = (showIndicesToolStripMenuItem.Checked);
 
-            //test for serliaize
+         
 
-            //Xv2CoreLib.BCM.DirectionalInput a = (Xv2CoreLib.BCM.DirectionalInput)0x11;
-
-
-            //string[] s = a.ToString().Split(new char[] { ',', ' ' });
-            //string s2 = "";
-            //for (int i = 0; i < s.Length; i++)
-            //{
-            //    s2 += s[i];
-            //}
-            // File.AppendAllText("hello.dat", s2);
-
-            //ComboPanel.BackColor = Color.FromArgb(255, 33, 33, 33);
 
             ComboPanel.AutoScroll = true;
             ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
@@ -489,10 +477,15 @@ namespace Flow.Forms
 
 
             }
+
+         
+
             //put refresh outside so you clear out the yellow circle line
 
             ComboPanel.Refresh();
             needsClearSelection = true;
+
+
 
             //ArrangeTree();
         }
@@ -530,6 +523,7 @@ namespace Flow.Forms
                 copyNodeToolStripMenuItem.Enabled = (SelectedNode != root) && (SelectedNode.bd.isRemoteChild == false);
                 pasteNodeToolStripMenuItem.Enabled = (bufferNode != null)  && (SelectedNode.bd.isRemoteChild == false);
                 pasteRemoteLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
+                pasteSingleLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
 
                 modifyDataToolStripMenuItem.Enabled =  (SelectedNode.bd.isRemoteChild == false);
 
@@ -573,14 +567,20 @@ namespace Flow.Forms
             if (SelectedNode == null || bufferNode == null)
                 return;
 
-   
 
 
 
 
+            if (SelectedNode.bd.RemoteChildIndex >= 0)
+            {
+                MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
+                    "Paste Link", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
 
 
-     
+
             SelectedNode.AddChild(pasterecursive(bufferNode));
             reindex();
             ArrangeTree();
@@ -1125,6 +1125,14 @@ namespace Flow.Forms
                 return;
             }
 
+            if (SelectedNode.bd.RemoteChildIndex >= 0)
+            {
+                MessageBox.Show("A Node cannot have 2 remote links",
+                    "Paste Remote Link", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
 
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), bufferNode.isCollpased);
             newChild.bd.isLayerRoot = false;
@@ -1232,6 +1240,13 @@ namespace Flow.Forms
                 return;
 
 
+            if (SelectedNode.bd.RemoteChildIndex >= 0)
+            {
+                MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
+                    "Paste Single Link", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
 
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd, bufferNode.isCollpased);
 

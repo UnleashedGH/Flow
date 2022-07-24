@@ -37,6 +37,7 @@
             this.copyNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxNodeDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteSingleLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteRemoteLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showChildLinkInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +60,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ComboPanel = new System.Windows.Forms.Panel();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.pasteSingleLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -67,6 +67,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -138,6 +142,13 @@
             this.pasteNodeToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.pasteNodeToolStripMenuItem.Text = "Paste With All Links (if any)";
             this.pasteNodeToolStripMenuItem.Click += new System.EventHandler(this.pasteNodeToolStripMenuItem_Click);
+            // 
+            // pasteSingleLinkToolStripMenuItem
+            // 
+            this.pasteSingleLinkToolStripMenuItem.Name = "pasteSingleLinkToolStripMenuItem";
+            this.pasteSingleLinkToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.pasteSingleLinkToolStripMenuItem.Text = "Paste Single Link";
+            this.pasteSingleLinkToolStripMenuItem.Click += new System.EventHandler(this.pasteSingleLinkToolStripMenuItem_Click);
             // 
             // pasteRemoteLinkToolStripMenuItem
             // 
@@ -274,8 +285,8 @@
             // unleashedTheCitadelToolStripMenuItem
             // 
             this.unleashedTheCitadelToolStripMenuItem.Name = "unleashedTheCitadelToolStripMenuItem";
-            this.unleashedTheCitadelToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.unleashedTheCitadelToolStripMenuItem.Text = "test";
+            this.unleashedTheCitadelToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.unleashedTheCitadelToolStripMenuItem.Text = "Legend";
             this.unleashedTheCitadelToolStripMenuItem.Click += new System.EventHandler(this.unleashedTheCitadelToolStripMenuItem_Click);
             // 
             // openFileDialog1
@@ -329,23 +340,17 @@
             this.listView1.View = System.Windows.Forms.View.List;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
-            // pasteSingleLinkToolStripMenuItem
-            // 
-            this.pasteSingleLinkToolStripMenuItem.Name = "pasteSingleLinkToolStripMenuItem";
-            this.pasteSingleLinkToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.pasteSingleLinkToolStripMenuItem.Text = "Paste Single Link";
-            this.pasteSingleLinkToolStripMenuItem.Click += new System.EventHandler(this.pasteSingleLinkToolStripMenuItem_Click);
-            // 
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button7.BackgroundImage = global::Flow.Properties.Resources.magnifying_glass;
-            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(997, 68);
+            this.button7.Location = new System.Drawing.Point(997, 70);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(41, 35);
+            this.button7.Size = new System.Drawing.Size(41, 37);
             this.button7.TabIndex = 18;
+            this.toolTip4.SetToolTip(this.button7, "Zoom Out");
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
@@ -353,12 +358,13 @@
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button6.BackgroundImage = global::Flow.Properties.Resources.zoom_in;
-            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.Location = new System.Drawing.Point(997, 27);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(41, 35);
+            this.button6.Size = new System.Drawing.Size(41, 37);
             this.button6.TabIndex = 17;
+            this.toolTip3.SetToolTip(this.button6, "Zoom in");
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -408,6 +414,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(41, 35);
             this.button5.TabIndex = 16;
+            this.toolTip2.SetToolTip(this.button5, "Shrink Grid");
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -421,6 +428,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(41, 35);
             this.button4.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.button4, "Enlarge Grid");
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -499,6 +507,10 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.ToolStripMenuItem pasteSingleLinkToolStripMenuItem;
+        private System.Windows.Forms.ToolTip toolTip2;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip toolTip4;
+        private System.Windows.Forms.ToolTip toolTip3;
     }
 }
 

@@ -29,7 +29,7 @@ namespace Flow.Graph
         public SizeF GetSize(Graphics gr, Font font)
         {
             //static size, not actually using the font set size by TreeNode (works for now)
-            SizeF sizeReturn = new SizeF(50, 50);
+            SizeF sizeReturn = new SizeF(50,50);
            
             return sizeReturn;
 
@@ -50,9 +50,9 @@ namespace Flow.Graph
                 (txtSize.Width) * scale,(txtSize.Height) * scale);
 
             RectangleF rectText2 = new RectangleF(
-           ((x - txtSize.Width / 2) * scale) + 12,
-           ((y - txtSize.Height / 2) * scale) + 12,
-           (txtSize.Width * 0.5f) * scale, (txtSize.Height * 0.5f) * scale);
+           ((x - txtSize.Width / 2) * scale) + (12 * scale),
+           ((y - txtSize.Height / 2) * scale) + (12 * scale),
+           (txtSize.Width * (0.5f )) * scale, (txtSize.Height * (0.5f )) * scale);
 
 
             Brush text_brush2 = Brushes.White;
@@ -64,7 +64,7 @@ namespace Flow.Graph
             Color kiblast;
             Color jump;
             Color multiinput;
-            Color na;
+            Color noinput;
 
       
 
@@ -114,6 +114,15 @@ namespace Flow.Graph
             {
                 multiinput = Utils.Utils.multiinputTransparent;
             }
+            //noinput
+            if (!isRemoteChild)
+            {
+                noinput = Utils.Utils.noinput;
+            }
+            else
+            {
+                noinput = Utils.Utils.noinputTransparent;
+            }
 
 
             //brushes
@@ -123,6 +132,7 @@ namespace Flow.Graph
             SolidBrush brush_kiblast = new SolidBrush(kiblast);
             SolidBrush brush_jump = new SolidBrush(jump);
             SolidBrush brush_multiinput = new SolidBrush(multiinput);
+            SolidBrush brush_noinput = new SolidBrush(noinput);
 
 
             switch (btnInput)
@@ -132,6 +142,7 @@ namespace Flow.Graph
                 case "K": pen.Color = kiblast; break;
                 case "J": pen.Color = jump; break;
                 case "M": pen.Color = multiinput; break;
+                case "N": pen.Color = noinput; break;
 
             }
 
@@ -174,6 +185,7 @@ namespace Flow.Graph
                     case "K": text_brush = brush_kiblast; break;
                     case "J": text_brush = brush_jump; break;
                     case "M": text_brush = brush_multiinput; break;
+                    case "N": text_brush = brush_noinput; break;
 
                 }
                 if (btnInput != "Root")

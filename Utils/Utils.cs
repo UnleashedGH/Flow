@@ -31,6 +31,8 @@ namespace Flow.Utils
                         return "K";
                     case "Jump":
                         return "J";
+                    case "None":
+                        return "N";
                     case "":
                         return "";
 
@@ -56,5 +58,8 @@ namespace Flow.Utils
 
         public static Color multiinput = Color.FromArgb(255, 128, 128, 255);
         public static Color multiinputTransparent = Color.FromArgb(127, 128, 128, 255);
+
+        public static Color noinput = Color.FromArgb(255, 255, 255, 255);
+        public static Color noinputTransparent = Color.FromArgb(127, 255, 255, 255);
     }
 }
