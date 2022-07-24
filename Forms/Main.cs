@@ -1127,7 +1127,7 @@ namespace Flow.Forms
 
             if (SelectedNode.bd.RemoteChildIndex >= 0)
             {
-                MessageBox.Show("A Node cannot have 2 remote links",
+                MessageBox.Show("A Node cannot have more than 1 remote link",
                     "Paste Remote Link", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
