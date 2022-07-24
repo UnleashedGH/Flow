@@ -834,7 +834,7 @@ namespace Flow.Forms
                 string childGoto = child.bd.RemoteChildIndex.ToString();
                 if (childGoto != "-1")
                 {
-                    MessageBox.Show(childGoto);
+                  
                     cEntry.LoopAsChild = child.bd.RemoteChildIndex.ToString();
                 }
          
@@ -1357,6 +1357,22 @@ namespace Flow.Forms
               new Dictionary<ChildCollection, string>();
 
                 //first, compress a vanilla bcm
+                //
+                //This will crash if you try to compress again, espically if there were changes
+                //(or in Flow Alpha case, everything set to null except primary inputs))
+                //its because when the compressor deletes entries, it doesn't offset the childGoTo loops
+                //basically, it doesn't sort... (
+                //we can try implemeting a sort function and increase decompile time
+                //or just do a try catch and refuse to compress again (we should do the try catch anyway)
+                //Flow should be better at compressing because it hashes everything unlike bcmcompress
+                //lets also lets if it keeps the same logic as Toppo.. test with and without Flow compress
+                //although probably need to port the compress logic to bcmcompress because overflow isn't ready yet to writa all values
+
+
+                //implement sort (optional)
+                //test toppo moveset with better compression?
+                //perform try catch
+                //add a bcm entry instance to treenode to make it easier to write and read
                 traverseAndCompress(r, dict);
 
                 //sort everything after compress... (need better method)
