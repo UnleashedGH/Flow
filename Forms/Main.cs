@@ -745,75 +745,11 @@ namespace Flow.Forms
                 traverseAndAppend(child, ref bcmEntries);
 
         }
-        private void AnalyzeCombos(Xv2CoreLib.BCM.BCM_Entry e)
-        {
-            //first, lay all the BCMentries in a continues array/list to make it easier to track child indices.
-
-            //List<Xv2CoreLib.BCM.BCM_Entry> bcmEntries = new List<Xv2CoreLib.BCM.BCM_Entry>();
-            //traverseAndAppend(e, ref bcmEntries);
-
-
-            int index = 0;
-
-            //build light string
-            //findBACPrimaryEntryandReturnParentBcmIndex(1, bcmEntries, root, ref index);
-            root.Children.AddRange(traverseAndAddChild(e, ref index).Children);
-            //build heavy string
-            // findBACPrimaryEntryandReturnParentBcmIndex(335, bcmEntries, HRoot, ref index);
-
-
-            //for (int i = 0; i < bcmEntries.Count; i++)
-            //{
-            //    MessageBox.Show(bcmEntries[i].Index.ToString());
-            //}
-
-            //bcmEntries[bcmEntries.Count - 1].I_08 = (Xv2CoreLib.BCM.ButtonInput)0x8;
+    
 
 
 
-
-        }
-
-        //public static explicit operator TreeNode<CircleNode>(Xv2CoreLib.BCM.BCM_Entry b)
-        //{
-        //    //if copy ctor is defined you can call one from the other, else
-        //    TreeNode<CircleNode> a = new TreeNode<CircleNode>();
-        //    //a.Name = b.Name;
-        //    a.Children = new List<TreeNode<CircleNode>>();
-
-        //    foreach (Xv2CoreLib.BCM.BCM_Entry child in b.BCMEntries)
-        //    {
-        //        a.Children.Add((TreeNode<CircleNode>)child);
-        //    }
-        //}
-
-
-        private void findBACPrimaryEntryandReturnParentBcmIndex(int BacEntryPrimary, List<Xv2CoreLib.BCM.BCM_Entry> bcmEntries, TreeNode<CircleNode> localRoot, ref int index)
-        {
-     
-            int foundBcmIndex = 0;
-            for (int i = 0; i < bcmEntries.Count; i++)
-            {
-                if(bcmEntries[i].I_32 == BacEntryPrimary)
-                {
-                    foundBcmIndex = i;
-                    break;
-                }
-            }
-            if (foundBcmIndex == 0)
-                return;
-
-        
-         Int32 parentBcmIndex = GetBcmIndex(Convert.ToInt32(bcmEntries[foundBcmIndex].I_56));
-
-            //MessageBox.Show(parentBcmIndex.ToString());
-            //MessageBox.Show(bcmEntries.Count.ToString());
-         
-         localRoot.Children.AddRange(traverseAndAddChild(bcmEntries[parentBcmIndex], ref index).Children);
-
-
-
-        }
+      
         private TreeNode<CircleNode> traverseAndAddChild(Xv2CoreLib.BCM.BCM_Entry e, ref int index)
         {
 
@@ -824,18 +760,21 @@ namespace Flow.Forms
             new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), true);
             //FIXTHIS
             f.bd.ID = index;
-            f.bd.buttonInputFlag = (uint)e.I_08;
-            index++;
 
-          //  MessageBox.Show(e.Index);
-            //MessageBox.Show(e.I_08.ToString());
-            //MessageBox.Show(e.BCMEntries.Count.ToString());
+            f.bd.buttonInputFlag = (uint)e.I_08;
+
+    
 
             if (e.BCMEntries == null)
             {
-                MessageBox.Show(index.ToString() + " /// " + e.LoopAsChild);
-                if (e.LoopAsChild == "-1")
-                  f.isCollpased = false;
+               
+
+                if (e.LoopAsChild == null)
+                {
+                  
+                    f.isCollpased = false;
+                }
+                
                 else
                 {
                     TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
@@ -844,32 +783,21 @@ namespace Flow.Forms
 
                     newChild.bd.isRemoteChild = true;
                     newChild.bd.RemoteChildParentRef = f;
-                    newChild.bd.RemoteChildPointToRef = null;
+                    newChild.bd.RemoteChildPointToRef = f;
+
+                    newChild.isCollpased = false;
 
                     f.AddChild(newChild);
                     f.isCollpased = true;
                 }
+
+                index++;
                 return f;
             }
-            //bool ChildenAreOnlyJumps = true;
-            //for (int i = 0; i < e.BCMEntries.Count; i++)
-            //{
-            //    if (e.BCMEntries[i].I_08 != (Xv2CoreLib.BCM.ButtonInput)0x8)
-            //    {
-            //        ChildenAreOnlyJumps = false;
-            //        break;
-            //    }
-
-            //}
-
-            //if (ChildenAreOnlyJumps)
-            //{
-            //    f.isCollpased = false;
-            //    return f;
-            //}
-               
+          
 
 
+            index++;
             foreach (Xv2CoreLib.BCM.BCM_Entry child in e.BCMEntries)
                     f.AddChild(traverseAndAddChild(child, ref index));
 
@@ -1422,16 +1350,22 @@ namespace Flow.Forms
                 //              MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
 
                 //IS THIS NEEDED?
-                //bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance.bcmFile);
-                //bcmInstance = new Xv2CoreLib.BCM.Parser(bcmOut.rawBytesAfterSort);
-               // r = bcmInstance.bcmFile.BCMEntries[0];
+                bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance.bcmFile);
+                bcmInstance = new Xv2CoreLib.BCM.Parser(bcmOut.rawBytesAfterSort);
+     
                 //   MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
 
-              
-                AnalyzeCombos(r);
+                r = bcmInstance.bcmFile.BCMEntries[0];
+                
+        
 
 
-               // MessageBox.Show(root.Children.Count().ToString());
+                int index = 0;
+
+                root.Children.AddRange(traverseAndAddChild(r, ref index).Children);
+
+
+           
                 //isBCMLoaded = true;
                 reindex();
                 ArrangeTree();

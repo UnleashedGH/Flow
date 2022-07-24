@@ -382,16 +382,17 @@ namespace Flow.Graph
             // i guess i have to redefine this everytime?
             MyFont.Dispose();
             MyFont = new Font("Arial", 14 * s, FontStyle.Bold);
-         
-                
+
+
 
 
             if (bd.isRemoteChild)
                 bd.buttonInputFlag = bd.RemoteChildPointToRef.bd.buttonInputFlag;
 
-           
 
-
+            //this should have no need
+            //if (Children.Count == 0)
+            //    isCollpased = false;
 
             // change the Node transpareny depending if it was Collpased or not (IsCollapsed)
             //this is one method of indicaiting collapsed nodes.. might change.
