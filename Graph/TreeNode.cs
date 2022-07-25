@@ -107,7 +107,7 @@ namespace Flow.Graph
         }
         public TreeNode(T new_data, Font fg_font, BinaryData _bd, bool collapse,  string _LayerName = "New Layer")
         {
-            bd.bcmentry = new Xv2CoreLib.BCM.BCM_Entry();
+
             Data = new_data;
             MyFont = fg_font;
             MyPen.Width = 2.75f;

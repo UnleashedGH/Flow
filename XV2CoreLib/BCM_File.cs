@@ -477,8 +477,47 @@ namespace Xv2CoreLib.BCM
                 I_84 = I_84,
                 I_88 = I_88,
                 I_92 = I_92,
+                F_96 = F_96
+              
+            };
+        }
+        public BCM_Entry Clone_WithChildEntries()
+        {
+            return new BCM_Entry()
+            {
+                Index = Index,
+                I_00 = I_00,
+                I_04 = I_04,
+                I_08 = I_08,
+                I_100 = I_100,
+                I_102 = I_102,
+                I_104 = I_104,
+                I_108 = I_108,
+                I_12 = I_12,
+                I_16 = I_16,
+                I_20 = I_20,
+                I_22 = I_22,
+                I_24 = I_24,
+                I_28 = I_28,
+                I_32 = I_32,
+                I_34 = I_34,
+                I_36 = I_36,
+                I_38 = I_38,
+                I_40 = I_40,
+                I_42 = I_42,
+                I_44 = I_44,
+                I_46 = I_46,
+                I_64 = I_64,
+                I_68 = I_68,
+                I_72 = I_72,
+                I_76 = I_76,
+                I_80 = I_80,
+                I_84 = I_84,
+                I_88 = I_88,
+                I_92 = I_92,
                 F_96 = F_96,
                 BCMEntries = BCMEntries
+
             };
         }
 

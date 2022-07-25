@@ -660,7 +660,7 @@ namespace Flow.Forms
                 return;
             }
 
-
+     
 
             SelectedNode.AddChild(pasterecursive(bufferNode));
             reindex();
@@ -671,6 +671,7 @@ namespace Flow.Forms
         {
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), pasteChild.bd, false);
             newChild.bd.isLayerRoot = false;
+            newChild.bd.bcmentry = pasteChild.bd.bcmentry.Clone();
 
             foreach (TreeNode<CircleNode> child in pasteChild.Children)
             {
@@ -763,7 +764,9 @@ namespace Flow.Forms
             //FIXTHIS
             f.bd.ID = index;
 
-            f.bd.bcmentry.I_08 = (uint)e.I_08;
+            //f.bd.bcmentry.I_08 = (uint)e.I_08;
+
+            f.bd.bcmentry = e.Clone();
 
             nodemappings[index] = f;
 
@@ -830,15 +833,22 @@ namespace Flow.Forms
 
                 Xv2CoreLib.BCM.BCM_Entry cEntry = new Xv2CoreLib.BCM.BCM_Entry();
 
-                cEntry.I_08 = child.bd.bcmentry.I_08;
+                cEntry = child.bd.bcmentry.Clone();
+                //we do this because actual id is not in bcm entry index, but rather a unique id in the treenode (i could delete id and change instances everywhere else..)
                 cEntry.Index = child.bd.ID.ToString();
+                
+
+
                 string childGoto = child.bd.RemoteChildIndex.ToString();
                 if (childGoto != "-1")
                 {
-                  
+
+
                     cEntry.LoopAsChild = child.bd.RemoteChildIndex.ToString();
                 }
-         
+
+
+
 
                 if (rootBcmEntry.BCMEntries == null)
                     rootBcmEntry.BCMEntries = new List<Xv2CoreLib.BCM.BCM_Entry>();
@@ -1406,8 +1416,18 @@ namespace Flow.Forms
            
                 //isBCMLoaded = true;
                 reindex();
-                ArrangeTree();
                 populateListBox(-1, "Unknown Layer");
+
+                //select an index so ArrangeTree works, because it requires selectedLayerNode to not be null
+                if (listView1.Items.Count > 0)
+                    {
+                        listView1.Items[0].Focused = true;
+                        listView1.Items[0].Selected = true;
+                        listView1.Items[0].EnsureVisible();
+                    }
+
+              
+                ArrangeTree();
                 }
                 catch (Exception ex)
                 {
@@ -1435,6 +1455,7 @@ namespace Flow.Forms
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd, bufferNode.isCollpased);
 
             newChild.bd.isLayerRoot = false;
+            newChild.bd.bcmentry = bufferNode.bd.bcmentry.Clone();
             SelectedNode.AddChild(newChild);
    
 
