@@ -14,8 +14,8 @@ namespace Flow.Graph
     [Serializable]
     public struct BinaryData
     {
-
-        public uint buttonInputFlag;
+       public Xv2CoreLib.BCM.BCM_Entry bcmentry;
+     
 
 
         public int ID;  //should be initlized as -1, because its index
@@ -102,18 +102,22 @@ namespace Flow.Graph
             localPen.Width = 2.75f;
             isCollpased = collapse;
             Children = new List<TreeNode<T>>();
+            bd.bcmentry = new Xv2CoreLib.BCM.BCM_Entry();
 
         }
         public TreeNode(T new_data, Font fg_font, BinaryData _bd, bool collapse,  string _LayerName = "New Layer")
         {
+            bd.bcmentry = new Xv2CoreLib.BCM.BCM_Entry();
             Data = new_data;
             MyFont = fg_font;
             MyPen.Width = 2.75f;
             localPen.Width = 2.75f;
             Children = new List<TreeNode<T>>();
+      
             bd = new Graph.BinaryData
             {
-                buttonInputFlag = _bd.buttonInputFlag,
+               
+                bcmentry =  _bd.bcmentry ,
                 LayerName = _LayerName,
                 ID = _bd.ID,
                 RemoteChildIndex = _bd.RemoteChildIndex,
@@ -264,12 +268,19 @@ namespace Flow.Graph
             //font size
            // MessageBox.Show((14 * s).ToString());
            //MyFont = new Font("Arial", 14 * s, FontStyle.Bold);
-        
-            // Draw the links.
-            DrawSubtreeLinks(gr, s);
+       
+
+
+            //change the draw order where Nodes are drown first, and when Remote changes its input, links get alerted and color
+            //is drawn properly 
+
 
             // Draw the nodes.
             DrawSubtreeNodes(gr, s);
+
+
+            // Draw the links.
+            DrawSubtreeLinks(gr, s);
         }
 
         // Draw the links for the subtree rooted at this node.
@@ -295,10 +306,10 @@ namespace Flow.Graph
 
             foreach (TreeNode<T> child in Children)
             {
-                string childBtnInput = Utils.Utils.translateButtonInputFlag(child.bd.buttonInputFlag);
+                string childBtnInput = Utils.Utils.translateButtonInputFlag(child.bd.bcmentry.I_08);
                 //hanldes line colors corruposing to Node color (the horzonial line)
 
-                if (Utils.Utils.translateButtonInputFlag(bd.buttonInputFlag) != "Other")
+                if (Utils.Utils.translateButtonInputFlag(bd.bcmentry.I_08) != "Other")
                 {
 
                     if(childBtnInput == "L")
@@ -357,7 +368,8 @@ namespace Flow.Graph
                     //gr.DrawLine(localPen, DataCenter.X * s, DataCenter.Y * s, DataCenter.X * s, child.DataCenter.Y * s);
 
                     //once the color is decided, draw the unique horz line color
-                    gr.DrawLine(localPen, DataCenter.X * s, child.DataCenter.Y * s, child.DataCenter.X * s, child.DataCenter.Y * s);
+                    //-25 so that it doesn't pass the circle, 25 is half of 50 when is the fake font size set in Circle Node
+                    gr.DrawLine(localPen, DataCenter.X * s, child.DataCenter.Y * s, (child.DataCenter.X - 25) * s, child.DataCenter.Y * s);
 
                 }
 
@@ -366,8 +378,8 @@ namespace Flow.Graph
 
 
                 // Draw the vertical link between this node this child. (the straight line, always white)
-                
-                gr.DrawLine(MyPen, DataCenter.X * s, DataCenter.Y * s, DataCenter.X * s, child.DataCenter.Y * s);
+                //+25 so that it doesn't pass the circle, 25 is half of 50 when is the fake font size set in Circle Node
+                gr.DrawLine(MyPen, (DataCenter.X) * s, (DataCenter.Y + 25) * s, DataCenter.X * s, child.DataCenter.Y * s);
 
 
                 // Recursively make the child draw its subtree nodes.
@@ -385,9 +397,11 @@ namespace Flow.Graph
 
 
 
-
+            //is there a better way to do this
+            //the other way i had was adding an EXTRA ref to the "parentPointTo" node that points to the remote child and update
+            //it when its own input change, but that will leave 2 extra refs unused inside it. this is better right now
             if (bd.isRemoteChild)
-                bd.buttonInputFlag = bd.RemoteChildPointToRef.bd.buttonInputFlag;
+                bd.bcmentry.I_08 = bd.RemoteChildPointToRef.bd.bcmentry.I_08;
 
 
             //this should have no need
@@ -400,10 +414,10 @@ namespace Flow.Graph
             //might wanna include iscollapsed as a bool to draw instead of extra string...
 
             if (isCollpased)
-                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.buttonInputFlag, "+", bd.ID.ToString(), s, bd.isRemoteChild);
+                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "+", bd.ID.ToString(), s, bd.isRemoteChild);
             else
 
-                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.buttonInputFlag, "", bd.ID.ToString(), s, bd.isRemoteChild);
+                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "", bd.ID.ToString(), s, bd.isRemoteChild);
             
 
 

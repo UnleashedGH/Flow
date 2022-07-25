@@ -333,7 +333,7 @@ namespace Xv2CoreLib.BCM
         public DirectionalInput I_04 { get; set; }
         // [YAXAttributeFor("ButtonInput")]
         // [YAXSerializeAs("value")]
-        public ButtonInput I_08 { get; set; }
+        public uint I_08 { get; set; }
         // [YAXAttributeFor("HoldDownConditions")]
         // [YAXSerializeAs("value")]
         public UInt32 I_12 { get; set; }

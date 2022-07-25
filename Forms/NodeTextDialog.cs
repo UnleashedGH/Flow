@@ -101,7 +101,7 @@ namespace Flow.Forms
         
             if (treeNodeRef != null)
             {
-                uint value0 = treeNodeRef.bd.buttonInputFlag;
+                uint value0 = treeNodeRef.bd.bcmentry.I_08;
                 string binary0 = Convert.ToString(value0, 2).PadLeft(PrimaryButtonInputFlag.Count, '0');
                 for (int i = 0; i < PrimaryButtonInputFlag.Count; i++)
                 if (PrimaryButtonInputFlag[i] != null)

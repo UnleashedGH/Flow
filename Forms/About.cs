@@ -12,14 +12,17 @@ namespace Flow.Forms
 {
     public partial class About : Form
     {
-        public About()
+        string version = "0.0.0";
+        public About(string tv)
         {
+            if (tv.Length > 0)
+                version = tv;
             InitializeComponent();
         }
 
         private void About_Load(object sender, EventArgs e)
         {
-          
+            label1.Text = $"Flow ({version}) by Unleashed";
         }
     }
 }

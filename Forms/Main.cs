@@ -131,6 +131,7 @@ namespace Flow.Forms
         Graphics gr;
         Pen GridPen = new Pen(Color.White);
         Bitmap mBuffer;
+        string toolVersion = "0.0.1";
 
         //find a solution to scrolling, mousemov?
         int autoScrollMinX = 1000;
@@ -300,7 +301,7 @@ namespace Flow.Forms
                 TreeNode<CircleNode> child =
                     new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
 
-                child.bd.buttonInputFlag = dlg.primarybuttininput;
+                child.bd.bcmentry.I_08 = dlg.primarybuttininput;
 
                 SelectedNode.isCollpased = false;
                 SelectedNode.AddChild(child);
@@ -549,7 +550,7 @@ namespace Flow.Forms
                 {
 
 
-                    lblNodeText.Text = ((Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.buttonInputFlag).ToString();
+                    lblNodeText.Text = ((Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08).ToString();
 
 
                 }
@@ -591,7 +592,7 @@ namespace Flow.Forms
             {
              
 
-                if (Utils.Utils.translateButtonInputFlag(SelectedNode.bd.buttonInputFlag) == "Other")
+                if (Utils.Utils.translateButtonInputFlag(SelectedNode.bd.bcmentry.I_08) == "Other")
                     return;
                 // Don't let the user delete the root node.
                 // (The TreeNode class can't do that.)
@@ -762,7 +763,7 @@ namespace Flow.Forms
             //FIXTHIS
             f.bd.ID = index;
 
-            f.bd.buttonInputFlag = (uint)e.I_08;
+            f.bd.bcmentry.I_08 = (uint)e.I_08;
 
             nodemappings[index] = f;
 
@@ -829,7 +830,7 @@ namespace Flow.Forms
 
                 Xv2CoreLib.BCM.BCM_Entry cEntry = new Xv2CoreLib.BCM.BCM_Entry();
 
-                cEntry.I_08 = (Xv2CoreLib.BCM.ButtonInput)child.bd.buttonInputFlag;
+                cEntry.I_08 = child.bd.bcmentry.I_08;
                 cEntry.Index = child.bd.ID.ToString();
                 string childGoto = child.bd.RemoteChildIndex.ToString();
                 if (childGoto != "-1")
@@ -1099,7 +1100,7 @@ namespace Flow.Forms
             if (dlg.ShowDialog() == DialogResult.OK)
             {
             
-                SelectedNode.bd.buttonInputFlag = dlg.primarybuttininput;
+                SelectedNode.bd.bcmentry.I_08 = dlg.primarybuttininput;
 
                 ComboPanel.Refresh();
             }
@@ -1249,7 +1250,7 @@ namespace Flow.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            (new About()).Show();
+            (new About(toolVersion)).Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -1345,7 +1346,7 @@ namespace Flow.Forms
                 try
                 {
 
-                    listView1.Items.Clear();
+                listView1.Items.Clear();
                 root.Children.Clear();
                 root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
 
@@ -1373,7 +1374,7 @@ namespace Flow.Forms
 
                 //implement sort (optional)
                 //test toppo moveset with better compression? (no diff, still breaks, need to think of different logic
-                //perform try catch (do)
+                //perform try catch (done)
                 //add a bcm entry instance to treenode to make it easier to write and read
                 traverseAndCompress(r, dict);
 
@@ -1410,7 +1411,7 @@ namespace Flow.Forms
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"XV2CoreLib thrown an error during decompile process, the error is: {ex.Message} ",
+                    MessageBox.Show($"thrown an error during decompile process (decompiled an already compiled bcm?) the error is: {ex.Message} ",
                    "Decompile BCM", MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
                 }
