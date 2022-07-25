@@ -1342,8 +1342,10 @@ namespace Flow.Forms
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
 
+                try
+                {
 
-                listView1.Items.Clear();
+                    listView1.Items.Clear();
                 root.Children.Clear();
                 root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
 
@@ -1354,7 +1356,7 @@ namespace Flow.Forms
                 Xv2CoreLib.BCM.BCM_Entry r = bcmInstance.bcmFile.BCMEntries[0];
 
                 Dictionary<ChildCollection, string> dict =
-              new Dictionary<ChildCollection, string>();
+                new Dictionary<ChildCollection, string>();
 
                 //first, compress a vanilla bcm
                 //
@@ -1370,8 +1372,8 @@ namespace Flow.Forms
 
 
                 //implement sort (optional)
-                //test toppo moveset with better compression?
-                //perform try catch
+                //test toppo moveset with better compression? (no diff, still breaks, need to think of different logic
+                //perform try catch (do)
                 //add a bcm entry instance to treenode to make it easier to write and read
                 traverseAndCompress(r, dict);
 
@@ -1380,17 +1382,20 @@ namespace Flow.Forms
 
                 //              MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
 
-                //IS THIS NEEDED?
+                //IS THIS NEEDED? (we using this as a temp way to sort)
                 bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance.bcmFile);
                 bcmInstance = new Xv2CoreLib.BCM.Parser(bcmOut.rawBytesAfterSort);
-     
-                //   MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
 
+
+              
+
+                //   MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
+                bcmInstance = new Xv2CoreLib.BCM.Parser(bcmOut.rawBytesAfterSort);
                 r = bcmInstance.bcmFile.BCMEntries[0];
 
 
                 Dictionary<int, TreeNode<CircleNode>> nodemappings =
-           new Dictionary<int, TreeNode<CircleNode>>();
+                 new Dictionary<int, TreeNode<CircleNode>>();
 
                 int index = 0;
 
@@ -1402,6 +1407,13 @@ namespace Flow.Forms
                 reindex();
                 ArrangeTree();
                 populateListBox(-1, "Unknown Layer");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"XV2CoreLib thrown an error during decompile process, the error is: {ex.Message} ",
+                   "Decompile BCM", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                }
             }
         }
 
