@@ -908,7 +908,7 @@ namespace Flow.Forms
            
         }
 
-        private void populateListBox(int index = -1, string forceLayerName = "")
+        private void populateListBox(int index = -1, string forceLayerName = "", bool returnOldSelect = false)
         {
             //so we don't get scrollbar flickers when deleting and adding items
             listView1.BeginUpdate();
@@ -931,16 +931,16 @@ namespace Flow.Forms
                     root.Children[i].bd.LayerName = forceLayerName;
                     listView1.Items.Add(i.ToString() + " - " + root.Children[i].bd.LayerName);
                 }
-                  
 
 
+                int currentstrlen = root.Children[i].bd.LayerName.Length + i.ToString().Length;
 
-                if (root.Children[i].bd.LayerName.Length > longestNameLen)
-                    longestNameLen = root.Children[i].bd.LayerName.Length;
+                if (currentstrlen > (longestNameLen + i.ToString().Length))
+                    longestNameLen = currentstrlen;
             }
 
             //when deleting layers and going back to the previous layer, this is an optional param
-            if (index >= 0)
+            if (index >= 0 && listView1.Items.Count > 0)
             {
                 listView1.Items[index].Focused = true;
                 listView1.Items[index].Selected = true;
@@ -948,10 +948,10 @@ namespace Flow.Forms
             }
 
             //increase the column size that was added in form Load method based of layer name length + the index + the spacing
-            listView1.Columns[0].Width = (index.ToString().Length +  longestNameLen + 3) * 14;
+            listView1.Columns[0].Width = (longestNameLen + 3) * 14;
 
             //to maintain scroll index (its not amazing, but its better than going back to index 0
-            if (oldselectedindex >= 0)
+            if (oldselectedindex >= 0 && returnOldSelect  && listView1.Items.Count > 0)
             {
                 listView1.Items[oldselectedindex].Focused = true;
                 listView1.Items[oldselectedindex].Selected = true;
@@ -1045,7 +1045,7 @@ namespace Flow.Forms
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     root.Children[listView1.SelectedIndices[0]].bd.LayerName = dlg.layerName;
-                    populateListBox();
+                    populateListBox(-1, "",true);
 
                 }
                   
