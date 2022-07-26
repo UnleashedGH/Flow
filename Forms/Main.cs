@@ -933,9 +933,9 @@ namespace Flow.Forms
                 }
 
 
-                int currentstrlen = root.Children[i].bd.LayerName.Length + i.ToString().Length;
+                int currentstrlen = root.Children[i].bd.LayerName.Length;
 
-                if (currentstrlen > (longestNameLen + i.ToString().Length))
+                if (currentstrlen > (longestNameLen ))
                     longestNameLen = currentstrlen;
             }
 
@@ -948,7 +948,7 @@ namespace Flow.Forms
             }
 
             //increase the column size that was added in form Load method based of layer name length + the index + the spacing
-            listView1.Columns[0].Width = (longestNameLen + 3) * 14;
+            listView1.Columns[0].Width = (longestNameLen + 3) * 11;
 
             //to maintain scroll index (its not amazing, but its better than going back to index 0
             if (oldselectedindex >= 0 && returnOldSelect  && listView1.Items.Count > 0)
