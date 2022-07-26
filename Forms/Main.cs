@@ -891,7 +891,7 @@ namespace Flow.Forms
                
                 //newLayer.ID = root.Children.Count;
                 root.Children.Add(newLayer);
-                populateListBox();
+                populateListBox(-1, "", false);
                 reindex();
 
 
