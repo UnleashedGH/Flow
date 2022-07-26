@@ -142,8 +142,9 @@ namespace Flow.Forms
 
 
 
-        //Static Vars
+        //global index vars
         static int extern_index = 0;
+        int oldselectedindex = -1;
 
         //scrollVars
         public static int scrollMarginX = 0;
@@ -896,7 +897,7 @@ namespace Flow.Forms
                
                 //newLayer.ID = root.Children.Count;
                 root.Children.Add(newLayer);
-                populateListBox(-1, "", true);
+                populateListBox(-1, "", false, true);
                 reindex();
 
 
@@ -913,7 +914,7 @@ namespace Flow.Forms
            
         }
 
-        private void populateListBox(int index = -1, string forceLayerName = "", bool returnOldSelect = false)
+        private void populateListBox(int index = -1, string forceLayerName = "", bool returnOldSelect = false, bool scrollForAdd = false)
         {
             //so we don't get scrollbar flickers when deleting and adding items
             listView1.BeginUpdate();
@@ -921,10 +922,9 @@ namespace Flow.Forms
             //find longest layer name length to increase column width
             int longestNameLen = 0;
 
-            int oldselectedindex = -1;
+       
 
-            if (listView1.SelectedIndices.Count > 0)
-                oldselectedindex = listView1.SelectedIndices[0];
+   
 
             listView1.Items.Clear();
             for (int i = 0; i < root.Children.Count;i++)
@@ -963,6 +963,18 @@ namespace Flow.Forms
                 listView1.Items[oldselectedindex].EnsureVisible();
                 
             }
+
+            if (listView1.SelectedIndices.Count > 0)
+                oldselectedindex = listView1.SelectedIndices[0];
+
+            if (scrollForAdd && listView1.Items.Count > 0)
+            {
+                int newest_index = listView1.Items.Count - 1;
+                listView1.Items[newest_index].Focused = true;
+                listView1.Items[newest_index].Selected = true;
+                listView1.Items[newest_index].EnsureVisible();
+            }
+
             //so we don't get scrollbar flickers when deleting and adding items
             listView1.EndUpdate();
 
@@ -1253,7 +1265,9 @@ namespace Flow.Forms
             if (listView1.SelectedIndices.Count > 0)
             {
                 SelectedLayerNode = root.Children[listView1.SelectedIndices[0]];
+                oldselectedindex = listView1.SelectedIndices[0];
                 ArrangeTree();
+             
 
 
 
@@ -1358,8 +1372,7 @@ namespace Flow.Forms
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
 
-                try
-                {
+               
 
                 listView1.Items.Clear();
                 root.Children.Clear();
@@ -1399,11 +1412,11 @@ namespace Flow.Forms
                 //              MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
 
                 //IS THIS NEEDED? (we using this as a temp way to sort)
-                bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance.bcmFile);
-                bcmInstance = new Xv2CoreLib.BCM.Parser(bcmOut.rawBytesAfterSort);
+               // bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance.bcmFile);
+               // bcmInstance = new Xv2CoreLib.BCM.Parser(bcmOut.rawBytesAfterSort);
 
 
-              
+                bcm_reindex(r);
 
                 //   MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
                
@@ -1433,13 +1446,69 @@ namespace Flow.Forms
 
               
                 ArrangeTree();
-                }
-                catch (Exception ex)
+                
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show($"thrown an error during decompile process (decompiled an already compiled bcm?) the error is: {ex.Message} ",
+                //   "Decompile BCM", MessageBoxButtons.OK,
+                //   MessageBoxIcon.Error);
+                //}
+            }
+        }
+
+        private void bcm_reindex(Xv2CoreLib.BCM.BCM_Entry root)
+        {
+
+
+
+
+
+            Dictionary<string, int> mappings = new Dictionary<string, int>();
+            extern_index = 0;
+            mappings[root.Index] = extern_index;
+
+            bcm_reindexID(root, mappings);
+            bcm_reindexRemote(root, mappings);
+
+        }
+
+        private void bcm_reindexID(Xv2CoreLib.BCM.BCM_Entry r, Dictionary<string, int> mappings)
+        {
+
+            if (r.BCMEntries == null)
+                return;
+            foreach (Xv2CoreLib.BCM.BCM_Entry child in r.BCMEntries)
+            {
+          
+
+                extern_index++;
+                mappings[child.Index] = extern_index;
+                child.Index = extern_index.ToString();
+
+                bcm_reindexID(child, mappings);
+            }
+
+        }
+
+        private void bcm_reindexRemote(Xv2CoreLib.BCM.BCM_Entry r, Dictionary<string, int> mappings)
+        {
+            if (r.BCMEntries == null)
+                return;
+            foreach (Xv2CoreLib.BCM.BCM_Entry child in r.BCMEntries)
+            {
+           
+
+                if (child.LoopAsChild != null)
                 {
-                    MessageBox.Show($"thrown an error during decompile process (decompiled an already compiled bcm?) the error is: {ex.Message} ",
-                   "Decompile BCM", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
+                    if (mappings.ContainsKey(child.LoopAsChild))
+                        child.LoopAsChild = mappings[child.LoopAsChild].ToString();
+                    else
+                        child.LoopAsChild = null;
+
                 }
+
+
+                bcm_reindexRemote(child, mappings);
             }
         }
 
