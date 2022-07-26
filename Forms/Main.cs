@@ -891,7 +891,7 @@ namespace Flow.Forms
                
                 //newLayer.ID = root.Children.Count;
                 root.Children.Add(newLayer);
-                populateListBox(-1, "", false);
+                populateListBox(-1, "", true);
                 reindex();
 
 
@@ -1401,7 +1401,7 @@ namespace Flow.Forms
               
 
                 //   MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
-                bcmInstance = new Xv2CoreLib.BCM.Parser(bcmOut.rawBytesAfterSort);
+               
                 r = bcmInstance.bcmFile.BCMEntries[0];
 
 
