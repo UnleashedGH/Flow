@@ -611,7 +611,7 @@ namespace Flow.Forms
                 ctxNodeAddChild.Enabled =  (SelectedNode.bd.isRemoteChild == false);
 
                 collapseToolStripMenuItem.Enabled = (SelectedNode.Children.Count > 0);
-                collapseToolStripMenuItem.Text = (SelectedNode.isCollpased) ? "Uncollapse" : "Collapse";
+                collapseToolStripMenuItem.Text = (SelectedNode.isCollpased) ? "Expand" : "Collapse";
 
                 if (e.Button == MouseButtons.Right)
                 {
@@ -672,6 +672,11 @@ namespace Flow.Forms
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), pasteChild.bd, false);
             newChild.bd.isLayerRoot = false;
             newChild.bd.bcmentry = pasteChild.bd.bcmentry.Clone();
+
+            if (pasteChild.Children.Count > 0)
+                if (pasteChild.Children[0].bd.isRemoteChild == false)
+                    newChild.isCollpased = true;
+
 
             foreach (TreeNode<CircleNode> child in pasteChild.Children)
             {
@@ -1456,12 +1461,24 @@ namespace Flow.Forms
 
             newChild.bd.isLayerRoot = false;
             newChild.bd.bcmentry = bufferNode.bd.bcmentry.Clone();
+
+            if (bufferNode.Children.Count > 0)
+                if (bufferNode.Children[0].bd.isRemoteChild == false)
+                    newChild.isCollpased = true;
+
             SelectedNode.AddChild(newChild);
    
 
 
             reindex();
             ArrangeTree();
+        }
+
+     
+
+        private void readFlowFileflowToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

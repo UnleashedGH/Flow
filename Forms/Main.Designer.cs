@@ -213,6 +213,7 @@
             this.readFlowFileflowToolStripMenuItem.Name = "readFlowFileflowToolStripMenuItem";
             this.readFlowFileflowToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.readFlowFileflowToolStripMenuItem.Text = "Open Flow Project (.flp)";
+            this.readFlowFileflowToolStripMenuItem.Click += new System.EventHandler(this.readFlowFileflowToolStripMenuItem_Click_1);
             // 
             // saveFlowFileflowToolStripMenuItem
             // 
@@ -312,7 +313,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(723, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(722, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
