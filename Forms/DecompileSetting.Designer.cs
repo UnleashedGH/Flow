@@ -94,7 +94,7 @@
             this.groupBox2.Size = new System.Drawing.Size(264, 176);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Compression Parameters";
+            this.groupBox2.Text = "Decompile Parameters";
             // 
             // checkBox1
             // 

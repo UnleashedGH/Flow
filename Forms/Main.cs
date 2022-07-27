@@ -131,7 +131,9 @@ namespace Flow.Forms
         Graphics gr;
         Pen GridPen = new Pen(Color.White);
         Bitmap mBuffer;
-        string toolVersion = "0.0.1";
+        int toolVersionMajor = 0;
+        int toolVersionMinor = 0;
+        int toolVersionSub = 1;
         string toolName = "Flow";
 
         //find a solution to scrolling, mousemov?
@@ -188,13 +190,17 @@ namespace Flow.Forms
             this.Text = c.ToString();
         }
 
+        public string getToolVersion()
+        {
+            return $"{toolVersionMajor}.{toolVersionMinor}.{toolVersionSub}";
+        }
 
         // Make a tree.
         private void Form1_Load(object sender, EventArgs e)
         {
 
             //form props
-            this.Text = ($"{toolName} ({toolVersion})");
+            this.Text = ($"{toolName} ({getToolVersion()})");
             //view props
             showGrid = (gridToolStripMenuItem.Checked);
             showIndices = (showIndicesToolStripMenuItem.Checked);
@@ -1150,9 +1156,9 @@ namespace Flow.Forms
                 }
 
                 if (listView1.Items == null)
-                    this.Text = ($"{toolName} ({toolVersion})");
+                    this.Text = ($"{toolName} ({getToolVersion()})");
                 if (listView1.Items.Count == 0)
-                    this.Text = ($"{toolName} ({toolVersion}) ");
+                    this.Text = ($"{toolName} ({getToolVersion()}) ");
 
                 reindex();
                 ComboPanel.Refresh();
@@ -1314,7 +1320,7 @@ namespace Flow.Forms
                 oldselectedindex = listView1.SelectedIndices[0];
                 ArrangeTree();
 
-                this.Text = ($"{toolName} ({toolVersion}) - Current Selected Layer Index: {listView1.SelectedIndices[0]} ");
+                this.Text = ($"{toolName} ({getToolVersion()}) - Current Selected Layer Index: {listView1.SelectedIndices[0]} ");
 
 
 
@@ -1326,7 +1332,7 @@ namespace Flow.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            (new About(toolVersion)).Show();
+            (new About(getToolVersion())).Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
