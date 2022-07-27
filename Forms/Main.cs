@@ -115,8 +115,8 @@ namespace Flow.Forms
         }
 
         // the absloute root node.. this node is never drawn (nor its child lines)
-        public TreeNode<CircleNode> root =
-            new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+
+        public FlowBinary.FlowBinary fb = new Flow.FlowBinary.FlowBinary();
 
      
 
@@ -353,7 +353,7 @@ namespace Flow.Forms
                 }
 
                 // Delete the node and its subtree.
-               root.DeleteNode(SelectedNode);
+               fb.root.DeleteNode(SelectedNode);
                 // int count = 0;
                 //int NumOfChildren = root.getTotalChildCount(ref count);
                 //MessageBox.Show(NumOfChildren.ToString());
@@ -600,9 +600,9 @@ namespace Flow.Forms
 
                 ctxNodeDelete.Enabled = ( SelectedNode.bd.isLayerRoot == false );
 
-                ctxNodeAddChild.Enabled = (SelectedNode != root);
+                ctxNodeAddChild.Enabled = (SelectedNode != fb.root);
 
-                copyNodeToolStripMenuItem.Enabled = (SelectedNode != root) && (SelectedNode.bd.isRemoteChild == false);
+                copyNodeToolStripMenuItem.Enabled = (SelectedNode != fb.root) && (SelectedNode.bd.isRemoteChild == false);
                 pasteNodeToolStripMenuItem.Enabled = (bufferNode != null)  && (SelectedNode.bd.isRemoteChild == false);
                 pasteRemoteLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
                 pasteSingleLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
@@ -881,9 +881,9 @@ namespace Flow.Forms
                 TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
                 newLayer.bd.LayerName = dlg.layerName;
                 newLayer.bd.isLayerRoot = true;
-               
+
                 //newLayer.ID = root.Children.Count;
-                root.Children.Add(newLayer);
+                fb.root.Children.Add(newLayer);
                 populateListBox(-1, "", false, true);
                 reindex();
 
@@ -914,18 +914,18 @@ namespace Flow.Forms
    
 
             listView1.Items.Clear();
-            for (int i = 0; i < root.Children.Count;i++)
+            for (int i = 0; i < fb.root.Children.Count;i++)
             {
                 if (forceLayerName == "")
-                    listView1.Items.Add(i.ToString() + " - " + root.Children[i].bd.LayerName);
+                    listView1.Items.Add(i.ToString() + " - " + fb.root.Children[i].bd.LayerName);
                 else
                 {
-                    root.Children[i].bd.LayerName = forceLayerName;
-                    listView1.Items.Add(i.ToString() + " - " + root.Children[i].bd.LayerName);
+                    fb.root.Children[i].bd.LayerName = forceLayerName;
+                    listView1.Items.Add(i.ToString() + " - " + fb.root.Children[i].bd.LayerName);
                 }
 
 
-                int currentstrlen = root.Children[i].bd.LayerName.Length;
+                int currentstrlen = fb.root.Children[i].bd.LayerName.Length;
 
                 if (currentstrlen > (longestNameLen ))
                     longestNameLen = currentstrlen;
@@ -977,10 +977,10 @@ namespace Flow.Forms
 
             Dictionary<int, int> mappings = new Dictionary<int, int>();
             extern_index = 0;
-            mappings[root.bd.ID] = extern_index;
+            mappings[fb.root.bd.ID] = extern_index;
        
-            reindexID(root, mappings);
-            reindexRemote(root, mappings);
+            reindexID(fb.root, mappings);
+            reindexRemote(fb.root, mappings);
 
         }
 
@@ -1015,13 +1015,13 @@ namespace Flow.Forms
                     //find layer index
                     for(int i = 0; i < listView1.Items.Count; i++)
                     {
-                        if (root.Children[i].bd.ID > child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
+                        if (fb.root.Children[i].bd.ID > child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
                         {
                        
                             child.bd.LayerIndex = i - 1;
                             return;
                         }
-                        else if(root.Children[i].bd.ID == child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
+                        else if(fb.root.Children[i].bd.ID == child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
                         {
                        
                             child.bd.LayerIndex = i;
@@ -1046,7 +1046,7 @@ namespace Flow.Forms
                         //if (child.Children != null)
                         //    if (child.Children.Count() > 0)
                                 if (child.Children[0] != null) // should always be true if all went well..
-                                    root.DeleteNode(child.Children[0]);
+                            fb.root.DeleteNode(child.Children[0]);
                         
                     
                     }
@@ -1068,10 +1068,10 @@ namespace Flow.Forms
         {
             if (listView1.SelectedIndices.Count > 0)
             {
-                LayerDialog dlg = new LayerDialog(root.Children[listView1.SelectedIndices[0]].bd.LayerName);
+                LayerDialog dlg = new LayerDialog(fb.root.Children[listView1.SelectedIndices[0]].bd.LayerName);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    root.Children[listView1.SelectedIndices[0]].bd.LayerName = dlg.layerName;
+                    fb.root.Children[listView1.SelectedIndices[0]].bd.LayerName = dlg.layerName;
                     populateListBox(-1, "",true);
 
                 }
@@ -1087,7 +1087,7 @@ namespace Flow.Forms
         private void saveFlowFileflowToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            writeFlowBinary(root);
+            //writeFlowBinary(root);
 
           
         }
@@ -1101,8 +1101,8 @@ namespace Flow.Forms
         {
             if (listView1.SelectedIndices.Count > 0)
             {
-              //  root.Children.RemoveAt(listBox1.SelectedIndex);
-                root.DeleteNode(root.Children[listView1.SelectedIndices[0]]);
+                //  root.Children.RemoveAt(listBox1.SelectedIndex);
+                fb.root.DeleteNode(fb.root.Children[listView1.SelectedIndices[0]]);
         
                 if ((listView1.SelectedIndices[0] - 1) >= 0)
                 {
@@ -1175,7 +1175,7 @@ namespace Flow.Forms
 
                 bcmFile.BCMEntries.Add(rootEntry);
 
-                compileBcm(root, ref bcmFile, ref rootEntry);
+                compileBcm(fb.root, ref bcmFile, ref rootEntry);
 
                 bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmFile, saveFileDialog1.FileName);
 
@@ -1197,13 +1197,13 @@ namespace Flow.Forms
         {
 
             listView1.Items.Clear();
-            root.Children.Clear();
-            root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+            fb.root.Children.Clear();
+            fb = new Flow.FlowBinary.FlowBinary();
 
             TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
             newLayer.bd.LayerName = "New Layer";
             //newLayer.ID = root.Children.Count;
-            root.Children.Add(newLayer);
+            fb.root.Children.Add(newLayer);
             populateListBox();
             reindex();
             ArrangeTree();
@@ -1274,7 +1274,7 @@ namespace Flow.Forms
         {
             if (listView1.SelectedIndices.Count > 0)
             {
-                SelectedLayerNode = root.Children[listView1.SelectedIndices[0]];
+                SelectedLayerNode = fb.root.Children[listView1.SelectedIndices[0]];
                 oldselectedindex = listView1.SelectedIndices[0];
                 ArrangeTree();
              
@@ -1400,8 +1400,8 @@ namespace Flow.Forms
                
 
                 listView1.Items.Clear();
-                root.Children.Clear();
-                root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+                fb.root.Children.Clear();
+                fb.root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
 
                 bcmInstance = new Xv2CoreLib.BCM.Parser(openFileDialog1.FileName, false);
 
@@ -1453,7 +1453,7 @@ namespace Flow.Forms
 
                 int index = 0;
 
-                root.Children.AddRange(traverseAndAddChild(r, ref index , ref nodemappings).Children);
+                fb.root.Children.AddRange(traverseAndAddChild(r, ref index , ref nodemappings).Children);
 
 
            

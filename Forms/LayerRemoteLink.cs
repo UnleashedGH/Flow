@@ -43,9 +43,9 @@ namespace Flow.Forms
 
         private void LayerRemoteLink_Load(object sender, EventArgs e)
         {
-           for (int i = 0; i < mainref.root.Children.Count; i++)
+           for (int i = 0; i < mainref.fb.root.Children.Count; i++)
             {
-                listBox1.Items.Add(mainref.root.Children[i].bd.LayerName);
+                listBox1.Items.Add(mainref.fb.root.Children[i].bd.LayerName);
       
             }
 
@@ -61,8 +61,8 @@ namespace Flow.Forms
                 //SelectedLayerNode = root.Children[listBox1.SelectedIndex];
                 //ArrangeTree();
                 treeView1.Nodes.Clear();
-                treeView1.Nodes.Add(mainref.root.Children[listBox1.SelectedIndex].bd.bcmentry.I_08.ToString());
-                addNodesFromGraph(mainref.root.Children[listBox1.SelectedIndex], treeView1.Nodes[0], treeView1);
+                treeView1.Nodes.Add(mainref.fb.root.Children[listBox1.SelectedIndex].bd.bcmentry.I_08.ToString());
+                addNodesFromGraph(mainref.fb.root.Children[listBox1.SelectedIndex], treeView1.Nodes[0], treeView1);
 
 
             }
