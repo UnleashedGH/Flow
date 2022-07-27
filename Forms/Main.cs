@@ -132,6 +132,7 @@ namespace Flow.Forms
         Pen GridPen = new Pen(Color.White);
         Bitmap mBuffer;
         string toolVersion = "0.0.1";
+        string toolName = "Flow";
 
         //find a solution to scrolling, mousemov?
         int autoScrollMinX = 1000;
@@ -143,7 +144,7 @@ namespace Flow.Forms
 
 
         //global index vars
-        static int extern_index = 0;
+        int extern_index = 0;
         int oldselectedindex = -1;
 
         //scrollVars
@@ -161,17 +162,19 @@ namespace Flow.Forms
 
 
         //BcmVars
-        static Xv2CoreLib.BCM.Parser bcmInstance;
-        static Xv2CoreLib.BCM.BCM_File bcmFile;
-        static Xv2CoreLib.BCM.Deserializer bcmOut;
+        private Xv2CoreLib.BCM.Parser bcmInstance;
+        private Xv2CoreLib.BCM.BCM_File bcmFile;
+        private Xv2CoreLib.BCM.Deserializer bcmOut;
         //Static Vars
-
+        public static int ComboPanelTotalX = 0;
+        public static int ComboPanelTotalY = 0;
+        public static bool shouldExpandAuto = false;
 
         //paint
-         bool needsClearSelection = false;
+        bool needsClearSelection = false;
 
         //dbg
-        public static float check;
+       // public static string check;
     
 
 
@@ -184,19 +187,22 @@ namespace Flow.Forms
         // Make a tree.
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-   
+
+            //form props
+            this.Text = ($"{toolName} ({toolVersion})");
+            //view props
             showGrid = (gridToolStripMenuItem.Checked);
             showIndices = (showIndicesToolStripMenuItem.Checked);
 
          
 
-
+            //combo props
             ComboPanel.AutoScroll = true;
             ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
 
             ComboPanel.BackColor = Color.FromArgb(255, 51, 51, 51);
 
+            //list props
             listView1.Scrollable = true;
             listView1.View = View.Details;
 
@@ -418,10 +424,30 @@ namespace Flow.Forms
 
           
 
-            scrollMarginX = (ComboPanel.AutoScrollPosition.X );
+            scrollMarginX = (ComboPanel.AutoScrollPosition.X);
             scrollMarginY = (ComboPanel.AutoScrollPosition.Y);
 
+            //for auto expand
+            ComboPanelTotalX = ComboPanel.Width + autoScrollMinX;
+            ComboPanelTotalY = ComboPanel.Height + autoScrollMinY;
 
+      
+
+            if (shouldExpandAuto)
+            {
+              
+                shouldExpandAuto = false;
+
+                if (autoScrollMinX + (int)(700 * scale) < int.MaxValue)
+                    autoScrollMinX += (int)(700 * scale);
+                if (autoScrollMinY + (int)(700 * scale) < int.MaxValue)
+                    autoScrollMinY += (int)(700 * scale);
+
+                ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
+                drawGrid(gr);
+            }
+
+            //for auto expand
 
 
 
@@ -462,7 +488,7 @@ namespace Flow.Forms
                 // Draw your grid into "bg" here...
 
 
-                //what if you just dump that image and reload it instanly?
+                //what if you just dump that image and reload it instanly? (that wouldn't work with shrinking and expanding grid)
 
 
 
@@ -1117,7 +1143,11 @@ namespace Flow.Forms
                     populateListBox();
                 }
 
-             
+                if (listView1.Items == null)
+                    this.Text = ($"{toolName} ({toolVersion})");
+                if (listView1.Items.Count == 0)
+                    this.Text = ($"{toolName} ({toolVersion}) ");
+
                 reindex();
                 ComboPanel.Refresh();
                // listBox1.SelectedIndex -= 1;
@@ -1278,6 +1308,7 @@ namespace Flow.Forms
                 oldselectedindex = listView1.SelectedIndices[0];
                 ArrangeTree();
              
+                this.Text = ($"{toolName} ({toolVersion}) - Current Selected Layer Index: {listView1.SelectedIndices[0]} ");
 
 
 

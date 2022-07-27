@@ -16,5 +16,10 @@ namespace Flow.Forms
         {
             InitializeComponent();
         }
+
+        private void DecompileSetting_Load(object sender, EventArgs e)
+        {
+            radioButton2.Checked = true;
+        }
     }
 }

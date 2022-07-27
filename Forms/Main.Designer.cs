@@ -49,8 +49,9 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.compileToBCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decompileExistingBCMExpirementalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileToBCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decompileSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showIndicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,18 +60,19 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.ComboPanel = new System.Windows.Forms.Panel();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.button7 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.button4 = new System.Windows.Forms.Button();
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.button5 = new System.Windows.Forms.Button();
+            this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.button6 = new System.Windows.Forms.Button();
+            this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
+            this.button7 = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -239,11 +241,19 @@
             // bCMToolStripMenuItem
             // 
             this.bCMToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.decompileExistingBCMExpirementalToolStripMenuItem,
             this.compileToBCMToolStripMenuItem,
-            this.decompileExistingBCMExpirementalToolStripMenuItem});
+            this.decompileSettingsToolStripMenuItem});
             this.bCMToolStripMenuItem.Name = "bCMToolStripMenuItem";
             this.bCMToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.bCMToolStripMenuItem.Text = "BCM";
+            // 
+            // decompileExistingBCMExpirementalToolStripMenuItem
+            // 
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Name = "decompileExistingBCMExpirementalToolStripMenuItem";
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Text = "Decompile Existing BCM (Experimental)";
+            this.decompileExistingBCMExpirementalToolStripMenuItem.Click += new System.EventHandler(this.decompileExistingBCMExpirementalToolStripMenuItem_Click);
             // 
             // compileToBCMToolStripMenuItem
             // 
@@ -252,12 +262,11 @@
             this.compileToBCMToolStripMenuItem.Text = "Compile to BCM";
             this.compileToBCMToolStripMenuItem.Click += new System.EventHandler(this.compileToBCMToolStripMenuItem_Click);
             // 
-            // decompileExistingBCMExpirementalToolStripMenuItem
+            // decompileSettingsToolStripMenuItem
             // 
-            this.decompileExistingBCMExpirementalToolStripMenuItem.Name = "decompileExistingBCMExpirementalToolStripMenuItem";
-            this.decompileExistingBCMExpirementalToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
-            this.decompileExistingBCMExpirementalToolStripMenuItem.Text = "Decompile Existing BCM (Experimental)";
-            this.decompileExistingBCMExpirementalToolStripMenuItem.Click += new System.EventHandler(this.decompileExistingBCMExpirementalToolStripMenuItem_Click);
+            this.decompileSettingsToolStripMenuItem.Name = "decompileSettingsToolStripMenuItem";
+            this.decompileSettingsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.decompileSettingsToolStripMenuItem.Text = "Decompile Settings";
             // 
             // viewToolStripMenuItem
             // 
@@ -313,7 +322,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(721, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(720, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
@@ -328,14 +337,56 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.Location = new System.Drawing.Point(8, 3);
+            this.listView1.Location = new System.Drawing.Point(8, 17);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(199, 510);
+            this.listView1.Size = new System.Drawing.Size(199, 502);
             this.listView1.TabIndex = 14;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.BackgroundImage = global::Flow.Properties.Resources.maximize;
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(995, 473);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(41, 35);
+            this.button4.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.button4, "Enlarge Grid");
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.BackgroundImage = global::Flow.Properties.Resources.minimize;
+            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.button5.Location = new System.Drawing.Point(995, 514);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(41, 35);
+            this.button5.TabIndex = 16;
+            this.toolTip2.SetToolTip(this.button5, "Shrink Grid");
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.BackgroundImage = global::Flow.Properties.Resources.zoom_in;
+            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(994, 27);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(41, 37);
+            this.button6.TabIndex = 17;
+            this.toolTip3.SetToolTip(this.button6, "Zoom in");
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -351,19 +402,26 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button6
+            // splitContainer1
             // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.BackgroundImage = global::Flow.Properties.Resources.zoom_in;
-            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(994, 27);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(41, 37);
-            this.button6.TabIndex = 17;
-            this.toolTip3.SetToolTip(this.button6, "Zoom in");
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(47, 27);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.splitContainer1.Panel1.Controls.Add(this.listView1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.ComboPanel);
+            this.splitContainer1.Size = new System.Drawing.Size(944, 522);
+            this.splitContainer1.SplitterDistance = 210;
+            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.TabIndex = 19;
             // 
             // button3
             // 
@@ -401,53 +459,14 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button5
+            // label1
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.BackgroundImage = global::Flow.Properties.Resources.minimize;
-            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.button5.Location = new System.Drawing.Point(995, 514);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(41, 35);
-            this.button5.TabIndex = 16;
-            this.toolTip2.SetToolTip(this.button5, "Shrink Grid");
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.BackgroundImage = global::Flow.Properties.Resources.maximize;
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(995, 473);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(41, 35);
-            this.button4.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.button4, "Enlarge Grid");
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(47, 27);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.listView1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.ComboPanel);
-            this.splitContainer1.Size = new System.Drawing.Size(944, 522);
-            this.splitContainer1.SplitterDistance = 210;
-            this.splitContainer1.SplitterWidth = 5;
-            this.splitContainer1.TabIndex = 19;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "label1";
             // 
             // Main
             // 
@@ -478,6 +497,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -530,6 +550,8 @@
         private System.Windows.Forms.ToolTip toolTip4;
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ToolStripMenuItem decompileSettingsToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
     }
 }
 

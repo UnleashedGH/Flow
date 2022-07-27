@@ -407,6 +407,10 @@ namespace Flow.Graph
             if (bd.isRemoteChild)
                 bd.bcmentry.I_08 = bd.RemoteChildPointToRef.bd.bcmentry.I_08;
 
+            //for auto expand
+            if (DataCenter.Y * s + (50 ) > Main.ComboPanelTotalY - (1000  ) || DataCenter.X * s + (50  ) > Main.ComboPanelTotalX - (1000 ))
+                Main.shouldExpandAuto = true;
+           
 
             //this should have no need
             //if (Children.Count == 0)
