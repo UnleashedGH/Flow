@@ -88,9 +88,9 @@ namespace Flow.Forms
 
                     }
 
-                  
-                    
-                    
+
+
+
 
                     return flag;
                 }
@@ -118,7 +118,7 @@ namespace Flow.Forms
 
         public FlowBinary.FlowBinary fb = new Flow.FlowBinary.FlowBinary();
 
-     
+
 
         // buffer node, used for copying and pasting
         private TreeNode<CircleNode> bufferNode = null;
@@ -165,6 +165,11 @@ namespace Flow.Forms
         private Xv2CoreLib.BCM.Parser bcmInstance;
         private Xv2CoreLib.BCM.BCM_File bcmFile;
         private Xv2CoreLib.BCM.Deserializer bcmOut;
+
+        //decompile params
+        public int compressionType = 2;
+        public bool removeTransformation = false;
+
         //Static Vars
         public static int ComboPanelTotalX = 0;
         public static int ComboPanelTotalY = 0;
@@ -174,11 +179,11 @@ namespace Flow.Forms
         bool needsClearSelection = false;
 
         //dbg
-       // public static string check;
-    
+        // public static string check;
 
 
-       public  void writecheck(float c)
+
+        public void writecheck(float c)
         {
             this.Text = c.ToString();
         }
@@ -194,7 +199,7 @@ namespace Flow.Forms
             showGrid = (gridToolStripMenuItem.Checked);
             showIndices = (showIndicesToolStripMenuItem.Checked);
 
-         
+
 
             //combo props
             ComboPanel.AutoScroll = true;
@@ -237,20 +242,20 @@ namespace Flow.Forms
             //lblNodeText.Text = "Loaded";
         }
 
- 
 
- 
+
+
         private void ArrangeTree()
         {
 
             if (SelectedLayerNode == null)
                 return;
-         
-            
 
 
-                float xmin = 25.0f ;
-                float ymin = 10.0f ;
+
+
+            float xmin = 25.0f;
+            float ymin = 10.0f;
             //using (gr = (ComboPanel.CreateGraphics()))
             //{
 
@@ -269,13 +274,13 @@ namespace Flow.Forms
             //root.Arrange(gr, ref xmin, ref ymin);
 
             ComboPanel.Refresh();
-       
+
         }
 
-     
 
 
-   
+
+
 
         // Set SelectedNode to the node under the mouse.
         private void FindNodeUnderMouse(PointF pt, float scale)
@@ -328,13 +333,13 @@ namespace Flow.Forms
 
 
                 ArrangeTree();
-              
+
 
                 //using (gr = (ComboPanel.CreateGraphics()))
                 //{
                 //    drawGrid(gr);
                 //}
-          
+
 
 
             }
@@ -359,7 +364,7 @@ namespace Flow.Forms
                 }
 
                 // Delete the node and its subtree.
-               fb.root.DeleteNode(SelectedNode);
+                fb.root.DeleteNode(SelectedNode);
                 // int count = 0;
                 //int NumOfChildren = root.getTotalChildCount(ref count);
                 //MessageBox.Show(NumOfChildren.ToString());
@@ -380,19 +385,19 @@ namespace Flow.Forms
                 //{
                 //    drawGrid(gr);
                 //}
-               // drawGrid(gr);
+                // drawGrid(gr);
 
             }
         }
 
 
-       
+
         private bool isNodesPresentToDraw()
         {
             if (SelectedLayerNode == null)
                 return false;
 
-        
+
             return true;
         }
 
@@ -401,7 +406,7 @@ namespace Flow.Forms
 
         }
 
-     
+
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -415,14 +420,14 @@ namespace Flow.Forms
         //draw the tree
         private void ComboPanel_Paint(object sender, PaintEventArgs e)
         {
-            
-          
+
+
 
             if (!isNodesPresentToDraw()) return;
 
 
 
-          
+
 
             scrollMarginX = (ComboPanel.AutoScrollPosition.X);
             scrollMarginY = (ComboPanel.AutoScrollPosition.Y);
@@ -431,11 +436,11 @@ namespace Flow.Forms
             ComboPanelTotalX = ComboPanel.Width + autoScrollMinX;
             ComboPanelTotalY = ComboPanel.Height + autoScrollMinY;
 
-      
+
 
             if (shouldExpandAuto)
             {
-              
+
                 shouldExpandAuto = false;
 
                 if (autoScrollMinX + (int)(700 * scale) < int.MaxValue)
@@ -451,15 +456,15 @@ namespace Flow.Forms
 
 
 
-            e.Graphics.TranslateTransform(ComboPanel.AutoScrollPosition.X, ComboPanel.AutoScrollPosition.Y );
-           // e.Graphics.TranslateTransform(mouseOffsetX, mouseOffsetY);
+            e.Graphics.TranslateTransform(ComboPanel.AutoScrollPosition.X, ComboPanel.AutoScrollPosition.Y);
+            // e.Graphics.TranslateTransform(mouseOffsetX, mouseOffsetY);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
             if (showGrid)
             {
 
-            
+
                 e.Graphics.DrawImage(mBuffer, 0, 0);
 
             }
@@ -470,8 +475,8 @@ namespace Flow.Forms
 
 
             //e.Graphics.DrawImage(MainDrawPanel,0,0);
-     
-      
+
+
 
 
         }
@@ -497,7 +502,7 @@ namespace Flow.Forms
                 int x = 0;
                 int y = 0;
                 float nodeSize = 60.0f * scale;
-         
+
 
                 for (int i = 0; i <= (ComboPanel.Height + autoScrollMinY) / nodeSize; i++)
                 {
@@ -505,7 +510,7 @@ namespace Flow.Forms
                 }
                 for (int j = 0; j <= (ComboPanel.Width + autoScrollMinX) / nodeSize; j++)
                 {
-                   
+
                     bg.DrawLine(GridPen, x + (j * nodeSize), y, x + (j * nodeSize), (ComboPanel.Height + autoScrollMinY));
                 }
 
@@ -534,7 +539,7 @@ namespace Flow.Forms
             if (isNodesPresentToDraw() == false)
                 return;
 
-          
+
             // Find the node under the mouse.
             FindNodeUnderMouse(e.Location, scale);
 
@@ -556,16 +561,16 @@ namespace Flow.Forms
                 else
                 {
                     return;
-                
+
                 }
-                   
-              
+
+
             }
 
             //selected node is not null
             else
             {
-              
+
                 if (SelectedNode.bd.isRemoteChild)
                 {
                     //there's 2 ways to get the ID now that we have 2 refs in bd..
@@ -586,7 +591,7 @@ namespace Flow.Forms
 
             }
 
-         
+
 
             //put refresh outside so you clear out the yellow circle line
 
@@ -601,14 +606,14 @@ namespace Flow.Forms
         private void ComboPanel_MouseDown(object sender, MouseEventArgs e)
         {
 
-    
+
             if (!isNodesPresentToDraw())
                 return;
 
             //only left or right mouse buttons are allowed
             if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right) return;
 
-         
+
 
             // Find the node under the mouse.
             FindNodeUnderMouse(e.Location, scale);
@@ -617,25 +622,25 @@ namespace Flow.Forms
             // display the context menu.
             if (SelectedNode != null)
             {
-             
+
 
                 if (Utils.Utils.translateButtonInputFlag(SelectedNode.bd.bcmentry.I_08) == "Other")
                     return;
                 // Don't let the user delete the root node.
                 // (The TreeNode class can't do that.)
 
-                ctxNodeDelete.Enabled = ( SelectedNode.bd.isLayerRoot == false );
+                ctxNodeDelete.Enabled = (SelectedNode.bd.isLayerRoot == false);
 
                 ctxNodeAddChild.Enabled = (SelectedNode != fb.root);
 
                 copyNodeToolStripMenuItem.Enabled = (SelectedNode != fb.root) && (SelectedNode.bd.isRemoteChild == false);
-                pasteNodeToolStripMenuItem.Enabled = (bufferNode != null)  && (SelectedNode.bd.isRemoteChild == false);
+                pasteNodeToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
                 pasteRemoteLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
                 pasteSingleLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
 
-                modifyDataToolStripMenuItem.Enabled =  (SelectedNode.bd.isRemoteChild == false);
+                modifyDataToolStripMenuItem.Enabled = (SelectedNode.bd.isRemoteChild == false);
 
-                ctxNodeAddChild.Enabled =  (SelectedNode.bd.isRemoteChild == false);
+                ctxNodeAddChild.Enabled = (SelectedNode.bd.isRemoteChild == false);
 
                 collapseToolStripMenuItem.Enabled = (SelectedNode.Children.Count > 0);
                 collapseToolStripMenuItem.Text = (SelectedNode.isCollpased) ? "Expand" : "Collapse";
@@ -653,7 +658,7 @@ namespace Flow.Forms
                     ArrangeTree();
                     return;
                 }
-                
+
 
                 // Display the context menu.
                 Point loc = new Point(e.Location.X + 5, e.Location.Y + 5); // +20 to bring the menu down a little bit (coordinate system is left sides)
@@ -666,7 +671,7 @@ namespace Flow.Forms
 
         private void ComboPanel_Scroll(object sender, ScrollEventArgs e)
         {
-         
+
         }
 
         private void pasteNodeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -687,14 +692,14 @@ namespace Flow.Forms
                 return;
             }
 
-     
+
 
             SelectedNode.AddChild(pasterecursive(bufferNode));
             reindex();
             ArrangeTree();
         }
 
-        public TreeNode<CircleNode> pasterecursive( TreeNode<CircleNode> pasteChild)
+        public TreeNode<CircleNode> pasterecursive(TreeNode<CircleNode> pasteChild)
         {
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), pasteChild.bd, false);
             newChild.bd.isLayerRoot = false;
@@ -713,7 +718,7 @@ namespace Flow.Forms
                     return newChild;
 
                 newChild.AddChild(pasterecursive(child));
-               
+
             }
             return newChild;
         }
@@ -767,16 +772,16 @@ namespace Flow.Forms
             }
         }
 
- 
 
 
-      
-        private TreeNode<CircleNode> traverseAndAddChild(Xv2CoreLib.BCM.BCM_Entry e, ref int index , ref Dictionary<int, TreeNode<CircleNode>> nodemappings)
+
+
+        private TreeNode<CircleNode> traverseAndAddChild(Xv2CoreLib.BCM.BCM_Entry e, ref int index, ref Dictionary<int, TreeNode<CircleNode>> nodemappings)
         {
 
             // MessageBox.Show(e.Index);
 
-   
+
 
             TreeNode<CircleNode> f =
             new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), true);
@@ -791,14 +796,14 @@ namespace Flow.Forms
 
             if (e.BCMEntries == null)
             {
-               
+
 
                 if (e.LoopAsChild == null)
                 {
-                  
+
                     f.isCollpased = false;
                 }
-                
+
                 else
                 {
                     TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
@@ -811,7 +816,7 @@ namespace Flow.Forms
                     {
                         newChild.bd.RemoteChildPointToRef = nodemappings[f.bd.RemoteChildIndex];
                     }
-              
+
 
                     newChild.isCollpased = false;
 
@@ -822,14 +827,14 @@ namespace Flow.Forms
                 index++;
                 return f;
             }
-          
+
 
 
             index++;
             foreach (Xv2CoreLib.BCM.BCM_Entry child in e.BCMEntries)
-                    f.AddChild(traverseAndAddChild(child, ref index, ref nodemappings));
+                f.AddChild(traverseAndAddChild(child, ref index, ref nodemappings));
 
-             
+
 
             return f;
 
@@ -841,7 +846,7 @@ namespace Flow.Forms
 
         }
 
-     
+
         void compileBcm(TreeNode<CircleNode> root, ref Xv2CoreLib.BCM.BCM_File bcmFile, ref Xv2CoreLib.BCM.BCM_Entry rootBcmEntry)
         {
             foreach (TreeNode<CircleNode> child in root.Children)
@@ -855,7 +860,7 @@ namespace Flow.Forms
                 cEntry = child.bd.bcmentry.Clone();
                 //we do this because actual id is not in bcm entry index, but rather a unique id in the treenode (i could delete id and change instances everywhere else..)
                 cEntry.Index = child.bd.ID.ToString();
-                
+
 
 
                 string childGoto = child.bd.RemoteChildIndex.ToString();
@@ -874,14 +879,14 @@ namespace Flow.Forms
 
                 rootBcmEntry.BCMEntries.Add(cEntry);
 
-                compileBcm(child,ref  bcmFile, ref cEntry);
+                compileBcm(child, ref bcmFile, ref cEntry);
             }
         }
 
 
         private void compileMovesetBCMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void showIndicesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -898,12 +903,12 @@ namespace Flow.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-         
+
             LayerDialog dlg = new LayerDialog();
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-             
+
                 TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
                 newLayer.bd.LayerName = dlg.layerName;
                 newLayer.bd.isLayerRoot = true;
@@ -915,16 +920,16 @@ namespace Flow.Forms
 
 
                 ArrangeTree();
-                
-              
+
+
 
 
 
 
 
             }
-       
-           
+
+
         }
 
         private void populateListBox(int index = -1, string forceLayerName = "", bool returnOldSelect = false, bool scrollForAdd = false)
@@ -935,12 +940,12 @@ namespace Flow.Forms
             //find longest layer name length to increase column width
             int longestNameLen = 0;
 
-       
 
-   
+
+
 
             listView1.Items.Clear();
-            for (int i = 0; i < fb.root.Children.Count;i++)
+            for (int i = 0; i < fb.root.Children.Count; i++)
             {
                 if (forceLayerName == "")
                     listView1.Items.Add(i.ToString() + " - " + fb.root.Children[i].bd.LayerName);
@@ -953,7 +958,7 @@ namespace Flow.Forms
 
                 int currentstrlen = fb.root.Children[i].bd.LayerName.Length;
 
-                if (currentstrlen > (longestNameLen ))
+                if (currentstrlen > (longestNameLen))
                     longestNameLen = currentstrlen;
             }
 
@@ -969,12 +974,12 @@ namespace Flow.Forms
             listView1.Columns[0].Width = (longestNameLen + 3) * 11;
 
             //to maintain scroll index (its not amazing, but its better than going back to index 0
-            if (oldselectedindex >= 0 && returnOldSelect  && listView1.Items.Count > 0)
+            if (oldselectedindex >= 0 && returnOldSelect && listView1.Items.Count > 0)
             {
                 listView1.Items[oldselectedindex].Focused = true;
                 listView1.Items[oldselectedindex].Selected = true;
                 listView1.Items[oldselectedindex].EnsureVisible();
-                
+
             }
             //update old/previous index
             if (listView1.SelectedIndices.Count > 0)
@@ -993,7 +998,7 @@ namespace Flow.Forms
             listView1.EndUpdate();
 
         }
-       
+
         private void reindex()
         {
 
@@ -1004,15 +1009,15 @@ namespace Flow.Forms
             Dictionary<int, int> mappings = new Dictionary<int, int>();
             extern_index = 0;
             mappings[fb.root.bd.ID] = extern_index;
-       
+
             reindexID(fb.root, mappings);
             reindexRemote(fb.root, mappings);
 
         }
 
-        private void reindexID(TreeNode<CircleNode> r,  Dictionary<int, int> mappings)
+        private void reindexID(TreeNode<CircleNode> r, Dictionary<int, int> mappings)
         {
-            
+
             foreach (TreeNode<CircleNode> child in r.Children)
             {
                 if (child.bd.isRemoteChild)
@@ -1024,10 +1029,10 @@ namespace Flow.Forms
                 extern_index++;
                 mappings[child.bd.ID] = extern_index;
                 child.bd.ID = extern_index;
-               
+
                 reindexID(child, mappings);
             }
-          
+
         }
 
         private void reindexRemote(TreeNode<CircleNode> r, Dictionary<int, int> mappings)
@@ -1036,33 +1041,34 @@ namespace Flow.Forms
             {
                 if (child.bd.isRemoteChild)
                 {
-                   // child.bd.ID = 666;
+                    // child.bd.ID = 666;
 
                     //find layer index
-                    for(int i = 0; i < listView1.Items.Count; i++)
+                    for (int i = 0; i < listView1.Items.Count; i++)
                     {
                         if (fb.root.Children[i].bd.ID > child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
                         {
-                       
+
                             child.bd.LayerIndex = i - 1;
                             return;
                         }
-                        else if(fb.root.Children[i].bd.ID == child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
+                        else if (fb.root.Children[i].bd.ID == child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
                         {
-                       
+
                             child.bd.LayerIndex = i;
                             return;
                         }
-                      
-                       
+
+
 
                     }
 
-                  
+
                     return;
                 }
 
-                if (child.bd.RemoteChildIndex >= 0) { 
+                if (child.bd.RemoteChildIndex >= 0)
+                {
                     if (mappings.ContainsKey(child.bd.RemoteChildIndex))
                         child.bd.RemoteChildIndex = mappings[child.bd.RemoteChildIndex];
 
@@ -1071,10 +1077,10 @@ namespace Flow.Forms
                         child.bd.RemoteChildIndex = -1;
                         //if (child.Children != null)
                         //    if (child.Children.Count() > 0)
-                                if (child.Children[0] != null) // should always be true if all went well..
+                        if (child.Children[0] != null) // should always be true if all went well..
                             fb.root.DeleteNode(child.Children[0]);
-                        
-                    
+
+
                     }
 
 
@@ -1084,10 +1090,10 @@ namespace Flow.Forms
                 reindexRemote(child, mappings);
             }
         }
-     
+
         private void addRemoteLinkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           (new LayerRemoteLink(this)).Show();
+            (new LayerRemoteLink(this)).Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -1098,15 +1104,15 @@ namespace Flow.Forms
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     fb.root.Children[listView1.SelectedIndices[0]].bd.LayerName = dlg.layerName;
-                    populateListBox(-1, "",true);
+                    populateListBox(-1, "", true);
 
                 }
-                  
+
 
 
             }
 
-           
+
 
         }
 
@@ -1115,12 +1121,12 @@ namespace Flow.Forms
 
             //writeFlowBinary(root);
 
-          
+
         }
 
         void writeFlowBinary(TreeNode<CircleNode> r)
         {
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1129,7 +1135,7 @@ namespace Flow.Forms
             {
                 //  root.Children.RemoveAt(listBox1.SelectedIndex);
                 fb.root.DeleteNode(fb.root.Children[listView1.SelectedIndices[0]]);
-        
+
                 if ((listView1.SelectedIndices[0] - 1) >= 0)
                 {
 
@@ -1138,7 +1144,7 @@ namespace Flow.Forms
 
                 else
                 {
-            
+
                     SelectedLayerNode = null;
                     populateListBox();
                 }
@@ -1150,11 +1156,11 @@ namespace Flow.Forms
 
                 reindex();
                 ComboPanel.Refresh();
-               // listBox1.SelectedIndex -= 1;
-              
-           
+                // listBox1.SelectedIndex -= 1;
+
+
             }
-         
+
         }
 
         private void modifyDataToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1166,7 +1172,7 @@ namespace Flow.Forms
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-            
+
                 SelectedNode.bd.bcmentry.I_08 = dlg.primarybuttininput;
 
                 ComboPanel.Refresh();
@@ -1180,15 +1186,15 @@ namespace Flow.Forms
             ComboPanel.Refresh();
         }
 
-     
-   
+
+
 
 
         private void Main_Shown(object sender, EventArgs e)
         {
-       
-      
-         
+
+
+
 
         }
 
@@ -1210,7 +1216,7 @@ namespace Flow.Forms
                 bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmFile, saveFileDialog1.FileName);
 
 
-           
+
                 MessageBox.Show("Compiled Successfully",
                   "Compiled BCM", MessageBoxButtons.OK,
                   MessageBoxIcon.Information);
@@ -1272,7 +1278,7 @@ namespace Flow.Forms
 
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), bufferNode.isCollpased);
             newChild.bd.isLayerRoot = false;
-        
+
             newChild.bd.isRemoteChild = true;
             newChild.bd.RemoteChildParentRef = SelectedNode;
             newChild.bd.RemoteChildPointToRef = bufferNode;
@@ -1280,8 +1286,8 @@ namespace Flow.Forms
             int index = SelectedNode.AddChild(newChild);
             SelectedNode.bd.RemoteChildIndex = bufferNode.bd.ID;
 
-        
-      
+
+
 
             reindex();
             ArrangeTree();
@@ -1289,8 +1295,8 @@ namespace Flow.Forms
 
         private void listBox1_MouseMove(object sender, MouseEventArgs e)
         {
-        
-            
+
+
         }
 
         private void showChildLinkInfoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1307,7 +1313,7 @@ namespace Flow.Forms
                 SelectedLayerNode = fb.root.Children[listView1.SelectedIndices[0]];
                 oldselectedindex = listView1.SelectedIndices[0];
                 ArrangeTree();
-             
+
                 this.Text = ($"{toolName} ({toolVersion}) - Current Selected Layer Index: {listView1.SelectedIndices[0]} ");
 
 
@@ -1315,8 +1321,8 @@ namespace Flow.Forms
             }
         }
 
-    
-    
+
+
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1365,7 +1371,7 @@ namespace Flow.Forms
                 drawGrid(gr);
                 ComboPanel.Refresh();
             }
-           
+
         }
         private void traverseAndAppend(Xv2CoreLib.BCM.BCM_Entry e, ref List<Xv2CoreLib.BCM.BCM_Entry> bcmEntries)
         {
@@ -1379,7 +1385,7 @@ namespace Flow.Forms
                 traverseAndAppend(child, ref bcmEntries);
 
         }
-       
+
         public void traverseAndCompress(Xv2CoreLib.BCM.BCM_Entry e, Dictionary<ChildCollection, string> dict)
         {
 
@@ -1387,18 +1393,28 @@ namespace Flow.Forms
             if (e.BCMEntries == null)
                 return;
 
+            ChildCollection childs = null;
 
-            List<Xv2CoreLib.BCM.BCM_Entry> alltraversalbcmentrie = new List<Xv2CoreLib.BCM.BCM_Entry>();
-            traverseAndAppend(e, ref alltraversalbcmentrie);
+            if (compressionType == 2)
+            {
+                List<Xv2CoreLib.BCM.BCM_Entry> alltraversalbcmentrie = new List<Xv2CoreLib.BCM.BCM_Entry>();
+                traverseAndAppend(e, ref alltraversalbcmentrie);
 
-            ChildCollection childs = new ChildCollection(alltraversalbcmentrie);
+                 childs = new ChildCollection(alltraversalbcmentrie);
+            }
+
+            if (compressionType == 3)
+            {
+                childs = new ChildCollection(e.BCMEntries);
+            }
+      
 
             if (dict.ContainsKey(childs))
             {
                 //if the BCM entry has children, delete them
                 if (e.BCMEntries != null)
                 {
-                  
+
                     e.BCMEntries = null;
                     //set a GoTo Child loop from the previous BCM child index
                     e.LoopAsChild = dict[childs];
@@ -1422,13 +1438,54 @@ namespace Flow.Forms
 
 
         }
+        bool hasTransform(Xv2CoreLib.BCM.BCM_Entry e)
+        {
+            return (e.I_24 & 256) == 256;
+        }
+
+        void removeTransform(Xv2CoreLib.BCM.BCM_Entry root)
+        {
+            //do a backwards loop to delete entries (layer1)
+            for (int i = root.BCMEntries.Count - 1; i >= 0; i--)
+            {
+
+
+                //is Transformed flag active
+                if (hasTransform(root.BCMEntries[i]))
+                    root.BCMEntries.RemoveAt(i);
+
+
+                else //if the BCM entry doesn't have Transform flag, check its childen (layer2)
+                {
+
+                    //no children found, skip
+                    if (root.BCMEntries[i].BCMEntries == null)
+                        continue;
+
+                    //children found
+                    else
+                    {
+                        //do a backwards loop to delete entries of the parent's children
+                        for (int j = root.BCMEntries[i].BCMEntries.Count - 1; j >= 0; j--)
+                        {
+                            //is Transformed flag active
+                            if (hasTransform(root.BCMEntries[i].BCMEntries[j]))
+                                root.BCMEntries[i].BCMEntries.RemoveAt(j);
+
+                        }
+                    }
+                }
+
+            }
+
+        }
 
         private void decompileExistingBCMExpirementalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
 
-               
+
 
                 listView1.Items.Clear();
                 fb.root.Children.Clear();
@@ -1436,47 +1493,34 @@ namespace Flow.Forms
 
                 bcmInstance = new Xv2CoreLib.BCM.Parser(openFileDialog1.FileName, false);
 
-
-                //list of all BCM entries non tree
                 Xv2CoreLib.BCM.BCM_Entry r = bcmInstance.bcmFile.BCMEntries[0];
 
-                Dictionary<ChildCollection, string> dict =
-                new Dictionary<ChildCollection, string>();
 
-                //first, compress a vanilla bcm
-                //
-                //This will crash if you try to compress again, espically if there were changes
-                //(or in Flow Alpha case, everything set to null except primary inputs))
-                //its because when the compressor deletes entries, it doesn't offset the childGoTo loops
-                //basically, it doesn't sort... (
-                //we can try implemeting a sort function and increase decompile time
-                //or just do a try catch and refuse to compress again (we should do the try catch anyway)
-                //Flow should be better at compressing because it hashes everything unlike bcmcompress
-                //lets also lets if it keeps the same logic as Toppo.. test with and without Flow compress
-                //although probably need to port the compress logic to bcmcompress because overflow isn't ready yet to writa all values
+                //remove transform
+                if (removeTransformation)
+                {
+                    removeTransform(r);
+                    bcm_reindex(r);
 
+                }
+                //compression
+                if (compressionType != 1)
+                {
 
-                //implement sort (optional)
-                //test toppo moveset with better compression? (no diff, still breaks, need to think of different logic
-                //perform try catch (done)
-                //add a bcm entry instance to treenode to make it easier to write and read
-                traverseAndCompress(r, dict);
-
-                //sort everything after compress... (need better method)
-                // we NEED a function to sort the bcm after deleting entries
-
-                //              MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
-
-                //IS THIS NEEDED? (we using this as a temp way to sort)
-               // bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmInstance.bcmFile);
-               // bcmInstance = new Xv2CoreLib.BCM.Parser(bcmOut.rawBytesAfterSort);
+                    Dictionary<ChildCollection, string> dict =
+                    new Dictionary<ChildCollection, string>();
 
 
-                bcm_reindex(r);
+                    traverseAndCompress(r, dict);
 
-                //   MessageBox.Show(bcmInstance.rawBytes.Length.ToString());
-               
-                r = bcmInstance.bcmFile.BCMEntries[0];
+                    bcm_reindex(r);
+
+
+
+                    r = bcmInstance.bcmFile.BCMEntries[0];
+                }
+         
+
 
 
                 Dictionary<int, TreeNode<CircleNode>> nodemappings =
@@ -1484,26 +1528,26 @@ namespace Flow.Forms
 
                 int index = 0;
 
-                fb.root.Children.AddRange(traverseAndAddChild(r, ref index , ref nodemappings).Children);
+                fb.root.Children.AddRange(traverseAndAddChild(r, ref index, ref nodemappings).Children);
 
 
-           
+
                 //isBCMLoaded = true;
-               
+
                 populateListBox(-1, "Unknown Layer");
 
 
                 //select an index so ArrangeTree works, because it requires selectedLayerNode to not be null
                 if (listView1.Items.Count > 0)
-                    {
-                        listView1.Items[0].Focused = true;
-                        listView1.Items[0].Selected = true;
-                        listView1.Items[0].EnsureVisible();
-                    }
+                {
+                    listView1.Items[0].Focused = true;
+                    listView1.Items[0].Selected = true;
+                    listView1.Items[0].EnsureVisible();
+                }
 
                 reindex();
                 ArrangeTree();
-               
+
 
                 //catch (Exception ex)
                 //{
@@ -1537,7 +1581,7 @@ namespace Flow.Forms
                 return;
             foreach (Xv2CoreLib.BCM.BCM_Entry child in r.BCMEntries)
             {
-          
+
 
                 extern_index++;
                 mappings[child.Index] = extern_index;
@@ -1554,7 +1598,7 @@ namespace Flow.Forms
                 return;
             foreach (Xv2CoreLib.BCM.BCM_Entry child in r.BCMEntries)
             {
-           
+
 
                 if (child.LoopAsChild != null)
                 {
@@ -1594,18 +1638,31 @@ namespace Flow.Forms
                     newChild.isCollpased = true;
 
             SelectedNode.AddChild(newChild);
-   
+
 
 
             reindex();
             ArrangeTree();
         }
 
-     
+
 
         private void readFlowFileflowToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void decompileSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            DecompileSetting dlg = new DecompileSetting(this);
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+
+                removeTransformation = dlg.removeTransformations;
+                compressionType = dlg.compressionType;
+            }
         }
     }
 }
