@@ -184,7 +184,7 @@ namespace Flow.Forms
         // Make a tree.
         private void Form1_Load(object sender, EventArgs e)
         {
-   
+            
    
             showGrid = (gridToolStripMenuItem.Checked);
             showIndices = (showIndicesToolStripMenuItem.Checked);
@@ -544,7 +544,7 @@ namespace Flow.Forms
                 {
                     //there's 2 ways to get the ID now that we have 2 refs in bd..
                     //might change
-                    lblNodeText.Text = "Remote Link for Node with index: " + SelectedNode.bd.RemoteChildParentRef.bd.RemoteChildIndex.ToString();
+                    lblNodeText.Text = $"Remote Link for Node with index: {SelectedNode.bd.RemoteChildParentRef.bd.RemoteChildIndex}  On Layer Index: {SelectedNode.bd.LayerIndex}";
                 }
                 //if not remove child
                 else
@@ -1024,6 +1024,28 @@ namespace Flow.Forms
                 if (child.bd.isRemoteChild)
                 {
                    // child.bd.ID = 666;
+
+                    //find layer index
+                    for(int i = 0; i < listView1.Items.Count; i++)
+                    {
+                        if (root.Children[i].bd.ID > child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
+                        {
+                       
+                            child.bd.LayerIndex = i - 1;
+                            return;
+                        }
+                        else if(root.Children[i].bd.ID == child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
+                        {
+                       
+                            child.bd.LayerIndex = i;
+                            return;
+                        }
+                      
+                       
+
+                    }
+
+                  
                     return;
                 }
 
@@ -1434,8 +1456,9 @@ namespace Flow.Forms
 
            
                 //isBCMLoaded = true;
-                reindex();
+               
                 populateListBox(-1, "Unknown Layer");
+
 
                 //select an index so ArrangeTree works, because it requires selectedLayerNode to not be null
                 if (listView1.Items.Count > 0)
@@ -1445,9 +1468,10 @@ namespace Flow.Forms
                         listView1.Items[0].EnsureVisible();
                     }
 
-              
+                reindex();
                 ArrangeTree();
-                
+               
+
                 //catch (Exception ex)
                 //{
                 //    MessageBox.Show($"thrown an error during decompile process (decompiled an already compiled bcm?) the error is: {ex.Message} ",

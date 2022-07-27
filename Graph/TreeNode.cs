@@ -20,6 +20,7 @@ namespace Flow.Graph
 
         public int ID;  //should be initlized as -1, because its index
         public string LayerName;
+        public int LayerIndex;
 
 
 
@@ -119,6 +120,7 @@ namespace Flow.Graph
                
                 bcmentry =  _bd.bcmentry ,
                 LayerName = _LayerName,
+                LayerIndex = _bd.LayerIndex,
                 ID = _bd.ID,
                 RemoteChildIndex = _bd.RemoteChildIndex,
                 isRemoteChild = _bd.isRemoteChild,
@@ -134,10 +136,12 @@ namespace Flow.Graph
           
             bd.RemoteChildIndex = -1;
             bd.ID = -1;
-  
 
-          
-            
+            bd.LayerIndex = -1;
+
+
+
+
            isCollpased = collapse;
        
         }
