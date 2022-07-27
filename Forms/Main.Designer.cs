@@ -313,7 +313,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(722, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(721, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
@@ -343,7 +343,7 @@
             this.button7.BackgroundImage = global::Flow.Properties.Resources.magnifying_glass;
             this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(997, 70);
+            this.button7.Location = new System.Drawing.Point(994, 70);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(41, 37);
             this.button7.TabIndex = 18;
@@ -357,7 +357,7 @@
             this.button6.BackgroundImage = global::Flow.Properties.Resources.zoom_in;
             this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(997, 27);
+            this.button6.Location = new System.Drawing.Point(994, 27);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(41, 37);
             this.button6.TabIndex = 17;
@@ -370,7 +370,7 @@
             this.button3.BackgroundImage = global::Flow.Properties.Resources.pen;
             this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button3.Font = new System.Drawing.Font("Microsoft PhagsPa", 15.75F);
-            this.button3.Location = new System.Drawing.Point(3, 74);
+            this.button3.Location = new System.Drawing.Point(6, 75);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(38, 37);
             this.button3.TabIndex = 12;
@@ -382,7 +382,7 @@
             this.button2.BackgroundImage = global::Flow.Properties.Resources.delete;
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button2.Font = new System.Drawing.Font("Microsoft PhagsPa", 15.75F);
-            this.button2.Location = new System.Drawing.Point(3, 117);
+            this.button2.Location = new System.Drawing.Point(6, 118);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(38, 37);
             this.button2.TabIndex = 11;
@@ -394,7 +394,7 @@
             this.button1.BackgroundImage = global::Flow.Properties.Resources.plus;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.Font = new System.Drawing.Font("Microsoft PhagsPa", 15.75F);
-            this.button1.Location = new System.Drawing.Point(3, 29);
+            this.button1.Location = new System.Drawing.Point(6, 30);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(38, 37);
             this.button1.TabIndex = 10;
@@ -407,7 +407,7 @@
             this.button5.BackgroundImage = global::Flow.Properties.Resources.minimize;
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.button5.Location = new System.Drawing.Point(997, 514);
+            this.button5.Location = new System.Drawing.Point(995, 514);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(41, 35);
             this.button5.TabIndex = 16;
@@ -421,7 +421,7 @@
             this.button4.BackgroundImage = global::Flow.Properties.Resources.maximize;
             this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(997, 473);
+            this.button4.Location = new System.Drawing.Point(995, 473);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(41, 35);
             this.button4.TabIndex = 15;
