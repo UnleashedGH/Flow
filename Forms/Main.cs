@@ -131,9 +131,9 @@ namespace Flow.Forms
         Graphics gr;
         Pen GridPen = new Pen(Color.White);
         Bitmap mBuffer;
-        int toolVersionMajor = 0;
-        int toolVersionMinor = 0;
-        int toolVersionSub = 1;
+        short toolVersionMajor = 0;
+        short toolVersionMinor = 0;
+        short toolVersionSub = 1;
         string toolName = "Flow";
 
         //find a solution to scrolling, mousemov?
@@ -449,10 +449,10 @@ namespace Flow.Forms
 
                 shouldExpandAuto = false;
 
-                if (autoScrollMinX + (int)(700 * scale) < int.MaxValue)
-                    autoScrollMinX += (int)(700 * scale);
-                if (autoScrollMinY + (int)(700 * scale) < int.MaxValue)
-                    autoScrollMinY += (int)(700 * scale);
+                if (autoScrollMinX + (int)(750 * scale) < int.MaxValue)
+                    autoScrollMinX += (int)(750 * scale);
+                if (autoScrollMinY + (int)(750 * scale) < int.MaxValue)
+                    autoScrollMinY += (int)(750 * scale);
 
                 ComboPanel.AutoScrollMinSize = new Size(autoScrollMinX, autoScrollMinY);
                 drawGrid(gr);
@@ -510,11 +510,11 @@ namespace Flow.Forms
                 float nodeSize = 60.0f * scale;
 
 
-                for (int i = 0; i <= (ComboPanel.Height + autoScrollMinY) / nodeSize; i++)
+                for (int i = 0; i <= (ComboPanel.Height + autoScrollMinY - 100) / nodeSize; i++)
                 {
                     bg.DrawLine(GridPen, x, y + (i * nodeSize), (ComboPanel.Width + autoScrollMinX), y + (i * nodeSize));
                 }
-                for (int j = 0; j <= (ComboPanel.Width + autoScrollMinX) / nodeSize; j++)
+                for (int j = 0; j <= (ComboPanel.Width + autoScrollMinX - 100) / nodeSize; j++)
                 {
 
                     bg.DrawLine(GridPen, x + (j * nodeSize), y, x + (j * nodeSize), (ComboPanel.Height + autoScrollMinY));
@@ -1124,17 +1124,17 @@ namespace Flow.Forms
 
         private void saveFlowFileflowToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //compile BCM
+            if (saveFileDialog2.ShowDialog() == DialogResult.OK)
+            {
 
-            //writeFlowBinary(root);
+                fb.writeFlowBinary(saveFileDialog2.FileName, toolVersionMajor, toolVersionMinor, toolVersionSub);
+            }
 
 
         }
 
-        void writeFlowBinary(TreeNode<CircleNode> r)
-        {
-
-        }
-
+     
         private void button2_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedIndices.Count > 0)

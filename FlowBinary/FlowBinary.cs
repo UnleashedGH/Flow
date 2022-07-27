@@ -18,9 +18,16 @@ namespace Flow.FlowBinary
             root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
         }
 
-        public void writeFlowBinary(string path)
+        public void writeFlowBinary(string path, short vmj, short vmi, short vs)
         {
-            
+            bytes.AddRange(BitConverter.GetBytes(vmj));
+            bytes.AddRange(BitConverter.GetBytes(vmi));
+            bytes.AddRange(BitConverter.GetBytes(vs));
+
+
+
+
+            System.IO.File.WriteAllBytes(path, bytes.ToArray());
         }
         private void write(TreeNode<CircleNode> node)
         {
