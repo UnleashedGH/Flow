@@ -741,20 +741,7 @@ namespace Flow.Forms
             }
         }
 
-        private void traverseAndAppend(Xv2CoreLib.BCM.BCM_Entry e, ref List<Xv2CoreLib.BCM.BCM_Entry> bcmEntries)
-        {
-
-         
-            bcmEntries.Add(e);
-            if (e.BCMEntries == null)
-                return;
-
-            foreach (Xv2CoreLib.BCM.BCM_Entry child in e.BCMEntries)
-                traverseAndAppend(child, ref bcmEntries);
-
-        }
-    
-
+ 
 
 
       
@@ -1349,6 +1336,19 @@ namespace Flow.Forms
             }
            
         }
+        private void traverseAndAppend(Xv2CoreLib.BCM.BCM_Entry e, ref List<Xv2CoreLib.BCM.BCM_Entry> bcmEntries)
+        {
+
+
+            bcmEntries.Add(e);
+            if (e.BCMEntries == null)
+                return;
+
+            foreach (Xv2CoreLib.BCM.BCM_Entry child in e.BCMEntries)
+                traverseAndAppend(child, ref bcmEntries);
+
+        }
+       
         public void traverseAndCompress(Xv2CoreLib.BCM.BCM_Entry e, Dictionary<ChildCollection, string> dict)
         {
 
@@ -1357,8 +1357,10 @@ namespace Flow.Forms
                 return;
 
 
+            List<Xv2CoreLib.BCM.BCM_Entry> alltraversalbcmentrie = new List<Xv2CoreLib.BCM.BCM_Entry>();
+            traverseAndAppend(e, ref alltraversalbcmentrie);
 
-            ChildCollection childs = new ChildCollection(e.BCMEntries);
+            ChildCollection childs = new ChildCollection(alltraversalbcmentrie);
 
             if (dict.ContainsKey(childs))
             {
