@@ -963,10 +963,11 @@ namespace Flow.Forms
                 listView1.Items[oldselectedindex].EnsureVisible();
                 
             }
-
+            //update old/previous index
             if (listView1.SelectedIndices.Count > 0)
                 oldselectedindex = listView1.SelectedIndices[0];
 
+            //when adding a new item, ensure last item is visable
             if (scrollForAdd && listView1.Items.Count > 0)
             {
                 int newest_index = listView1.Items.Count - 1;
