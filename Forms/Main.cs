@@ -1398,7 +1398,7 @@ namespace Flow.Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (scale - 0.25f > 0)
+            if (scale - 0.25f > 0.50f)
             {
                 scale -= 0.25f;
                 drawGrid(gr);
