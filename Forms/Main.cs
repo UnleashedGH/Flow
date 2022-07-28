@@ -667,8 +667,21 @@ namespace Flow.Forms
 
 
                 // Display the context menu.
-                Point loc = new Point(e.Location.X + 5, e.Location.Y + 5); // +20 to bring the menu down a little bit (coordinate system is left sides)
-                ctxNode.Show(ComboPanel, loc);
+                if (SelectedNode.bd.isRemoteChild)
+                {
+                    if (SelectedNode.bd.LayerIndex != -1)
+                    {
+                        listView1.Items[SelectedNode.bd.LayerIndex].Focused = true;
+                        listView1.Items[SelectedNode.bd.LayerIndex].Selected = true;
+                        listView1.Items[SelectedNode.bd.LayerIndex].EnsureVisible();
+                    }
+                }
+                else
+                {
+                    Point loc = new Point(e.Location.X + 5, e.Location.Y + 5); // +20 to bring the menu down a little bit (coordinate system is left sides)
+                    ctxNode.Show(ComboPanel, loc);
+                }
+            
             }
 
             else { }
@@ -1124,7 +1137,11 @@ namespace Flow.Forms
 
         private void saveFlowFileflowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //compile BCM
+
+          try
+            {
+
+         
             if (saveFileDialog2.ShowDialog() == DialogResult.OK)
             {
 
@@ -1134,7 +1151,13 @@ namespace Flow.Forms
                MessageBoxIcon.Information);
                 }
 
-
+            }
+            catch(Exception x)
+            {
+                MessageBox.Show($"Error Writing Flow Binary, exception says: {x.Message}",
+           "Error On Save", MessageBoxButtons.OK,
+           MessageBoxIcon.Error);
+            }
 
         }
 
@@ -1659,7 +1682,25 @@ namespace Flow.Forms
 
         private void readFlowFileflowToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+            try
+            {
 
+
+                if (openFileDialog2.ShowDialog() == DialogResult.OK)
+                {
+                    fb = new FlowBinary.FlowBinary();
+                    fb.readFlowBinary(saveFileDialog2.FileName, getToolVersion());
+
+                
+                }
+
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show($"Error Read Flow Binary, exception says: {x.Message}",
+           "Error On Load", MessageBoxButtons.OK,
+           MessageBoxIcon.Error);
+            }
         }
 
         private void decompileSettingsToolStripMenuItem_Click(object sender, EventArgs e)

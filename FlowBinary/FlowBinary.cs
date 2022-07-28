@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using Flow.Graph;
+
 
 namespace Flow.FlowBinary
 {
@@ -33,7 +35,7 @@ namespace Flow.FlowBinary
             bytes = ReplaceRange(bytes, BitConverter.GetBytes(counter), 11); //num of nodes
 
 
-            System.IO.File.WriteAllBytes(path, bytes.ToArray());
+            File.WriteAllBytes(path, bytes.ToArray());
         }
         private void write(TreeNode<CircleNode> node, int parentIndex, ref int counter)
         {
@@ -138,6 +140,9 @@ namespace Flow.FlowBinary
         {
             string binaryName;
             string toolVersion;
+            byte[] rawBytes = File.ReadAllBytes(path);
+
+            binaryName = Encoding.ASCII.GetString(rawBytes, 0, 5);
         }
         public string getToolVersion(short toolVersionMajor, short toolVersionMinor, short toolVersionSub)
         {
