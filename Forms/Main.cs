@@ -1688,10 +1688,29 @@ namespace Flow.Forms
 
                 if (openFileDialog2.ShowDialog() == DialogResult.OK)
                 {
-                    fb = new FlowBinary.FlowBinary();
-                    fb.readFlowBinary(saveFileDialog2.FileName, getToolVersion());
+           
+                    if(fb.readFlowBinary(openFileDialog2.FileName, getToolVersion()))
+                    {
+                        fb = new FlowBinary.FlowBinary();
+                        listView1.Items.Clear();
+                        populateListBox();
+                        reindex();
+                        ArrangeTree();
+                        listView1.Items[0].Focused = true;
+                        listView1.Items[0].Selected = true;
+                        listView1.Items[0].EnsureVisible();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Error Read Flow Binary, corrupted binary",
+                        "Error On Load", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    }
 
-                
+                 
+
+
+
                 }
 
             }

@@ -136,13 +136,42 @@ namespace Flow.FlowBinary
         }
         #endregion
         #region Read
-        public void readFlowBinary(string path, string toolVersionFull)
+        public bool readFlowBinary(string path, string toolVersionFull)
         {
-            string binaryName;
-            string toolVersion;
+
             byte[] rawBytes = File.ReadAllBytes(path);
 
+
+            string binaryName;
+            string toolVersion;
+            short toolVersionMajor, toolVersionMinor, toolVersionSub = -1;
+            int counter = -1;
+     
+
+
             binaryName = Encoding.ASCII.GetString(rawBytes, 0, 5);
+            toolVersionMajor = BitConverter.ToInt16(rawBytes, 5);
+            toolVersionMinor = BitConverter.ToInt16(rawBytes, 9);
+            toolVersionSub = BitConverter.ToInt16(rawBytes, 6);
+            toolVersion = getToolVersion(toolVersionMajor, toolVersionMinor, toolVersionSub);
+
+
+            if (binaryName != "#FLOW")
+                return false;
+
+            //need to handle read different versions later (if needed)
+            //if (toolVersion != toolVersionFull)
+            //    return false;
+
+
+            counter = BitConverter.ToInt32(rawBytes, 0xB);
+
+            if (counter == -1)
+                return false;
+
+
+
+            return true;
         }
         public string getToolVersion(short toolVersionMajor, short toolVersionMinor, short toolVersionSub)
         {
