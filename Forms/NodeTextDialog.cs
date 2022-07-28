@@ -111,7 +111,7 @@ namespace Flow.Forms
         
             if (treeNodeRef != null)
             {
-                uint value0 = treeNodeRef.bd.bcmentry.I_08;
+                uint value0 = bcmEntry.I_08;
                 //thepadding is based of how many bits in the checkbox array, it should be the original full size to maintain
                 string binary0 = Convert.ToString(value0, 2).PadLeft(PrimaryButtonInputFlag.Count, '0');
                 for (int i = 0; i < PrimaryButtonInputFlag.Count; i++)
