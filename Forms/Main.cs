@@ -1129,7 +1129,11 @@ namespace Flow.Forms
             {
 
                 fb.writeFlowBinary(saveFileDialog2.FileName, toolVersionMajor, toolVersionMinor, toolVersionSub);
-            }
+                MessageBox.Show("Saved Successfully",
+               "Save Flow Project", MessageBoxButtons.OK,
+               MessageBoxIcon.Information);
+                }
+
 
 
         }
