@@ -169,6 +169,11 @@ namespace Flow.FlowBinary
             if (counter == -1)
                 return false;
 
+            for (int i = 0; i < counter; i++)
+            {
+
+            }
+
 
 
             return true;

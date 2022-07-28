@@ -22,13 +22,13 @@ namespace Flow.Forms
 
 
         //public outputs
-        public uint primarybuttininput = 0x0;
+       
 
 
 
         //constroctor props
         TreeNode<CircleNode> treeNodeRef;
-        Xv2CoreLib.BCM.BCM_Entry bcmEntry;
+       public Xv2CoreLib.BCM.BCM_Entry bcmEntry;
 
 
         public NodeTextDialog(TreeNode<CircleNode> tnr = null)
@@ -69,8 +69,8 @@ namespace Flow.Forms
                     binary0 += '1';
             }
 
-         
-            primarybuttininput = Convert.ToUInt32(binary0, 2);
+
+            bcmEntry.I_08 = Convert.ToUInt32(binary0, 2);
          
 
             /////////////////////////////
@@ -91,26 +91,36 @@ namespace Flow.Forms
             numericUpDown1.Maximum = Int32.MaxValue;
 
             //init bcmentry
-            if (treeNodeRef.bd.bcmentry != null)
-                bcmEntry = treeNodeRef.bd.bcmentry.Clone();
+            bool canReadFromEntry = false;
+            bcmEntry = new Xv2CoreLib.BCM.BCM_Entry();
+            if (treeNodeRef != null)
+            {
+                if (treeNodeRef.bd.bcmentry != null)
+                {
+                    canReadFromEntry = true;
+                    bcmEntry = treeNodeRef.bd.bcmentry.Clone();
+                }
+            }
+
+
+            //init checkbox bit arrays
+            //extend till all possible bit arrays
+                                                     //           0      1           1        0       1             1           1         1
+                                                     //                  step         block           jump        kiblast     heavy      light
+            PrimaryButtonInputFlag.AddRange(new List<CheckBox> { null, checkBox6, checkBox7, null, checkBox26, checkBox5, checkBox4, checkBox3 });
+
+
 
             //init flags and data
 
-            //////////////////////////////////////
-            //PrimaryButtonInputFlag
-            //////////////////////////////////////
-
-
-                                                             // 0      1           1        0       1             1           1         1
-                                                             //       step         block           jump        kiblast     heavy      light
-            PrimaryButtonInputFlag.AddRange(new List<CheckBox>{ null ,checkBox6, checkBox7, null, checkBox26, checkBox5, checkBox4,checkBox3});
-
-
-
-
         
-            if (treeNodeRef != null)
+            if (canReadFromEntry == true)
             {
+
+                ///////////////////////////////
+                //PrimaryButtonInputFlag
+                ///////////////////////////////
+
                 uint value0 = bcmEntry.I_08;
                 //thepadding is based of how many bits in the checkbox array, it should be the original full size to maintain
                 string binary0 = Convert.ToString(value0, 2).PadLeft(PrimaryButtonInputFlag.Count, '0');

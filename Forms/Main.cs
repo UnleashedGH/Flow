@@ -319,7 +319,7 @@ namespace Flow.Forms
                 TreeNode<CircleNode> child =
                     new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
 
-                child.bd.bcmentry.I_08 = dlg.primarybuttininput;
+                child.bd.bcmentry = dlg.bcmEntry.Clone();
 
                 SelectedNode.isCollpased = false;
                 SelectedNode.AddChild(child);
@@ -1206,7 +1206,7 @@ namespace Flow.Forms
             if (dlg.ShowDialog() == DialogResult.OK)
             {
 
-                SelectedNode.bd.bcmentry.I_08 = dlg.primarybuttininput;
+                SelectedNode.bd.bcmentry = dlg.bcmEntry.Clone();
 
                 ComboPanel.Refresh();
             }
@@ -1691,7 +1691,7 @@ namespace Flow.Forms
            
                     if(fb.readFlowBinary(openFileDialog2.FileName, getToolVersion()))
                     {
-                        fb = new FlowBinary.FlowBinary();
+                        //fb = new FlowBinary.FlowBinary();
                         listView1.Items.Clear();
                         populateListBox();
                         reindex();
