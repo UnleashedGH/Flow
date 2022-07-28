@@ -25,9 +25,11 @@ namespace Flow.Forms
             if (layernameref != "")
             {
                 textBox1.Text = layernameref;
+                this.Text = "Modify Layer Name";
             }
             else
             {
+                this.Text = "Add New Layer";
                 textBox1.Text = "New Layer";
             }
            

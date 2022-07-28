@@ -47,9 +47,13 @@ namespace Flow.Forms
         private void btnOk_Click(object sender, EventArgs e)
         {
 
+            //save flags and data
 
-            //primary button input
             /////////////////////////////
+            //PrimaryButtonInputFlag
+            /////////////////////////////
+            //we prob shouldn't start the bit array from the start, but rather modifiy an existing one so we can keep unknown values
+            //and not break a decompiled moveset.
             string binary0 = "";
 
             for (int i = 0; i < PrimaryButtonInputFlag.Count; i++)
@@ -85,14 +89,15 @@ namespace Flow.Forms
 
             numericUpDown1.Maximum = Int32.MaxValue;
 
-            //init flags
+            //init flags and data
 
             //////////////////////////////////////
+            //PrimaryButtonInputFlag
+            //////////////////////////////////////
 
-            
 
-                                                              // 0      1           1        0       1             1           1         1
-                                                              //       step         block           jump        kiblast     heavy      light
+                                                             // 0      1           1        0       1             1           1         1
+                                                             //       step         block           jump        kiblast     heavy      light
             PrimaryButtonInputFlag.AddRange(new List<CheckBox>{ null ,checkBox6, checkBox7, null, checkBox26, checkBox5, checkBox4,checkBox3});
 
 

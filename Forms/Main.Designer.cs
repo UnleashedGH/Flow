@@ -308,11 +308,12 @@
             // openFileDialog1
             // 
             this.openFileDialog1.Filter = "BCM files|*.bcm";
-            this.openFileDialog1.Title = "Open";
+            this.openFileDialog1.Title = "Decompile BCM";
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.Filter = "BCM files|*.bcm";
+            this.saveFileDialog1.Title = "Compile BCM";
             // 
             // ComboPanel
             // 
@@ -324,7 +325,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(719, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(718, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
@@ -463,11 +464,12 @@
             // openFileDialog2
             // 
             this.openFileDialog2.Filter = "Flow Project files|*.flp";
-            this.openFileDialog2.Title = "Open";
+            this.openFileDialog2.Title = "Open Flow Project";
             // 
             // saveFileDialog2
             // 
             this.saveFileDialog2.Filter = "Flow Project files|*.flp";
+            this.saveFileDialog2.Title = "Save Flow Project";
             // 
             // Main
             // 
