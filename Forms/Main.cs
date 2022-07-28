@@ -747,7 +747,8 @@ namespace Flow.Forms
 
             if (SelectedNode == null)
                 return;
-            //TODO implement a proper paste
+            //TODO: Implement a mouse clipboard copy and paste system, while will also interchange data from 2 or more instances of flow
+            //but this will do for now
 
             //we need bufferNode because it holds copy, as SelectedNode can change later
 
@@ -760,8 +761,14 @@ namespace Flow.Forms
             //apparently the selected node reference won't chnagne buffernode when itself changes (recursive ref)
             //its a static ref to the last referenced node? that's very useful
 
+            //BUT
+            //the buffer node itself still references all the updates that happened on the initial selectednode
+            //so if that initial selectednode got new children or any kind of update, that will also reflect on the pasted nodes (bug?)
+
             //before then before node was a NEw node of selected node, which is a new intance and not a ref
             bufferNode = SelectedNode;
+
+
 
 
             // SelectedNode.Children.CopyTo(bufferNode.Children);
@@ -1065,6 +1072,13 @@ namespace Flow.Forms
                     //find layer index
                     for (int i = 0; i < listView1.Items.Count; i++)
                     {
+
+                        if (listView1.Items.Count == 1)
+                        {
+                            child.bd.LayerIndex = i;
+                            return;
+                        }
+
                         if (fb.root.Children[i].bd.ID > child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
                         {
 
@@ -1077,6 +1091,9 @@ namespace Flow.Forms
                             child.bd.LayerIndex = i;
                             return;
                         }
+
+                        
+
 
 
 
@@ -1666,9 +1683,7 @@ namespace Flow.Forms
             newChild.bd.isLayerRoot = false;
             newChild.bd.bcmentry = bufferNode.bd.bcmentry.Clone();
 
-            if (bufferNode.Children.Count > 0)
-                if (bufferNode.Children[0].bd.isRemoteChild == false)
-                    newChild.isCollpased = true;
+            newChild.isCollpased = false;
 
             SelectedNode.AddChild(newChild);
 
