@@ -31,7 +31,9 @@ namespace Flow.FlowBinary
             bytes.AddRange(BitConverter.GetBytes(vmi));
             bytes.AddRange(BitConverter.GetBytes(vs));
             bytes.AddRange(BitConverter.GetBytes((int)0)); //adjust count later
-
+            //root.bd.ID = 0;
+            //for (int i = 0; i < root.Children.Count; i++)
+                //MessageBox.Show(root.Children[i].bd.LayerName);
             write(root, -1, ref counter);
 
             bytes = ReplaceRange(bytes, BitConverter.GetBytes(counter), 11); //num of nodes
@@ -39,7 +41,7 @@ namespace Flow.FlowBinary
 
             File.WriteAllBytes(path, bytes.ToArray());
         }
-        private void write(TreeNode<CircleNode> node, int parentIndex, ref int counter)
+        private void write(TreeNode<CircleNode> r, int parentIndex, ref int counter)
         {
             //write node
 
@@ -55,6 +57,12 @@ namespace Flow.FlowBinary
             //public TreeNode<CircleNode> RemoteChildParentRef; -- don't need
             //public TreeNode<CircleNode> RemoteChildPointToRef; -- don't need
 
+            if (r.bd.isRemoteChild)
+            {
+               
+              //  MessageBox.Show(counter.ToString());
+                return;
+            }
 
 
 
@@ -62,27 +70,28 @@ namespace Flow.FlowBinary
             //public bool isLayerRoot;
 
             /////////tree node params
-            parentIndex = node.bd.ID;
-            bytes.AddRange(BitConverter.GetBytes(parentIndex));
-            bytes.AddRange(BitConverter.GetBytes(node.bd.ID));
-            bytes.AddRange(BitConverter.GetBytes(node.bd.RemoteChildIndex));
 
-            if (node.bd.isRemoteChild)
-                return;
+            bytes.AddRange(BitConverter.GetBytes(parentIndex));
+            bytes.AddRange(BitConverter.GetBytes(r.bd.ID));
+            bytes.AddRange(BitConverter.GetBytes(r.bd.RemoteChildIndex));
+
+         
+
             if (parentIndex == 0) //if the parent is root, write layer names
             {
-                bytes.AddRange(BitConverter.GetBytes(node.bd.LayerName.Count()));
-                bytes.AddRange(Encoding.ASCII.GetBytes(node.bd.LayerName));
+                bytes.AddRange(BitConverter.GetBytes(r.bd.LayerName.Count()));
+                bytes.AddRange(Encoding.ASCII.GetBytes(r.bd.LayerName));
             }else
             {
                 bytes.AddRange(BitConverter.GetBytes((int)0));
             }
          
-            WriteBcmEntry(node.bd.bcmentry);
+            WriteBcmEntry(r.bd.bcmentry);
 
 
             counter++;
-            foreach (TreeNode<CircleNode> child in node.Children)
+            parentIndex = r.bd.ID;
+            foreach (TreeNode<CircleNode> child in r.Children)
             {
                 write(child, parentIndex, ref counter);
             }
@@ -205,18 +214,16 @@ namespace Flow.FlowBinary
                 offsetCounter += 4;
                 int stringCount = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
                 offsetCounter += 4;
-                
+
+             
+                //MessageBox.Show(newNode.bd.ID.ToString());
+                //MessageBox.Show((baseNodeOffset + offsetCounter + nodeOffset).ToString());
+
                 if (stringCount != 0)
                 {
-                    try
-                    {
+                   
                         newNode.bd.LayerName = Encoding.ASCII.GetString(rawBytes, baseNodeOffset + offsetCounter + nodeOffset, stringCount);
-                    }
-                    catch ( Exception ex)
-                    {
-                        MessageBox.Show(i.ToString());
-                        MessageBox.Show(newNode.bd.ID.ToString());
-                    }
+                   
                 }
                 
                 offsetCounter += stringCount;
@@ -247,8 +254,7 @@ namespace Flow.FlowBinary
            
 
                     nodeEntries[nodeEntries[i].bd.parentIndex].AddChild(nodeEntries[i]);
-                  
-                        nodeEntries[nodeEntries[i].bd.parentIndex].isCollpased = true;
+                    nodeEntries[nodeEntries[i].bd.parentIndex].isCollpased = true;
                 }
 
                 if (nodeEntries[i].bd.RemoteChildIndex != -1)
@@ -263,8 +269,7 @@ namespace Flow.FlowBinary
                     newNode.isCollpased = false;
 
                     nodeEntries[i].AddChild(newNode);
-                    if (nodeEntries[nodeEntries[i].bd.parentIndex].bd.ID != 0)
-                        nodeEntries[nodeEntries[i].bd.parentIndex].isCollpased = false;
+                    nodeEntries[i].isCollpased = true;
 
 
                 }

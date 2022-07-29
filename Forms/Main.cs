@@ -1039,6 +1039,7 @@ namespace Flow.Forms
             Dictionary<int, int> mappings = new Dictionary<int, int>();
             extern_index = 0;
             mappings[fb.root.bd.ID] = extern_index;
+            fb.root.bd.ID = extern_index;
 
             reindexID(fb.root, mappings);
             reindexRemote(fb.root, mappings);

@@ -145,6 +145,7 @@ namespace Flow.Graph
             bd.parentIndex = -1;
 
             bd.isLayerRoot = false;
+            bd.isRemoteChild = false;
 
 
 
