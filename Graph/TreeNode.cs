@@ -21,6 +21,7 @@ namespace Flow.Graph
         public int ID;  //should be initlized as -1, because its index
         public string LayerName;
         public int LayerIndex;
+        public int parentIndex; //should be only used for Reading
 
 
 
@@ -105,6 +106,8 @@ namespace Flow.Graph
             Children = new List<TreeNode<T>>();
             bd.bcmentry = new Xv2CoreLib.BCM.BCM_Entry();
 
+
+
         }
         public TreeNode(T new_data, Font fg_font, BinaryData _bd, bool collapse,  string _LayerName = "New Layer")
         {
@@ -114,13 +117,14 @@ namespace Flow.Graph
             MyPen.Width = 2.75f;
             localPen.Width = 2.75f;
             Children = new List<TreeNode<T>>();
-      
+
             bd = new Graph.BinaryData
             {
-               
-                bcmentry =  _bd.bcmentry ,
+
+                bcmentry = _bd.bcmentry,
                 LayerName = _LayerName,
                 LayerIndex = _bd.LayerIndex,
+                parentIndex = _bd.parentIndex,
                 ID = _bd.ID,
                 RemoteChildIndex = _bd.RemoteChildIndex,
                 isRemoteChild = _bd.isRemoteChild,
@@ -138,11 +142,13 @@ namespace Flow.Graph
             bd.ID = -1;
 
             bd.LayerIndex = -1;
+            bd.parentIndex = -1;
+
+            bd.isLayerRoot = false;
 
 
 
-
-           isCollpased = collapse;
+            isCollpased = collapse;
        
         }
 

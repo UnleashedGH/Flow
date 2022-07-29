@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Flow.Graph;
+using Xv2CoreLib.BCM;
+using System.Windows.Forms;
 
 
 namespace Flow.FlowBinary
@@ -60,18 +62,29 @@ namespace Flow.FlowBinary
             //public bool isLayerRoot;
 
             /////////tree node params
+            parentIndex = node.bd.ID;
             bytes.AddRange(BitConverter.GetBytes(parentIndex));
             bytes.AddRange(BitConverter.GetBytes(node.bd.ID));
             bytes.AddRange(BitConverter.GetBytes(node.bd.RemoteChildIndex));
-            bytes.AddRange(BitConverter.GetBytes(node.bd.LayerName.Count()));
-            bytes.AddRange(Encoding.ASCII.GetBytes(node.bd.LayerName));
+
+            if (node.bd.isRemoteChild)
+                return;
+            if (parentIndex == 0) //if the parent is root, write layer names
+            {
+                bytes.AddRange(BitConverter.GetBytes(node.bd.LayerName.Count()));
+                bytes.AddRange(Encoding.ASCII.GetBytes(node.bd.LayerName));
+            }else
+            {
+                bytes.AddRange(BitConverter.GetBytes((int)0));
+            }
+         
             WriteBcmEntry(node.bd.bcmentry);
 
 
             counter++;
             foreach (TreeNode<CircleNode> child in node.Children)
             {
-                write(child, parentIndex + 1, ref counter);
+                write(child, parentIndex, ref counter);
             }
         }
 
@@ -113,7 +126,11 @@ namespace Flow.FlowBinary
             bytes.AddRange(BitConverter.GetBytes(bcmEntry.I_44));
             bytes.AddRange(BitConverter.GetBytes(bcmEntry.I_46));
 
-    
+            bytes.AddRange(BitConverter.GetBytes((int)0));
+            bytes.AddRange(BitConverter.GetBytes((int)0));
+            bytes.AddRange(BitConverter.GetBytes((int)0));
+            bytes.AddRange(BitConverter.GetBytes((int)0));
+
 
 
             bytes.AddRange(BitConverter.GetBytes(bcmEntry.I_64));
@@ -136,7 +153,7 @@ namespace Flow.FlowBinary
         }
         #endregion
         #region Read
-        public bool readFlowBinary(string path, string toolVersionFull)
+        public TreeNode<CircleNode> readFlowBinary(string path, string toolVersionFull)
         {
 
             byte[] rawBytes = File.ReadAllBytes(path);
@@ -157,7 +174,7 @@ namespace Flow.FlowBinary
 
 
             if (binaryName != "#FLOW")
-                return false;
+                return null;
 
             //need to handle read different versions later (if needed)
             //if (toolVersion != toolVersionFull)
@@ -167,20 +184,161 @@ namespace Flow.FlowBinary
             counter = BitConverter.ToInt32(rawBytes, 0xB);
 
             if (counter == -1)
-                return false;
+                return null;
 
+            int nodeOffset = 0;
+            int baseNodeOffset = 0xF;
+            List<TreeNode<CircleNode>> nodeEntries = new List<TreeNode<CircleNode>>();
+            
+            //build node entries
             for (int i = 0; i < counter; i++)
             {
+                int offsetCounter = 0;
+                TreeNode<CircleNode> newNode = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+           
+                newNode.bd.parentIndex = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                //MessageBox.Show(newNode.bd.parentIndex.ToString());
+                offsetCounter += 4;
+                newNode.bd.ID = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                offsetCounter += 4;
+                newNode.bd.RemoteChildIndex = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                offsetCounter += 4;
+                int stringCount = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                offsetCounter += 4;
+                
+                if (stringCount != 0)
+                {
+                    try
+                    {
+                        newNode.bd.LayerName = Encoding.ASCII.GetString(rawBytes, baseNodeOffset + offsetCounter + nodeOffset, stringCount);
+                    }
+                    catch ( Exception ex)
+                    {
+                        MessageBox.Show(i.ToString());
+                        MessageBox.Show(newNode.bd.ID.ToString());
+                    }
+                }
+                
+                offsetCounter += stringCount;
+             
+                //write bcm
+                newNode.bd.bcmentry = ParseBcmEntry(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                
+                //MessageBox.Show(((Xv2CoreLib.BCM.ButtonInput)newNode.bd.bcmentry.I_08).ToString());
+                offsetCounter += 112;
 
+                
+                nodeEntries.Add(newNode);
+            
+                nodeOffset += offsetCounter;
+            }
+
+            //resolve tree
+           
+            for (int i = 0; i < nodeEntries.Count; i++)
+            {
+                if (nodeEntries[i].bd.parentIndex != -1)
+                {
+
+              
+
+                    //MessageBox.Show(nodeEntries[i].bd.LayerName);
+                    //MessageBox.Show(nodeEntries[i].bd.parentIndex.ToString());
+           
+
+                    nodeEntries[nodeEntries[i].bd.parentIndex].AddChild(nodeEntries[i]);
+                  
+                        nodeEntries[nodeEntries[i].bd.parentIndex].isCollpased = true;
+                }
+
+                if (nodeEntries[i].bd.RemoteChildIndex != -1)
+                {
+                    TreeNode<CircleNode> newNode = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+                    //newNode.bd.bcmentry = nodeEntries[i].bd.bcmentry.Clone();
+                    //newNode.bd.LayerName = nodeEntries[i].bd.LayerName;
+
+                    newNode.bd.isRemoteChild = true;
+                    newNode.bd.RemoteChildParentRef = nodeEntries[i];
+                    newNode.bd.RemoteChildPointToRef = nodeEntries[nodeEntries[i].bd.RemoteChildIndex];
+                    newNode.isCollpased = false;
+
+                    nodeEntries[i].AddChild(newNode);
+                    if (nodeEntries[nodeEntries[i].bd.parentIndex].bd.ID != 0)
+                        nodeEntries[nodeEntries[i].bd.parentIndex].isCollpased = false;
+
+
+                }
             }
 
 
 
-            return true;
+            //end
+
+      
+
+            for (int i = 0; i < nodeEntries[0].Children.Count; i++)
+                nodeEntries[0].Children[i].bd.isLayerRoot = true;
+            
+
+
+            if (nodeEntries.Count > 0)
+                return nodeEntries[0];
+            else
+                return null;
+
         }
         public string getToolVersion(short toolVersionMajor, short toolVersionMinor, short toolVersionSub)
         {
             return $"{toolVersionMajor}.{toolVersionMinor}.{toolVersionSub}";
+        }
+
+        private BCM_Entry ParseBcmEntry(byte[] rawBytes ,int offset)
+        {
+           // totalTestCount++;
+
+            BCM_Entry bcmEntry = new BCM_Entry()
+            {
+                
+                I_00 = BitConverter.ToUInt32(rawBytes, offset + 0),
+                I_04 = (DirectionalInput)BitConverter.ToUInt32(rawBytes, offset + 4),
+                I_08 = BitConverter.ToUInt32(rawBytes, offset + 8),
+                I_12 = BitConverter.ToUInt32(rawBytes, offset + 12),
+                I_16 = BitConverter.ToUInt32(rawBytes, offset + 16),
+                I_20 = BitConverter.ToUInt16(rawBytes, offset + 20),
+                I_22 = BitConverter.ToUInt16(rawBytes, offset + 22),
+                I_24 = BitConverter.ToUInt32(rawBytes, offset + 24),
+                I_28 = (ActivatorState)BitConverter.ToUInt32(rawBytes, offset + 28),
+                I_32 = BitConverter.ToInt16(rawBytes, offset + 32),
+                I_34 = BitConverter.ToInt16(rawBytes, offset + 34),
+                I_36 = BitConverter.ToInt16(rawBytes, offset + 36),
+                I_38 = BitConverter.ToInt16(rawBytes, offset + 38),
+                I_40 = BitConverter.ToInt16(rawBytes, offset + 40),
+                I_42 = BitConverter.ToInt16(rawBytes, offset + 42),
+                I_44 = BitConverter.ToUInt16(rawBytes, offset + 44),
+                I_46 = BitConverter.ToUInt16(rawBytes, offset + 46),
+                I_48 = BitConverter.ToUInt32(rawBytes, offset + 48),
+                I_52 = BitConverter.ToUInt32(rawBytes, offset + 52),
+                I_56 = BitConverter.ToUInt32(rawBytes, offset + 56),
+                I_60 = BitConverter.ToUInt32(rawBytes, offset + 60),
+                I_64 = BitConverter.ToUInt32(rawBytes, offset + 64),
+                I_68 = BitConverter.ToUInt32(rawBytes, offset + 68),
+                I_72 = BitConverter.ToUInt32(rawBytes, offset + 72),
+                I_76 = (BacCases)BitConverter.ToUInt32(rawBytes, offset + 76),
+                I_80 = BitConverter.ToUInt32(rawBytes, offset + 80),
+                I_84 = BitConverter.ToUInt32(rawBytes, offset + 84),
+                I_88 = BitConverter.ToUInt32(rawBytes, offset + 88),
+                I_92 = BitConverter.ToUInt32(rawBytes, offset + 92),
+                F_96 = BitConverter.ToSingle(rawBytes, offset + 96),
+                I_100 = BitConverter.ToInt16(rawBytes, offset + 100),
+                I_102 = BitConverter.ToInt16(rawBytes, offset + 102),
+                I_104 = BitConverter.ToUInt32(rawBytes, offset + 104),
+                I_108 = BitConverter.ToUInt32(rawBytes, offset + 108),
+
+            };
+
+   
+
+            return bcmEntry;
         }
 
 

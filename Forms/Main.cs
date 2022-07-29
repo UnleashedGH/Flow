@@ -999,6 +999,10 @@ namespace Flow.Forms
             //increase the column size that was added in form Load method based of layer name length + the index + the spacing
             listView1.Columns[0].Width = (longestNameLen + 3) * 11;
 
+            //size fail safe
+            if (listView1.Columns[0].Width < 100)
+                listView1.Columns[0].Width = 100;
+
             //to maintain scroll index (its not amazing, but its better than going back to index 0
             if (oldselectedindex >= 0 && returnOldSelect && listView1.Items.Count > 0)
             {
@@ -1582,7 +1586,10 @@ namespace Flow.Forms
 
 
 
-                //isBCMLoaded = true;
+               for (int i = 0; i < fb.root.Children.Count; i++)
+               {
+                    fb.root.Children[i].bd.isLayerRoot = true;
+               }
 
                 populateListBox(-1, "Unknown Layer");
 
@@ -1697,16 +1704,22 @@ namespace Flow.Forms
 
         private void readFlowFileflowToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
 
 
                 if (openFileDialog2.ShowDialog() == DialogResult.OK)
                 {
-           
-                    if(fb.readFlowBinary(openFileDialog2.FileName, getToolVersion()))
+                    TreeNode<CircleNode> newRoot = new TreeNode<CircleNode>();
+                    fb.root.Children.Clear();
+                    fb = new Flow.FlowBinary.FlowBinary();
+                    newRoot = fb.readFlowBinary(openFileDialog2.FileName, getToolVersion());
+                    
+
+                    if (newRoot != null)
                     {
-                        //fb = new FlowBinary.FlowBinary();
+                        
+                        fb.root = newRoot;
                         listView1.Items.Clear();
                         populateListBox();
                         reindex();
@@ -1728,13 +1741,13 @@ namespace Flow.Forms
 
                 }
 
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show($"Error Read Flow Binary, exception says: {x.Message}",
-           "Error On Load", MessageBoxButtons.OK,
-           MessageBoxIcon.Error);
-            }
+           // }
+           // catch (Exception x)
+           // {
+           //     MessageBox.Show($"Error Read Flow Binary, exception says: {x.Message}",
+           //"Error On Load", MessageBoxButtons.OK,
+           //MessageBoxIcon.Error);
+           // }
         }
 
         private void decompileSettingsToolStripMenuItem_Click(object sender, EventArgs e)
