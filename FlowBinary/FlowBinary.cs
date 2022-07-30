@@ -16,7 +16,7 @@ namespace Flow.FlowBinary
 
 
         public TreeNode<CircleNode> root;
-        private List<byte> bytes = new List<byte>() { 0x23, 0x46, 0x4C, 0x4F, 0x57 };
+        private List<byte> bytes = new List<byte>();
         public FlowBinary()
         {
             root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
@@ -26,6 +26,8 @@ namespace Flow.FlowBinary
         {
 
             int counter = 0;
+
+            bytes.AddRange(Encoding.ASCII.GetBytes("#FLOW"));
 
             bytes.AddRange(BitConverter.GetBytes(vmj));
             bytes.AddRange(BitConverter.GetBytes(vmi));
