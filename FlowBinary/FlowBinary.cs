@@ -177,8 +177,8 @@ namespace Flow.FlowBinary
 
             binaryName = Encoding.ASCII.GetString(rawBytes, 0, 5);
             toolVersionMajor = BitConverter.ToInt16(rawBytes, 5);
-            toolVersionMinor = BitConverter.ToInt16(rawBytes, 9);
-            toolVersionSub = BitConverter.ToInt16(rawBytes, 6);
+            toolVersionMinor = BitConverter.ToInt16(rawBytes, 7);
+            toolVersionSub = BitConverter.ToInt16(rawBytes, 9);
             toolVersion = getToolVersion(toolVersionMajor, toolVersionMinor, toolVersionSub);
 
 
@@ -228,7 +228,7 @@ namespace Flow.FlowBinary
                 
                 offsetCounter += stringCount;
              
-                //write bcm
+                //read bcm
                 newNode.bd.bcmentry = ParseBcmEntry(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
                 
                 //MessageBox.Show(((Xv2CoreLib.BCM.ButtonInput)newNode.bd.bcmentry.I_08).ToString());
@@ -244,6 +244,7 @@ namespace Flow.FlowBinary
            
             for (int i = 0; i < nodeEntries.Count; i++)
             {
+                //node has parent, go to parent index and add that node as its child
                 if (nodeEntries[i].bd.parentIndex != -1)
                 {
 
@@ -257,6 +258,7 @@ namespace Flow.FlowBinary
                     nodeEntries[nodeEntries[i].bd.parentIndex].isCollpased = true;
                 }
 
+                //node should have a remote child added
                 if (nodeEntries[i].bd.RemoteChildIndex != -1)
                 {
                     TreeNode<CircleNode> newNode = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);

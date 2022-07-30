@@ -1705,8 +1705,8 @@ namespace Flow.Forms
 
         private void readFlowFileflowToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
 
 
                 if (openFileDialog2.ShowDialog() == DialogResult.OK)
@@ -1742,14 +1742,14 @@ namespace Flow.Forms
 
                 }
 
-           // }
-           // catch (Exception x)
-           // {
-           //     MessageBox.Show($"Error Read Flow Binary, exception says: {x.Message}",
-           //"Error On Load", MessageBoxButtons.OK,
-           //MessageBoxIcon.Error);
-           // }
         }
+            catch (Exception x)
+            {
+                MessageBox.Show($"Error Read Flow Binary, exception says: {x.Message}",
+           "Error On Load", MessageBoxButtons.OK,
+           MessageBoxIcon.Error);
+            }
+}
 
         private void decompileSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
