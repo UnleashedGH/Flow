@@ -283,8 +283,6 @@
             // 
             // showIndicesToolStripMenuItem
             // 
-            this.showIndicesToolStripMenuItem.Checked = true;
-            this.showIndicesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showIndicesToolStripMenuItem.Name = "showIndicesToolStripMenuItem";
             this.showIndicesToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.showIndicesToolStripMenuItem.Text = "Show Absolute Index";
