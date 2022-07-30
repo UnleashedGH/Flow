@@ -475,7 +475,8 @@ namespace Flow.Forms
 
             }
 
-            SelectedLayerNode.DrawTree(e.Graphics, scale);
+           // MessageBox.Show(SelectedLayerNode.bd.ID.ToString());
+            SelectedLayerNode.DrawTree(e.Graphics, scale,SelectedLayerNode.bd.ID );
 
             //ComboPanel.Invalidate();
 
@@ -583,14 +584,12 @@ namespace Flow.Forms
                     //might change
                     lblNodeText.Text = $"Remote Link for Node with index: {SelectedNode.bd.RemoteChildParentRef.bd.RemoteChildIndex}  On Layer Index: {SelectedNode.bd.LayerIndex}";
                 }
+
+
                 //if not remove child
                 else
                 {
-
-
                     lblNodeText.Text = $"ButtonInput: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08}, DirectionalInput: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04}";
-
-
                 }
 
 
@@ -1762,6 +1761,66 @@ namespace Flow.Forms
                 removeTransformation = dlg.removeTransformations;
                 compressionType = dlg.compressionType;
             }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            int currentSelectedIndex = -1;
+            int upperIndex = -1;
+
+            if (listView1.SelectedIndices.Count > 0)
+                currentSelectedIndex = listView1.SelectedIndices[0];
+
+            if (currentSelectedIndex - 1 >= 0)
+               upperIndex = currentSelectedIndex - 1;
+
+            if (currentSelectedIndex != -1 && upperIndex != -1)
+            {
+                swapIndices(currentSelectedIndex, upperIndex);
+                listView1.Items[upperIndex].Focused = true;
+                listView1.Items[upperIndex].Selected = true;
+                listView1.Items[upperIndex].EnsureVisible();
+
+                
+          
+            }
+          
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            int currentSelectedIndex = -1;
+            int lowerindex = -1;
+
+            if (listView1.SelectedIndices.Count > 0)
+                currentSelectedIndex = listView1.SelectedIndices[0];
+
+            if (currentSelectedIndex + 1 <= listView1.Items.Count - 1)
+                lowerindex = currentSelectedIndex + 1;
+
+            if (currentSelectedIndex != -1 && lowerindex != -1)
+            {
+                swapIndices(currentSelectedIndex, lowerindex);
+                listView1.Items[lowerindex].Focused = true;
+                listView1.Items[lowerindex].Selected = true;
+                listView1.Items[lowerindex].EnsureVisible();
+             
+            }
+        }
+
+        void swapIndices(int index1, int index2)
+        {
+            TreeNode<CircleNode> temp = fb.root.Children[index1];
+            fb.root.Children[index1] = fb.root.Children[index2];
+            fb.root.Children[index2] = temp;
+
+            populateListBox(-1, "", false, false);
+            reindex();
+
+
+            ArrangeTree();
+
+
         }
     }
 }

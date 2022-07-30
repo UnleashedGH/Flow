@@ -257,7 +257,7 @@ namespace Flow.Graph
         // Draw the subtree rooted at this node
         // with the given upper left corner.
         //this is called when ComboPanel is refrshed
-        public void DrawTree(Graphics gr, ref float x, float y, float s)
+        public void DrawTree(Graphics gr, ref float x, float y, float s, int reletiveID)
         {
 
        
@@ -267,11 +267,11 @@ namespace Flow.Graph
             Arrange(gr, ref x, ref y);
 
             // Draw the tree.
-            DrawTree(gr, s);
+            DrawTree(gr, s, reletiveID);
         }
 
         // Draw the subtree rooted at this node.
-        public void DrawTree(Graphics gr, float s)
+        public void DrawTree(Graphics gr, float s, int reletiveID)
         {
 
 
@@ -287,7 +287,7 @@ namespace Flow.Graph
 
 
             // Draw the nodes.
-            DrawSubtreeNodes(gr, s);
+            DrawSubtreeNodes(gr, s,  reletiveID);
 
 
             // Draw the links.
@@ -400,7 +400,7 @@ namespace Flow.Graph
         }
 
         // Draw the nodes for the subtree rooted at this node.
-        private void DrawSubtreeNodes(Graphics gr, float s)
+        private void DrawSubtreeNodes(Graphics gr, float s, int reletiveID)
         {
             // i guess i have to redefine this everytime?
             MyFont.Dispose();
@@ -417,7 +417,7 @@ namespace Flow.Graph
             //for auto expand
             if (DataCenter.Y * s + (50 ) > Main.ComboPanelTotalY - (1000  ) || DataCenter.X * s + (50  ) > Main.ComboPanelTotalX - (1000 ))
                 Main.shouldExpandAuto = true;
-           
+
 
             //this should have no need
             //if (Children.Count == 0)
@@ -428,11 +428,17 @@ namespace Flow.Graph
 
             //might wanna include iscollapsed as a bool to draw instead of extra string...
 
+            int tmpID = bd.ID;
+            if (!Main.showIndices)
+            {
+                tmpID = (tmpID - reletiveID + 1);
+            }
+       
             if (isCollpased)
-                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "+", bd.ID.ToString(), s, bd.isRemoteChild);
+                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "+", tmpID.ToString(), s, bd.isRemoteChild);
             else
 
-                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "", bd.ID.ToString(), s, bd.isRemoteChild);
+                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "", tmpID.ToString(), s, bd.isRemoteChild);
             
 
 
@@ -447,7 +453,7 @@ namespace Flow.Graph
 
             foreach (TreeNode<T> child in Children)
             {
-                child.DrawSubtreeNodes(gr, s);
+                child.DrawSubtreeNodes(gr, s, reletiveID);
             }
         }
 

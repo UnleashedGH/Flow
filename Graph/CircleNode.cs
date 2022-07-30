@@ -194,15 +194,13 @@ namespace Flow.Graph
                 if (extra != "")
                     gr.DrawString(extra, font, text_brush, (x + 13) * scale, (y + 13) * scale, string_format);
 
-                if (Main.showIndices)
-                {
-                    
+               
                         if (isRemoteChild)
                             gr.DrawString("", font, text_brush2, (x + 40) * scale, (y + 2) * scale, string_format);
                         else
                             gr.DrawString(extra2, font, text_brush2, (x + 40 + (extra2.Length * 4)) * scale, (y + 2) * scale, string_format);
 
-                }
+                
                  
 
 

@@ -56,8 +56,7 @@ namespace Flow.Forms
             //PrimaryButtonInputFlag
             /////////////////////////////
 
-            //we prob shouldn't start the bit array from the start, but rather modifiy an existing one so we can keep unknown values
-            //and not break a decompiled moveset.
+
             string s0 = Convert.ToString(bcmEntry.I_08, 2).PadLeft(PrimaryButtonInputFlag.Count, '0');
             StringBuilder binary0 = new StringBuilder(s0);
      
@@ -84,8 +83,7 @@ namespace Flow.Forms
             //DirectionalInputFlag
             /////////////////////////////
 
-            //we prob shouldn't start the bit array from the start, but rather modifiy an existing one so we can keep unknown values
-            //and not break a decompiled moveset.
+
             string s1 = Convert.ToString(bcmEntry.I_04, 2).PadLeft(DirectionalInputFlag.Count, '0');
             StringBuilder binary1 = new StringBuilder(s1);
 
@@ -110,8 +108,6 @@ namespace Flow.Forms
             //HoldDownConditionsFlag
             /////////////////////////////
 
-            //we prob shouldn't start the bit array from the start, but rather modifiy an existing one so we can keep unknown values
-            //and not break a decompiled moveset.
             string s2 = Convert.ToString(bcmEntry.I_12, 2).PadLeft(HoldDownConditionsFlag.Count, '0');
             StringBuilder binary2 = new StringBuilder(s2);
 
