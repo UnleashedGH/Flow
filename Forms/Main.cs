@@ -590,12 +590,12 @@ namespace Flow.Forms
                       
                         tmpID = (tmpID - fb.root.Children[SelectedNode.bd.LayerIndex].bd.ID + 1);
                         
-                        lblNodeText.Text = $"Remote Link for Node with index: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex}";
+                        lblNodeText.Text = $"Remote Link for Node with index: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex + 1}";
                     }
 
                     else
                     {
-                        lblNodeText.Text = $"Remote Link for Node with index: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex}";
+                        lblNodeText.Text = $"Remote Link for Node with index: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex + 1}";
                     }
                
                 }
@@ -988,11 +988,11 @@ namespace Flow.Forms
             for (int i = 0; i < fb.root.Children.Count; i++)
             {
                 if (forceLayerName == "")
-                    listView1.Items.Add(i.ToString() + " - " + fb.root.Children[i].bd.LayerName);
+                    listView1.Items.Add((i + 1).ToString() + " - " + fb.root.Children[i].bd.LayerName);
                 else
                 {
                     fb.root.Children[i].bd.LayerName = forceLayerName;
-                    listView1.Items.Add(i.ToString() + " - " + fb.root.Children[i].bd.LayerName);
+                    listView1.Items.Add((i + 1).ToString() + " - " + fb.root.Children[i].bd.LayerName);
                 }
 
 

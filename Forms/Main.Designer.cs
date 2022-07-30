@@ -65,14 +65,14 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -283,6 +283,7 @@
             this.showIndicesToolStripMenuItem.Name = "showIndicesToolStripMenuItem";
             this.showIndicesToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.showIndicesToolStripMenuItem.Text = "Show Absolute Index";
+            this.showIndicesToolStripMenuItem.Visible = false;
             this.showIndicesToolStripMenuItem.Click += new System.EventHandler(this.showIndicesToolStripMenuItem_Click);
             // 
             // gridToolStripMenuItem
@@ -323,7 +324,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(715, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(714, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
@@ -403,36 +404,6 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(47, 27);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.listView1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.ComboPanel);
-            this.splitContainer1.Size = new System.Drawing.Size(944, 522);
-            this.splitContainer1.SplitterDistance = 210;
-            this.splitContainer1.SplitterWidth = 5;
-            this.splitContainer1.TabIndex = 19;
-            // 
-            // openFileDialog2
-            // 
-            this.openFileDialog2.Filter = "Flow Project files|*.flp";
-            this.openFileDialog2.Title = "Open Flow Project";
-            // 
-            // saveFileDialog2
-            // 
-            this.saveFileDialog2.Filter = "Flow Project files|*.flp";
-            this.saveFileDialog2.Title = "Save Flow Project";
-            // 
             // button9
             // 
             this.button9.BackgroundImage = global::Flow.Properties.Resources.down;
@@ -497,6 +468,36 @@
             this.toolTip1.SetToolTip(this.button1, "Add New Layer");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(47, 27);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.listView1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.ComboPanel);
+            this.splitContainer1.Size = new System.Drawing.Size(944, 522);
+            this.splitContainer1.SplitterDistance = 210;
+            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.TabIndex = 19;
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.Filter = "Flow Project files|*.flp";
+            this.openFileDialog2.Title = "Open Flow Project";
+            // 
+            // saveFileDialog2
+            // 
+            this.saveFileDialog2.Filter = "Flow Project files|*.flp";
+            this.saveFileDialog2.Title = "Save Flow Project";
             // 
             // Main
             // 
