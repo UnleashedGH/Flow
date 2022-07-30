@@ -582,7 +582,22 @@ namespace Flow.Forms
                 {
                     //there's 2 ways to get the ID now that we have 2 refs in bd..
                     //might change
-                    lblNodeText.Text = $"Remote Link for Node with index: {SelectedNode.bd.RemoteChildParentRef.bd.RemoteChildIndex}  On Layer Index: {SelectedNode.bd.LayerIndex}";
+
+                    int tmpID = SelectedNode.bd.RemoteChildParentRef.bd.RemoteChildIndex;
+                    if (!showIndices)
+                    {
+                     
+                      
+                        tmpID = (tmpID - fb.root.Children[SelectedNode.bd.LayerIndex].bd.ID + 1);
+                        
+                        lblNodeText.Text = $"Remote Link for Node with index: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex}";
+                    }
+
+                    else
+                    {
+                        lblNodeText.Text = $"Remote Link for Node with index: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex}";
+                    }
+               
                 }
 
 
