@@ -588,7 +588,7 @@ namespace Flow.Forms
                 {
 
 
-                    lblNodeText.Text = ((Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08).ToString();
+                    lblNodeText.Text = $"ButtonInput: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08}, DirectionalInput: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04}";
 
 
                 }

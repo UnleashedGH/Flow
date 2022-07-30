@@ -305,7 +305,7 @@ namespace Flow.FlowBinary
             {
                 
                 I_00 = BitConverter.ToUInt32(rawBytes, offset + 0),
-                I_04 = (DirectionalInput)BitConverter.ToUInt32(rawBytes, offset + 4),
+                I_04 = BitConverter.ToUInt32(rawBytes, offset + 4),
                 I_08 = BitConverter.ToUInt32(rawBytes, offset + 8),
                 I_12 = BitConverter.ToUInt32(rawBytes, offset + 12),
                 I_16 = BitConverter.ToUInt32(rawBytes, offset + 16),

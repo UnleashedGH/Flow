@@ -18,11 +18,13 @@ namespace Flow.Forms
 
         //create list of checkboxes and loop through them
         List<CheckBox> PrimaryButtonInputFlag = new List<CheckBox>();
+        List<CheckBox> DirectionalInputFlag = new List<CheckBox>();
+        List<CheckBox> HoldDownConditionsFlag = new List<CheckBox>();
 
 
 
         //public outputs
-       
+
 
 
 
@@ -53,25 +55,83 @@ namespace Flow.Forms
             /////////////////////////////
             //PrimaryButtonInputFlag
             /////////////////////////////
+
             //we prob shouldn't start the bit array from the start, but rather modifiy an existing one so we can keep unknown values
             //and not break a decompiled moveset.
-            string binary0 = "";
+            string s0 = Convert.ToString(bcmEntry.I_08, 2).PadLeft(PrimaryButtonInputFlag.Count, '0');
+            StringBuilder binary0 = new StringBuilder(s0);
+     
+
 
             for (int i = 0; i < PrimaryButtonInputFlag.Count; i++)
             {
                 if (PrimaryButtonInputFlag[i] == null)
-                    binary0 += '0';
+                    continue;
 
-               else if (PrimaryButtonInputFlag[i].Checked == false)
-                    binary0 += '0';
+                else if (PrimaryButtonInputFlag[i].Checked == false)
+                    binary0[i] = '0';
 
                else if (PrimaryButtonInputFlag[i].Checked == true)
-                    binary0 += '1';
+                    binary0[i] = '1';
+            }
+
+       
+            bcmEntry.I_08 = Convert.ToUInt32(binary0.ToString(), 2);
+      
+
+
+            /////////////////////////////
+            //DirectionalInputFlag
+            /////////////////////////////
+
+            //we prob shouldn't start the bit array from the start, but rather modifiy an existing one so we can keep unknown values
+            //and not break a decompiled moveset.
+            string s1 = Convert.ToString(bcmEntry.I_04, 2).PadLeft(DirectionalInputFlag.Count, '0');
+            StringBuilder binary1 = new StringBuilder(s1);
+
+
+
+            for (int i = 0; i < DirectionalInputFlag.Count; i++)
+            {
+                if (DirectionalInputFlag[i] == null)
+                    continue;
+
+                else if (DirectionalInputFlag[i].Checked == false)
+                    binary1[i] = '0';
+
+                else if (DirectionalInputFlag[i].Checked == true)
+                    binary1[i] = '1';
             }
 
 
-            bcmEntry.I_08 = Convert.ToUInt32(binary0, 2);
-         
+            bcmEntry.I_04 = Convert.ToUInt32(binary1.ToString(), 2);
+
+            /////////////////////////////
+            //HoldDownConditionsFlag
+            /////////////////////////////
+
+            //we prob shouldn't start the bit array from the start, but rather modifiy an existing one so we can keep unknown values
+            //and not break a decompiled moveset.
+            string s2 = Convert.ToString(bcmEntry.I_12, 2).PadLeft(HoldDownConditionsFlag.Count, '0');
+            StringBuilder binary2 = new StringBuilder(s2);
+
+
+
+            for (int i = 0; i < HoldDownConditionsFlag.Count; i++)
+            {
+                if (HoldDownConditionsFlag[i] == null)
+                    continue;
+
+                else if (HoldDownConditionsFlag[i].Checked == false)
+                    binary2[i] = '0';
+
+                else if (HoldDownConditionsFlag[i].Checked == true)
+                    binary2[i] = '1';
+            }
+
+
+            bcmEntry.I_12 = Convert.ToUInt32(binary2.ToString(), 2);
+
 
             /////////////////////////////
 
@@ -90,6 +150,7 @@ namespace Flow.Forms
 
             numericUpDown1.Maximum = Int32.MaxValue;
 
+
             //init bcmentry
             bool canReadFromEntry = false;
             bcmEntry = new Xv2CoreLib.BCM.BCM_Entry();
@@ -102,18 +163,19 @@ namespace Flow.Forms
                 }
             }
 
-
+  
             //init checkbox bit arrays
             //extend till all possible bit arrays
-                                                     //           0      1           1        0       1             1           1         1
-                                                     //                  step         block           jump        kiblast     heavy      light
-            PrimaryButtonInputFlag.AddRange(new List<CheckBox> { null, checkBox6, checkBox7, null, checkBox26, checkBox5, checkBox4, checkBox3 });
+                                                                                                
+            PrimaryButtonInputFlag.AddRange(new List<CheckBox> {null,null,null,null,     null,null,null,null,                  null, checkBox6, checkBox7,null,                    checkBox26, checkBox5, checkBox4, checkBox3 });
+            DirectionalInputFlag.AddRange(new List<CheckBox> { null, null, null, null,    null, null, null, checkBox14,     checkBox13, checkBox10, checkBox11, checkBox12,        checkBox16, checkBox15, checkBox8, checkBox9 });
+            DirectionalInputFlag.AddRange(new List<CheckBox> { null, null, checkBox36, null,     null, null, null, null,               null, null, null, null,           null, checkBox34, null, null });
 
 
 
             //init flags and data
 
-        
+
             if (canReadFromEntry == true)
             {
 
@@ -127,12 +189,38 @@ namespace Flow.Forms
                 for (int i = 0; i < PrimaryButtonInputFlag.Count; i++)
                 if (PrimaryButtonInputFlag[i] != null)
                         PrimaryButtonInputFlag[i].Checked = (binary0[i] == '1') ? true : false;
-                
+
+
+                ///////////////////////////////
+                //DirectionalInputFlag
+                ///////////////////////////////
+
+                uint value1 = bcmEntry.I_04;
+                //thepadding is based of how many bits in the checkbox array, it should be the original full size to maintain
+                string binary1 = Convert.ToString(value1, 2).PadLeft(DirectionalInputFlag.Count, '0');
+                for (int i = 0; i < DirectionalInputFlag.Count; i++)
+                    if (DirectionalInputFlag[i] != null)
+                        DirectionalInputFlag[i].Checked = (binary1[i] == '1') ? true : false;
+
+                ///////////////////////////////
+                //HoldDownConditionsFlag
+                ///////////////////////////////
+
+                uint value2 = bcmEntry.I_12;
+                //thepadding is based of how many bits in the checkbox array, it should be the original full size to maintain
+                string binary2 = Convert.ToString(value2, 2).PadLeft(HoldDownConditionsFlag.Count, '0');
+                for (int i = 0; i < HoldDownConditionsFlag.Count; i++)
+                    if (HoldDownConditionsFlag[i] != null)
+                        HoldDownConditionsFlag[i].Checked = (binary2[i] == '1') ? true : false;
+
             }
-        
+
 
             ///////////////////////////////
 
+            //vars
+
+            
 
 
 

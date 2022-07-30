@@ -72,6 +72,7 @@ namespace Xv2CoreLib.BCM
     [Flags]
     public enum DirectionalInput : uint
     {
+        None = 0,
         // [YAXEnum("Forward")]
         forward = 1,
         // [YAXEnum("Backwards")]
@@ -330,7 +331,7 @@ namespace Xv2CoreLib.BCM
         public UInt32 I_00 { get; set; }
         //  [YAXAttributeFor("DirectionalInput")]
         // [YAXSerializeAs("value")]
-        public DirectionalInput I_04 { get; set; }
+        public uint I_04 { get; set; }
         // [YAXAttributeFor("ButtonInput")]
         // [YAXSerializeAs("value")]
         public uint I_08 { get; set; }
