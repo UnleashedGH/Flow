@@ -1201,6 +1201,8 @@ namespace Flow.Forms
             {
 
                 fb.writeFlowBinary(saveFileDialog2.FileName, toolVersionMajor, toolVersionMinor, toolVersionSub);
+                fb.ProjectName = Path.GetFileNameWithoutExtension(saveFileDialog2.FileName);
+                listView1_SelectedIndexChanged(null, null);
                 MessageBox.Show("Saved Successfully",
                "Save Flow Project", MessageBoxButtons.OK,
                MessageBoxIcon.Information);
@@ -1302,6 +1304,8 @@ namespace Flow.Forms
                 compileBcm(fb.root, ref bcmFile, ref rootEntry);
 
                 bcmOut = new Xv2CoreLib.BCM.Deserializer(bcmFile, saveFileDialog1.FileName);
+                fb.ProjectName = Path.GetFileNameWithoutExtension(saveFileDialog1.FileName);
+                listView1_SelectedIndexChanged(null, null);
 
 
 
@@ -1404,7 +1408,7 @@ namespace Flow.Forms
                 oldselectedindex = listView1.SelectedIndices[0];
                 ArrangeTree();
 
-                this.Text = ($"{toolName} ({getToolVersion()}) - ({fb.ProjectName }) / Current Selected Layer Index: {listView1.SelectedIndices[0] + 1} ");
+                this.Text = ($"{toolName} (v{getToolVersion()}) - (Project: {fb.ProjectName }) / Current Selected Layer Index: {listView1.SelectedIndices[0] + 1} ");
 
 
 
