@@ -134,7 +134,7 @@ namespace Flow.Forms
         Bitmap mBuffer;
         short toolVersionMajor = 0;
         short toolVersionMinor = 0;
-        short toolVersionSub = 1;
+        short toolVersionSub = 2;
         string toolName = "Flow";
 
         //find a solution to scrolling, mousemov?
