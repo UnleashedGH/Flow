@@ -21,6 +21,7 @@ namespace Flow.Forms
         List<CheckBox> DirectionalInputFlag = new List<CheckBox>();
         List<CheckBox> HoldDownConditionsFlag = new List<CheckBox>();
         List<CheckBox> PrimaryActivatorConditionsFlag = new List<CheckBox>();
+        List<CheckBox> ActivatorStateFlag = new List<CheckBox>();
 
 
 
@@ -154,6 +155,30 @@ namespace Flow.Forms
 
             bcmEntry.I_24 = Convert.ToUInt32(binary3.ToString(), 2);
 
+            /////////////////////////////
+            //ActivatorStateFlag
+            /////////////////////////////
+
+            string s4 = Convert.ToString(bcmEntry.I_28, 2).PadLeft(ActivatorStateFlag.Count, '0');
+            StringBuilder binary4 = new StringBuilder(s4);
+
+
+
+            for (int i = 0; i < ActivatorStateFlag.Count; i++)
+            {
+                if (ActivatorStateFlag[i] == null)
+                    continue;
+
+                else if (ActivatorStateFlag[i].Checked == false)
+                    binary4[i] = '0';
+
+                else if (ActivatorStateFlag[i].Checked == true)
+                    binary4[i] = '1';
+            }
+
+
+            bcmEntry.I_28 = Convert.ToUInt32(binary4.ToString(), 2);
+
 
             /////////////////////////////
 
@@ -191,8 +216,9 @@ namespace Flow.Forms
                                                                                                 
             PrimaryButtonInputFlag.AddRange(new List<CheckBox> {null,null,null,null,     null,null,null,null,                  null, checkBox6, checkBox7,null,                    checkBox26, checkBox5, checkBox4, checkBox3 });
             DirectionalInputFlag.AddRange(new List<CheckBox> { null, null, null, null,    null, null, null, checkBox14,     checkBox13, checkBox10, checkBox11, checkBox12,        checkBox16, checkBox15, checkBox8, checkBox9 });
-            DirectionalInputFlag.AddRange(new List<CheckBox> { null, null, checkBox36, null,     null, null, null, null,               null, null, null, null,           null, checkBox34, null, null });
+            HoldDownConditionsFlag.AddRange(new List<CheckBox> { null, null, checkBox36, null,     null, null, null, null,               null, null, null, null,           null, checkBox34, null, null });
             PrimaryActivatorConditionsFlag.AddRange(new List<CheckBox> { null, checkBox19, null, null,        null, null, checkBox32, null,        null, checkBox27, null, checkBox17,    checkBox28, null, null, null,     checkBox22, checkBox23, null, null,      null, null, null, checkBox1,    checkBox2, checkBox21, checkBox20, checkBox25,    checkBox18, null, checkBox29, checkBox30});
+            HoldDownConditionsFlag.AddRange(new List<CheckBox> { null, null, null, null,     checkBox40, checkBox24, checkBox39, checkBox31,    checkBox38, checkBox37, checkBox35, checkBox33 });
 
 
 
@@ -247,6 +273,18 @@ namespace Flow.Forms
                 for (int i = 0; i < PrimaryActivatorConditionsFlag.Count; i++)
                     if (PrimaryActivatorConditionsFlag[i] != null)
                         PrimaryActivatorConditionsFlag[i].Checked = (binary3[i] == '1') ? true : false;
+
+
+                ///////////////////////////////
+                //ActivatorStateFlag
+                ///////////////////////////////
+
+                uint value4 = bcmEntry.I_28;
+
+                string binary4 = Convert.ToString(value4, 2).PadLeft(ActivatorStateFlag.Count, '0');
+                for (int i = 0; i < ActivatorStateFlag.Count; i++)
+                    if (ActivatorStateFlag[i] != null)
+                        ActivatorStateFlag[i].Checked = (binary4[i] == '1') ? true : false;
 
             }
 

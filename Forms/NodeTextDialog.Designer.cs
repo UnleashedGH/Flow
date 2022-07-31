@@ -136,6 +136,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox19 = new System.Windows.Forms.CheckBox();
             this.checkBox18 = new System.Windows.Forms.CheckBox();
+            this.checkBox40 = new System.Windows.Forms.CheckBox();
             this.ScrollContainer.SuspendLayout();
             this.GroupBoxContainer.SuspendLayout();
             this.BACGroupBox.SuspendLayout();
@@ -223,7 +224,7 @@
             // 
             this.BACGroupBox.Controls.Add(this.groupBox11);
             this.BACGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BACGroupBox.Location = new System.Drawing.Point(6, 1788);
+            this.BACGroupBox.Location = new System.Drawing.Point(6, 1802);
             this.BACGroupBox.Name = "BACGroupBox";
             this.BACGroupBox.Size = new System.Drawing.Size(607, 292);
             this.BACGroupBox.TabIndex = 44;
@@ -556,7 +557,6 @@
             this.checkBox4.TabIndex = 20;
             this.checkBox4.Text = "Heavy";
             this.checkBox4.UseVisualStyleBackColor = true;
-       
             // 
             // checkBox3
             // 
@@ -767,6 +767,7 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.checkBox40);
             this.groupBox7.Controls.Add(this.checkBox39);
             this.groupBox7.Controls.Add(this.checkBox38);
             this.groupBox7.Controls.Add(this.checkBox37);
@@ -776,7 +777,7 @@
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.groupBox7.Location = new System.Drawing.Point(19, 585);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(567, 188);
+            this.groupBox7.Size = new System.Drawing.Size(567, 217);
             this.groupBox7.TabIndex = 40;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "State Conditions";
@@ -844,7 +845,7 @@
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Location = new System.Drawing.Point(535, 150);
+            this.button7.Location = new System.Drawing.Point(535, 179);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(27, 32);
             this.button7.TabIndex = 37;
@@ -875,7 +876,7 @@
             this.groupBox4.Controls.Add(this.numericUpDown1);
             this.groupBox4.Controls.Add(this.button6);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(14, 792);
+            this.groupBox4.Location = new System.Drawing.Point(13, 814);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(567, 387);
             this.groupBox4.TabIndex = 40;
@@ -1359,7 +1360,6 @@
             this.button4.TabIndex = 31;
             this.button4.Text = "?";
             this.button4.UseVisualStyleBackColor = true;
-   
             // 
             // checkBox1
             // 
@@ -1483,6 +1483,18 @@
             this.checkBox18.TabIndex = 26;
             this.checkBox18.Text = "An Attack Has Hit Target";
             this.checkBox18.UseVisualStyleBackColor = true;
+            // 
+            // checkBox40
+            // 
+            this.checkBox40.AutoSize = true;
+            this.checkBox40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.checkBox40.Location = new System.Drawing.Point(14, 166);
+            this.checkBox40.Name = "checkBox40";
+            this.checkBox40.Size = new System.Drawing.Size(167, 20);
+            this.checkBox40.TabIndex = 43;
+            this.checkBox40.Tag = "2nd panel, 3rd box";
+            this.checkBox40.Text = "Target Attacking Player";
+            this.checkBox40.UseVisualStyleBackColor = true;
             // 
             // NodeTextDialog
             // 
@@ -1662,5 +1674,6 @@
         private System.Windows.Forms.CheckBox checkBox29;
         private System.Windows.Forms.CheckBox checkBox30;
         private System.Windows.Forms.CheckBox checkBox32;
+        private System.Windows.Forms.CheckBox checkBox40;
     }
 }

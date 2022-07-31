@@ -352,7 +352,7 @@ namespace Xv2CoreLib.BCM
         public UInt32 I_24 { get; set; }
         // [YAXAttributeFor("ActivatorState")]
         // [YAXSerializeAs("value")]
-        public ActivatorState I_28 { get; set; }
+        public UInt32 I_28 { get; set; }
         // [YAXAttributeFor("BacEntryPrimary")]
         // [YAXSerializeAs("value")]
         public Int16 I_32 { get; set; }

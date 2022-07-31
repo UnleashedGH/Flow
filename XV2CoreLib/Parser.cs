@@ -108,7 +108,7 @@ namespace Xv2CoreLib.BCM
                 I_20 = BitConverter.ToUInt16(rawBytes, offset + 20),
                 I_22 = BitConverter.ToUInt16(rawBytes, offset + 22),
                 I_24 = BitConverter.ToUInt32(rawBytes, offset + 24),
-                I_28 = (ActivatorState)BitConverter.ToUInt32(rawBytes, offset + 28),
+                I_28 = BitConverter.ToUInt32(rawBytes, offset + 28),
                 I_32 = BitConverter.ToInt16(rawBytes, offset + 32),
                 I_34 = BitConverter.ToInt16(rawBytes, offset + 34),
                 I_36 = BitConverter.ToInt16(rawBytes, offset + 36),
