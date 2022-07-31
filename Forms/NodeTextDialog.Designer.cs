@@ -410,6 +410,7 @@
             this.button10.TabIndex = 25;
             this.button10.Text = "?";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // InputGroupBox
             // 
@@ -488,6 +489,7 @@
             this.button3.TabIndex = 29;
             this.button3.Text = "?";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // groupBox1
             // 
@@ -751,6 +753,7 @@
             this.button2.TabIndex = 26;
             this.button2.Text = "?";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // ConditionsGroupBox
             // 
@@ -865,6 +868,7 @@
             this.button7.TabIndex = 37;
             this.button7.Text = "?";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // groupBox4
             // 
@@ -1159,6 +1163,7 @@
             this.button6.TabIndex = 37;
             this.button6.Text = "?";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // groupBox6
             // 
@@ -1196,6 +1201,7 @@
             this.button5.TabIndex = 37;
             this.button5.Text = "?";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // checkBox28
             // 
@@ -1374,6 +1380,7 @@
             this.button4.TabIndex = 31;
             this.button4.Text = "?";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // checkBox1
             // 

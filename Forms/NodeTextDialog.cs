@@ -361,16 +361,65 @@ namespace Flow.Forms
 
         private void button8_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Seperate conditions that be combined to make a new compund condition\nif the first 2 conditions are checked, it will read as 'An Attack has hit target AND the attack belongs to the current running BAC entry'.",
+            MessageBox.Show("Seperate conditions that can be combined to make a new compund condition\nif the first 2 conditions are checked, it will read as 'An Attack has hit target AND the attack belongs to the current running BAC entry'.",
              "Complementary Conditions", MessageBoxButtons.OK,
              MessageBoxIcon.Information);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Seperate conditions that be combined to make a new compund condition\nif the first 2 conditions are checked, it will read as 'An Attack has hit target AND the attack belongs to the current running BAC entry'.",
-         "Button Input", MessageBoxButtons.OK,
-         MessageBoxIcon.Information);
+            MessageBox.Show("The primary button inputs show up as a symbol in the grid",
+      "Button Inputs", MessageBoxButtons.OK,
+      MessageBoxIcon.Information);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("BAC entries to activate when all conditions are met",
+       "BAC", MessageBoxButtons.OK,
+       MessageBoxIcon.Information);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Conditions in numeric form",
+   "intervals and numerical conditions", MessageBoxButtons.OK,
+   MessageBoxIcon.Information);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Conditions that don't belong in the previous categories",
+   "Other conditions", MessageBoxButtons.OK,
+   MessageBoxIcon.Information);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Only 1 side should be checked for a given condition",
+ "Opposite Conditions", MessageBoxButtons.OK,
+ MessageBoxIcon.Information);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Additional properties to the input",
+ "Input States", MessageBoxButtons.OK,
+ MessageBoxIcon.Information);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Can be combined with other button inputs",
+ "Directional Input", MessageBoxButtons.OK,
+ MessageBoxIcon.Information);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Various states that the player can be in, or given to by another entity like Target",
+ "State Conditions", MessageBoxButtons.OK,
+ MessageBoxIcon.Information);
         }
     }
   
