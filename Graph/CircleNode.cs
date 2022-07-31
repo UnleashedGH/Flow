@@ -36,7 +36,7 @@ namespace Flow.Graph
         }
 
         // Draw the object centered at (x, y).
-        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, uint btnInputFlag,  string extra, string extra2, float scale, bool isRemoteChild)
+        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, uint btnInputFlag,  string extra, string extra2, float scale, bool isRemoteChild, bool isGrabEntry)
         {
             // Fill and draw an ellipse at our location.
             // SizeF my_size = GetSize(gr, font);
@@ -153,6 +153,14 @@ namespace Flow.Graph
             if(btnInput != "Other")
             {
                 if (isRemoteChild)
+                {
+                    gr.FillEllipse(bg_brush, rectText);
+                    gr.DrawEllipse(pen, rectText);
+                    //gr.FillEllipse(bg_brush, rectText2);
+                   // gr.DrawEllipse(pen, rectText2);
+
+                }
+                else if (isGrabEntry)
                 {
                     gr.FillEllipse(bg_brush, rectText);
                     gr.DrawEllipse(pen, rectText);

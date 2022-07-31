@@ -433,12 +433,14 @@ namespace Flow.Graph
             {
                 tmpID = (tmpID - reletiveID + 1);
             }
+
+            bool isGrabEntry = (bd.bcmentry.I_38 != 0 || bd.bcmentry.I_40 != 0) ? true : false;
        
             if (isCollpased)
-                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "+", tmpID.ToString(), s, bd.isRemoteChild);
+                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "+", tmpID.ToString(), s, bd.isRemoteChild, isGrabEntry);
             else
 
-                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "", tmpID.ToString(), s, bd.isRemoteChild);
+                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "", tmpID.ToString(), s, bd.isRemoteChild, isGrabEntry);
             
 
 
