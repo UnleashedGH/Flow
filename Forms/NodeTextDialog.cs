@@ -237,7 +237,7 @@ namespace Flow.Forms
             DirectionalInputFlag.AddRange(new List<CheckBox> { null, null, null, null,    null, null, null, checkBox14,     checkBox13, checkBox10, checkBox11, checkBox12,        checkBox16, checkBox15, checkBox8, checkBox9 });
             HoldDownConditionsFlag.AddRange(new List<CheckBox> { null, null, checkBox36, null,     null, null, null, null,               null, null, null, null,           null, checkBox34, null, null });
             PrimaryActivatorConditionsFlag.AddRange(new List<CheckBox> { null, checkBox19, null, null,        null, null, checkBox32, null,        null, checkBox27, null, checkBox17,    checkBox28, null, null, null,     checkBox22, checkBox23, null, null,      null, null, null, checkBox1,    checkBox2, checkBox21, checkBox20, checkBox25,    checkBox18, null, checkBox29, checkBox30});
-            HoldDownConditionsFlag.AddRange(new List<CheckBox> { null, null, null, null,     checkBox40, checkBox24, checkBox39, checkBox31,    checkBox38, checkBox37, checkBox35, checkBox33 });
+            ActivatorStateFlag.AddRange(new List<CheckBox> { null, null, null, null,     checkBox40, null, checkBox39, checkBox31,    checkBox38, checkBox37, checkBox35, checkBox33 });
 
 
 
@@ -417,7 +417,7 @@ namespace Flow.Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Various states that the player can be in, or given to by another entity like Target\nExample: normally you won't be activate this entry when you're boosting, Except if the Boosting flag is checked.\nchecking more states allowes this entry to be more 'flexible'",
+            MessageBox.Show("Various states that the player can be in, or given to by another entity like Target\nExample: normally you won't be activate this entry when you're boosting, Except if the Boosting flag is checked.\nchecking more states allowes this entry to be more 'flexible'.\nthe opposite making it more restrictive.\nThere's an exception when it comes to Idle and Attacking flags, having both of these unchecked will cancel each other out giving no restriction to both",
  "State Conditions", MessageBoxButtons.OK,
  MessageBoxIcon.Information);
         }
