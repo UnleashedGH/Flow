@@ -177,8 +177,7 @@
             // 
             this.showChildLinkInfoToolStripMenuItem.Name = "showChildLinkInfoToolStripMenuItem";
             this.showChildLinkInfoToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.showChildLinkInfoToolStripMenuItem.Text = "Show Extended Link Info";
-            this.showChildLinkInfoToolStripMenuItem.Visible = false;
+            this.showChildLinkInfoToolStripMenuItem.Text = "Show Full Info (CTRL + F)";
             this.showChildLinkInfoToolStripMenuItem.Click += new System.EventHandler(this.showChildLinkInfoToolStripMenuItem_Click);
             // 
             // menuStrip1

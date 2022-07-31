@@ -1373,7 +1373,9 @@ namespace Flow.Forms
         {
             if (SelectedNode == null)
                 return;
-            MessageBox.Show(SelectedNode.bd.RemoteChildIndex.ToString());
+            MessageBox.Show($"Button: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08}\nDirectional: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04}\nConditions: {(Xv2CoreLib.BCM.PrimaryConditions)SelectedNode.bd.bcmentry.I_24}\nState: {(Xv2CoreLib.BCM.ActivatorState)SelectedNode.bd.bcmentry.I_28}\nBACPrimary: {SelectedNode.bd.bcmentry.I_32}\nKiCost: {SelectedNode.bd.bcmentry.I_64}\nStamina Cost: {SelectedNode.bd.bcmentry.I_84}\nCallBackID: {SelectedNode.bd.bcmentry.I_76}\nCUS Aura ID: {SelectedNode.bd.bcmentry.I_102}",
+        "Full Info", MessageBoxButtons.OK,
+        MessageBoxIcon.Information);
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1842,95 +1844,24 @@ namespace Flow.Forms
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.C)
-            {
-                if (SelectedNode == null)
-                    return;
-
-                bufferNode = SelectedNode;
+                copyNodeToolStripMenuItem_Click(null, null);
 
 
-            }
+            
             else if (e.Control && e.KeyCode == Keys.V)
-            {
-                if (SelectedNode == null || bufferNode == null)
-                    return;
-
-
-                if (SelectedNode.bd.RemoteChildIndex >= 0)
-                {
-                    MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
-                        "Paste Single Link", MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                    return;
-                }
-
-                TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd, bufferNode.isCollpased);
-
-                newChild.bd.isLayerRoot = false;
-                newChild.bd.bcmentry = bufferNode.bd.bcmentry.Clone();
-
-                newChild.isCollpased = false;
-
-                SelectedNode.AddChild(newChild);
-
-
-
-                reindex();
-                ArrangeTree();
-            }
+                pasteSingleLinkToolStripMenuItem_Click(null, null);
+            
 
             else if (e.Control && e.KeyCode == Keys.A)
-            {
-                if (SelectedNode == null)
-                    return;
-
-                if (SelectedNode.bd.RemoteChildIndex >= 0)
-                {
-                    MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
-                        "Add Link", MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                    return;
-                }
-                NodeTextDialog dlg = new NodeTextDialog();
-
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    TreeNode<CircleNode> child =
-                        new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
-
-                    child.bd.bcmentry = dlg.bcmEntry.Clone();
-
-                    SelectedNode.isCollpased = false;
-                    SelectedNode.AddChild(child);
-
-
-                    reindex();
-
-
-                    ArrangeTree();
-
-
-                  
-
-                }
-            }
+                ctxNodeAddChild_Click(null, null);
+            
 
             else if (e.Control && e.KeyCode == Keys.E)
-            {
+                modifyDataToolStripMenuItem_Click(null, null);
+         
 
-                if (SelectedNode == null)
-                    return;
-
-                NodeTextDialog dlg = new NodeTextDialog(SelectedNode);
-
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-
-                    SelectedNode.bd.bcmentry = dlg.bcmEntry.Clone();
-
-                    ComboPanel.Refresh();
-                }
-            }
+           else if (e.Control && e.KeyCode == Keys.F)
+                showChildLinkInfoToolStripMenuItem_Click(null, null);
         }
 
         private void listView1_DoubleClick(object sender, EventArgs e)
