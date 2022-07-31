@@ -113,7 +113,7 @@
             this.collapseToolStripMenuItem,
             this.showChildLinkInfoToolStripMenuItem});
             this.ctxNode.Name = "ctxNode";
-            this.ctxNode.Size = new System.Drawing.Size(217, 202);
+            this.ctxNode.Size = new System.Drawing.Size(217, 224);
             this.ctxNode.Text = "ContextMenuNode";
             this.ctxNode.Opening += new System.ComponentModel.CancelEventHandler(this.ctxNode_Opening);
             // 
@@ -224,7 +224,7 @@
             // 
             this.saveFlowFileflowToolStripMenuItem.Name = "saveFlowFileflowToolStripMenuItem";
             this.saveFlowFileflowToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.saveFlowFileflowToolStripMenuItem.Text = "Save Flow Project (.flip)";
+            this.saveFlowFileflowToolStripMenuItem.Text = "Save Flow Project (.flp)";
             this.saveFlowFileflowToolStripMenuItem.Click += new System.EventHandler(this.saveFlowFileflowToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem

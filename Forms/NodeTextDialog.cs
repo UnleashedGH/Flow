@@ -203,7 +203,7 @@ namespace Flow.Forms
             foreach (Control ctl in groupBox11.Controls)
                 if (ctl.GetType() == typeof(NumericUpDown))
                     ctl.MouseWheel += Ctl_MouseWheel;
-      
+
             /////////////////////////////////////////
             //panel props
             ScrollContainer.AutoScroll = false;
@@ -214,7 +214,7 @@ namespace Flow.Forms
 
             //numberic up downs props
 
-            numericUpDown1.Maximum = Int32.MaxValue;
+            //numericUpDown1.Maximum = Int32.MaxValue;
 
 
             //init bcmentry
@@ -420,6 +420,11 @@ namespace Flow.Forms
             MessageBox.Show("Various states that the player can be in, or given to by another entity like Target\nExample: normally you won't be activate this entry when you're boosting, Except if the Boosting flag is checked.\nchecking more states allowes this entry to be more 'flexible'.\nthe opposite making it more restrictive.\nThere's an exception when it comes to Idle and Attacking flags, having both of these unchecked will cancel each other out giving no restriction to both",
  "State Conditions", MessageBoxButtons.OK,
  MessageBoxIcon.Information);
+        }
+
+        private void InputGroupBox_Enter(object sender, EventArgs e)
+        {
+
         }
     }
   

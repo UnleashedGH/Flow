@@ -33,21 +33,8 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.ScrollContainer = new System.Windows.Forms.Panel();
             this.GroupBoxContainer = new System.Windows.Forms.GroupBox();
-            this.BACGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
-            this.label14 = new System.Windows.Forms.Label();
-            this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.button10 = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.InputGroupBox = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
@@ -78,6 +65,7 @@
             this.checkBox16 = new System.Windows.Forms.CheckBox();
             this.checkBox15 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.ConditionsGroupBox = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.checkBox40 = new System.Windows.Forms.CheckBox();
@@ -86,6 +74,7 @@
             this.checkBox37 = new System.Windows.Forms.CheckBox();
             this.checkBox35 = new System.Windows.Forms.CheckBox();
             this.checkBox33 = new System.Windows.Forms.CheckBox();
+            this.checkBox31 = new System.Windows.Forms.CheckBox();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -123,7 +112,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.checkBox31 = new System.Windows.Forms.CheckBox();
             this.button4 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox20 = new System.Windows.Forms.CheckBox();
@@ -136,16 +124,26 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox19 = new System.Windows.Forms.CheckBox();
             this.checkBox18 = new System.Windows.Forms.CheckBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.BACGroupBox = new System.Windows.Forms.GroupBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            this.button10 = new System.Windows.Forms.Button();
             this.ScrollContainer.SuspendLayout();
             this.GroupBoxContainer.SuspendLayout();
-            this.BACGroupBox.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.InputGroupBox.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox15.SuspendLayout();
@@ -156,6 +154,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox12.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.ConditionsGroupBox.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -172,6 +171,15 @@
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.BACGroupBox.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -179,7 +187,7 @@
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(316, 596);
+            this.btnCancel.Location = new System.Drawing.Point(331, 596);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 15;
@@ -191,7 +199,7 @@
             this.btnOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(235, 596);
+            this.btnOk.Location = new System.Drawing.Point(250, 596);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 14;
@@ -205,210 +213,42 @@
             this.ScrollContainer.Controls.Add(this.GroupBoxContainer);
             this.ScrollContainer.Location = new System.Drawing.Point(12, 12);
             this.ScrollContainer.Name = "ScrollContainer";
-            this.ScrollContainer.Size = new System.Drawing.Size(641, 578);
+            this.ScrollContainer.Size = new System.Drawing.Size(667, 578);
             this.ScrollContainer.TabIndex = 19;
             // 
             // GroupBoxContainer
             // 
-            this.GroupBoxContainer.Controls.Add(this.BACGroupBox);
-            this.GroupBoxContainer.Controls.Add(this.InputGroupBox);
-            this.GroupBoxContainer.Controls.Add(this.ConditionsGroupBox);
+            this.GroupBoxContainer.Controls.Add(this.tabControl1);
             this.GroupBoxContainer.Location = new System.Drawing.Point(3, 3);
             this.GroupBoxContainer.Name = "GroupBoxContainer";
-            this.GroupBoxContainer.Size = new System.Drawing.Size(618, 2100);
+            this.GroupBoxContainer.Size = new System.Drawing.Size(661, 572);
             this.GroupBoxContainer.TabIndex = 0;
             this.GroupBoxContainer.TabStop = false;
             // 
-            // BACGroupBox
+            // tabControl1
             // 
-            this.BACGroupBox.Controls.Add(this.groupBox11);
-            this.BACGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BACGroupBox.Location = new System.Drawing.Point(6, 1802);
-            this.BACGroupBox.Name = "BACGroupBox";
-            this.BACGroupBox.Size = new System.Drawing.Size(607, 292);
-            this.BACGroupBox.TabIndex = 44;
-            this.BACGroupBox.TabStop = false;
-            this.BACGroupBox.Text = "BAC";
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.Location = new System.Drawing.Point(9, 10);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(646, 559);
+            this.tabControl1.TabIndex = 45;
             // 
-            // groupBox11
+            // tabPage1
             // 
-            this.groupBox11.Controls.Add(this.label13);
-            this.groupBox11.Controls.Add(this.numericUpDown8);
-            this.groupBox11.Controls.Add(this.label14);
-            this.groupBox11.Controls.Add(this.numericUpDown9);
-            this.groupBox11.Controls.Add(this.label11);
-            this.groupBox11.Controls.Add(this.numericUpDown6);
-            this.groupBox11.Controls.Add(this.label12);
-            this.groupBox11.Controls.Add(this.numericUpDown7);
-            this.groupBox11.Controls.Add(this.label9);
-            this.groupBox11.Controls.Add(this.numericUpDown4);
-            this.groupBox11.Controls.Add(this.label10);
-            this.groupBox11.Controls.Add(this.numericUpDown5);
-            this.groupBox11.Controls.Add(this.button10);
-            this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox11.Location = new System.Drawing.Point(19, 33);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(568, 240);
-            this.groupBox11.TabIndex = 38;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "BAC Entries";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(8, 126);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(154, 16);
-            this.label13.TabIndex = 55;
-            this.label13.Text = "BAC Targetting Override";
-            // 
-            // numericUpDown8
-            // 
-            this.numericUpDown8.Location = new System.Drawing.Point(182, 126);
-            this.numericUpDown8.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
-            this.numericUpDown8.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDown8.Name = "numericUpDown8";
-            this.numericUpDown8.Size = new System.Drawing.Size(204, 22);
-            this.numericUpDown8.TabIndex = 54;
-            this.numericUpDown8.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 98);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(85, 16);
-            this.label14.TabIndex = 53;
-            this.label14.Text = "BAC Airbone";
-            // 
-            // numericUpDown9
-            // 
-            this.numericUpDown9.Location = new System.Drawing.Point(182, 98);
-            this.numericUpDown9.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
-            this.numericUpDown9.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDown9.Name = "numericUpDown9";
-            this.numericUpDown9.Size = new System.Drawing.Size(204, 22);
-            this.numericUpDown9.TabIndex = 52;
-            this.numericUpDown9.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 185);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(170, 16);
-            this.label11.TabIndex = 51;
-            this.label11.Text = "BAC Throw Target Connect";
-            // 
-            // numericUpDown6
-            // 
-            this.numericUpDown6.Location = new System.Drawing.Point(181, 185);
-            this.numericUpDown6.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(204, 22);
-            this.numericUpDown6.TabIndex = 50;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(7, 157);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(159, 16);
-            this.label12.TabIndex = 49;
-            this.label12.Text = "BAC Throw User Connect";
-            // 
-            // numericUpDown7
-            // 
-            this.numericUpDown7.Location = new System.Drawing.Point(181, 157);
-            this.numericUpDown7.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
-            this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.Size = new System.Drawing.Size(204, 22);
-            this.numericUpDown7.TabIndex = 48;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 70);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(109, 16);
-            this.label9.TabIndex = 47;
-            this.label9.Text = "BAC Charge End";
-            // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Location = new System.Drawing.Point(182, 70);
-            this.numericUpDown4.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(204, 22);
-            this.numericUpDown4.TabIndex = 46;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(8, 42);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(84, 16);
-            this.label10.TabIndex = 45;
-            this.label10.Text = "BAC Primary";
-            // 
-            // numericUpDown5
-            // 
-            this.numericUpDown5.Location = new System.Drawing.Point(182, 42);
-            this.numericUpDown5.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(204, 22);
-            this.numericUpDown5.TabIndex = 44;
-            // 
-            // button10
-            // 
-            this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button10.Location = new System.Drawing.Point(535, 200);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(27, 32);
-            this.button10.TabIndex = 25;
-            this.button10.Text = "?";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.InputGroupBox);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(638, 527);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Input";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // InputGroupBox
             // 
@@ -416,12 +256,13 @@
             this.InputGroupBox.Controls.Add(this.groupBox1);
             this.InputGroupBox.Controls.Add(this.groupBox2);
             this.InputGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InputGroupBox.Location = new System.Drawing.Point(6, 14);
+            this.InputGroupBox.Location = new System.Drawing.Point(3, 6);
             this.InputGroupBox.Name = "InputGroupBox";
             this.InputGroupBox.Size = new System.Drawing.Size(607, 551);
             this.InputGroupBox.TabIndex = 43;
             this.InputGroupBox.TabStop = false;
             this.InputGroupBox.Text = "Input";
+            this.InputGroupBox.Enter += new System.EventHandler(this.InputGroupBox_Enter);
             // 
             // groupBox8
             // 
@@ -753,6 +594,18 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // tabPage2
+            // 
+            this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.ConditionsGroupBox);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(638, 530);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Conditions";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // ConditionsGroupBox
             // 
             this.ConditionsGroupBox.Controls.Add(this.groupBox7);
@@ -761,7 +614,7 @@
             this.ConditionsGroupBox.Controls.Add(this.groupBox5);
             this.ConditionsGroupBox.Controls.Add(this.groupBox3);
             this.ConditionsGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConditionsGroupBox.Location = new System.Drawing.Point(6, 587);
+            this.ConditionsGroupBox.Location = new System.Drawing.Point(6, 6);
             this.ConditionsGroupBox.Name = "ConditionsGroupBox";
             this.ConditionsGroupBox.Size = new System.Drawing.Size(606, 1205);
             this.ConditionsGroupBox.TabIndex = 42;
@@ -857,6 +710,18 @@
             this.checkBox33.Tag = "2nd panel, 3rd box";
             this.checkBox33.Text = "Idle";
             this.checkBox33.UseVisualStyleBackColor = true;
+            // 
+            // checkBox31
+            // 
+            this.checkBox31.AutoSize = true;
+            this.checkBox31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.checkBox31.Location = new System.Drawing.Point(14, 166);
+            this.checkBox31.Name = "checkBox31";
+            this.checkBox31.Size = new System.Drawing.Size(144, 20);
+            this.checkBox31.TabIndex = 43;
+            this.checkBox31.Tag = "ITS PART OF ACTVATOR STATS BUT ITS PLACED HERE TO MAKE MORE SENSE";
+            this.checkBox31.Text = "Receiving Damage";
+            this.checkBox31.UseVisualStyleBackColor = true;
             // 
             // button7
             // 
@@ -1333,18 +1198,6 @@
             this.label5.TabIndex = 49;
             this.label5.Text = "<--OR-->";
             // 
-            // checkBox31
-            // 
-            this.checkBox31.AutoSize = true;
-            this.checkBox31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.checkBox31.Location = new System.Drawing.Point(14, 166);
-            this.checkBox31.Name = "checkBox31";
-            this.checkBox31.Size = new System.Drawing.Size(144, 20);
-            this.checkBox31.TabIndex = 43;
-            this.checkBox31.Tag = "ITS PART OF ACTVATOR STATS BUT ITS PLACED HERE TO MAKE MORE SENSE";
-            this.checkBox31.Text = "Receiving Damage";
-            this.checkBox31.UseVisualStyleBackColor = true;
-            // 
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1479,13 +1332,215 @@
             this.checkBox18.Text = "An Attack Has Hit Target";
             this.checkBox18.UseVisualStyleBackColor = true;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.AutoScroll = true;
+            this.tabPage3.Controls.Add(this.BACGroupBox);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(638, 530);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "BAC";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // BACGroupBox
+            // 
+            this.BACGroupBox.Controls.Add(this.groupBox11);
+            this.BACGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BACGroupBox.Location = new System.Drawing.Point(3, 8);
+            this.BACGroupBox.Name = "BACGroupBox";
+            this.BACGroupBox.Size = new System.Drawing.Size(632, 292);
+            this.BACGroupBox.TabIndex = 44;
+            this.BACGroupBox.TabStop = false;
+            this.BACGroupBox.Text = "BAC";
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.label13);
+            this.groupBox11.Controls.Add(this.numericUpDown8);
+            this.groupBox11.Controls.Add(this.label14);
+            this.groupBox11.Controls.Add(this.numericUpDown9);
+            this.groupBox11.Controls.Add(this.label11);
+            this.groupBox11.Controls.Add(this.numericUpDown6);
+            this.groupBox11.Controls.Add(this.label12);
+            this.groupBox11.Controls.Add(this.numericUpDown7);
+            this.groupBox11.Controls.Add(this.label9);
+            this.groupBox11.Controls.Add(this.numericUpDown4);
+            this.groupBox11.Controls.Add(this.label10);
+            this.groupBox11.Controls.Add(this.numericUpDown5);
+            this.groupBox11.Controls.Add(this.button10);
+            this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox11.Location = new System.Drawing.Point(19, 33);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(607, 240);
+            this.groupBox11.TabIndex = 38;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "BAC Entries";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 126);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(154, 16);
+            this.label13.TabIndex = 55;
+            this.label13.Text = "BAC Targetting Override";
+            // 
+            // numericUpDown8
+            // 
+            this.numericUpDown8.Location = new System.Drawing.Point(182, 126);
+            this.numericUpDown8.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDown8.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown8.Name = "numericUpDown8";
+            this.numericUpDown8.Size = new System.Drawing.Size(204, 22);
+            this.numericUpDown8.TabIndex = 54;
+            this.numericUpDown8.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 98);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(85, 16);
+            this.label14.TabIndex = 53;
+            this.label14.Text = "BAC Airbone";
+            // 
+            // numericUpDown9
+            // 
+            this.numericUpDown9.Location = new System.Drawing.Point(182, 98);
+            this.numericUpDown9.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDown9.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown9.Name = "numericUpDown9";
+            this.numericUpDown9.Size = new System.Drawing.Size(204, 22);
+            this.numericUpDown9.TabIndex = 52;
+            this.numericUpDown9.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(7, 185);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(170, 16);
+            this.label11.TabIndex = 51;
+            this.label11.Text = "BAC Throw Target Connect";
+            // 
+            // numericUpDown6
+            // 
+            this.numericUpDown6.Location = new System.Drawing.Point(181, 185);
+            this.numericUpDown6.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDown6.Name = "numericUpDown6";
+            this.numericUpDown6.Size = new System.Drawing.Size(204, 22);
+            this.numericUpDown6.TabIndex = 50;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(7, 157);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(159, 16);
+            this.label12.TabIndex = 49;
+            this.label12.Text = "BAC Throw User Connect";
+            // 
+            // numericUpDown7
+            // 
+            this.numericUpDown7.Location = new System.Drawing.Point(181, 157);
+            this.numericUpDown7.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDown7.Name = "numericUpDown7";
+            this.numericUpDown7.Size = new System.Drawing.Size(204, 22);
+            this.numericUpDown7.TabIndex = 48;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 70);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(109, 16);
+            this.label9.TabIndex = 47;
+            this.label9.Text = "BAC Charge End";
+            // 
+            // numericUpDown4
+            // 
+            this.numericUpDown4.Location = new System.Drawing.Point(182, 70);
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(204, 22);
+            this.numericUpDown4.TabIndex = 46;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 42);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(84, 16);
+            this.label10.TabIndex = 45;
+            this.label10.Text = "BAC Primary";
+            // 
+            // numericUpDown5
+            // 
+            this.numericUpDown5.Location = new System.Drawing.Point(182, 42);
+            this.numericUpDown5.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDown5.Name = "numericUpDown5";
+            this.numericUpDown5.Size = new System.Drawing.Size(204, 22);
+            this.numericUpDown5.TabIndex = 44;
+            // 
+            // button10
+            // 
+            this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button10.Location = new System.Drawing.Point(574, 200);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(27, 32);
+            this.button10.TabIndex = 25;
+            this.button10.Text = "?";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // NodeTextDialog
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(654, 631);
+            this.ClientSize = new System.Drawing.Size(684, 631);
             this.Controls.Add(this.ScrollContainer);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -1498,15 +1553,8 @@
             this.Load += new System.EventHandler(this.NodeTextDialog_Load);
             this.ScrollContainer.ResumeLayout(false);
             this.GroupBoxContainer.ResumeLayout(false);
-            this.BACGroupBox.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.InputGroupBox.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox15.ResumeLayout(false);
@@ -1523,6 +1571,7 @@
             this.groupBox13.PerformLayout();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.ConditionsGroupBox.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
@@ -1544,6 +1593,16 @@
             this.groupBox5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.BACGroupBox.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1657,5 +1716,9 @@
         private System.Windows.Forms.CheckBox checkBox30;
         private System.Windows.Forms.CheckBox checkBox32;
         private System.Windows.Forms.CheckBox checkBox40;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
     }
 }

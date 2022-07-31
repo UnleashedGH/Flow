@@ -152,7 +152,7 @@ namespace Xv2CoreLib.BCM
         BaseForm = 128,
         // [YAXEnum("Left")]
         Transformed = 256,
-        dirunk10 = 512,
+        cunk10 = 512,
         cunk11 = 1024,
         cunk12 = 2048,
         cunk13 = 4096,
