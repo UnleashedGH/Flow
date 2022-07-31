@@ -606,7 +606,7 @@ namespace Flow.Forms
                 else
                 {
                     // lblNodeText.Text = $"Button: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08} / Directional: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04} / Conditions: {(Xv2CoreLib.BCM.PrimaryConditions)SelectedNode.bd.bcmentry.I_24} / State: {(Xv2CoreLib.BCM.ActivatorState)SelectedNode.bd.bcmentry.I_28} / BACPrimary: {SelectedNode.bd.bcmentry.I_32} / KiCost: {SelectedNode.bd.bcmentry.I_64} / Stamina Cost: {SelectedNode.bd.bcmentry.I_84} / CallBackID: {SelectedNode.bd.bcmentry.I_76} / CUS Aura ID: {SelectedNode.bd.bcmentry.I_102}";
-                    lblNodeText.Text = $"Button: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08} / Directional: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04} / Conditions: {(Xv2CoreLib.BCM.PrimaryConditions)SelectedNode.bd.bcmentry.I_24} / State: {(Xv2CoreLib.BCM.ActivatorState)SelectedNode.bd.bcmentry.I_28} / BACPrimary: {SelectedNode.bd.bcmentry.I_32} / KiCost: {SelectedNode.bd.bcmentry.I_64} / Stamina Cost: {SelectedNode.bd.bcmentry.I_84} / CallBackID: {SelectedNode.bd.bcmentry.I_76}";
+                    lblNodeText.Text = $"Button: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08} / Directional: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04}  / State: {(Xv2CoreLib.BCM.ActivatorState)SelectedNode.bd.bcmentry.I_28} / BACPrimary: {SelectedNode.bd.bcmentry.I_32} / KiCost: {SelectedNode.bd.bcmentry.I_64} / Stamina Cost: {SelectedNode.bd.bcmentry.I_84} / CallBackID: {SelectedNode.bd.bcmentry.I_76}";
                 }
 
 
@@ -1392,7 +1392,7 @@ namespace Flow.Forms
             if (SelectedNode == null)
                 return;
             MessageBox.Show($"Button: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08}\nDirectional: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04}\nConditions: {(Xv2CoreLib.BCM.PrimaryConditions)SelectedNode.bd.bcmentry.I_24}\nState: {(Xv2CoreLib.BCM.ActivatorState)SelectedNode.bd.bcmentry.I_28}\nBacPrimary: {SelectedNode.bd.bcmentry.I_32}\nBacCharge: {SelectedNode.bd.bcmentry.I_34}\nBacAirborne: {SelectedNode.bd.bcmentry.I_42}\nBacThrowUser: {SelectedNode.bd.bcmentry.I_38}\nBacThrowTarget: {SelectedNode.bd.bcmentry.I_40}\nKiCost: {SelectedNode.bd.bcmentry.I_64}\nStamina Cost: {SelectedNode.bd.bcmentry.I_84}\nCallBackID: {SelectedNode.bd.bcmentry.I_76}\nCUS Aura ID: {SelectedNode.bd.bcmentry.I_102}",
-        "Full Info", MessageBoxButtons.OK,
+        "Info", MessageBoxButtons.OK,
         MessageBoxIcon.Information);
         }
 
