@@ -217,14 +217,14 @@ namespace Xv2CoreLib.BCM
 
         public static Dictionary<ActivatorState, string> ActivatorStates = new Dictionary<ActivatorState, string>()
         {
-            { ActivatorState.boosting , "Boosting" },
-            { ActivatorState.guarding , "Guarding" },
-            { ActivatorState.idle , "Idle" },
-            { ActivatorState.jumping , "Jumping" },
-            { ActivatorState.receivedamage , "ReceiveDamage" },
+            { ActivatorState.Boosting , "Boosting" },
+            { ActivatorState.Guarding , "Guarding" },
+            { ActivatorState.Idle , "Idle" },
+            { ActivatorState.Jumping , "Jumping" },
+            { ActivatorState.ReceivingDamage , "ReceiveDamage" },
             { ActivatorState.unk7 , "Unk7" },
-            { ActivatorState.attacking , "Attacking" },
-            { ActivatorState.targetattacking , "TargetAttacking" },
+            { ActivatorState.Attacking , "Attacking" },
+            { ActivatorState.TargetAttacking , "TargetAttacking" },
             { ActivatorState.unk9 , "Unk9" },
             { ActivatorState.unk10 , "Unk10" },
             { ActivatorState.unk11 , "Unk11" },
