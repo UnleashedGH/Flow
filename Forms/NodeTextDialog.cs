@@ -20,6 +20,8 @@ namespace Flow.Forms
         List<CheckBox> PrimaryButtonInputFlag = new List<CheckBox>();
         List<CheckBox> DirectionalInputFlag = new List<CheckBox>();
         List<CheckBox> HoldDownConditionsFlag = new List<CheckBox>();
+        List<CheckBox> PrimaryActivatorConditionsFlag = new List<CheckBox>();
+
 
 
 
@@ -128,6 +130,30 @@ namespace Flow.Forms
 
             bcmEntry.I_12 = Convert.ToUInt32(binary2.ToString(), 2);
 
+            /////////////////////////////
+            //PrimaryActivatorConditionsFlag
+            /////////////////////////////
+
+            string s3 = Convert.ToString(bcmEntry.I_24, 2).PadLeft(PrimaryActivatorConditionsFlag.Count, '0');
+            StringBuilder binary3 = new StringBuilder(s3);
+
+
+
+            for (int i = 0; i < PrimaryActivatorConditionsFlag.Count; i++)
+            {
+                if (PrimaryActivatorConditionsFlag[i] == null)
+                    continue;
+
+                else if (PrimaryActivatorConditionsFlag[i].Checked == false)
+                    binary3[i] = '0';
+
+                else if (PrimaryActivatorConditionsFlag[i].Checked == true)
+                    binary3[i] = '1';
+            }
+
+
+            bcmEntry.I_24 = Convert.ToUInt32(binary3.ToString(), 2);
+
 
             /////////////////////////////
 
@@ -166,6 +192,7 @@ namespace Flow.Forms
             PrimaryButtonInputFlag.AddRange(new List<CheckBox> {null,null,null,null,     null,null,null,null,                  null, checkBox6, checkBox7,null,                    checkBox26, checkBox5, checkBox4, checkBox3 });
             DirectionalInputFlag.AddRange(new List<CheckBox> { null, null, null, null,    null, null, null, checkBox14,     checkBox13, checkBox10, checkBox11, checkBox12,        checkBox16, checkBox15, checkBox8, checkBox9 });
             DirectionalInputFlag.AddRange(new List<CheckBox> { null, null, checkBox36, null,     null, null, null, null,               null, null, null, null,           null, checkBox34, null, null });
+            PrimaryActivatorConditionsFlag.AddRange(new List<CheckBox> { null, checkBox19, null, null,        null, null, checkBox32, null,        null, checkBox27, null, checkBox17,    checkBox28, null, null, null,     checkBox22, checkBox23, null, null,      null, null, null, checkBox1,    checkBox2, checkBox21, checkBox20, checkBox25,    checkBox18, null, checkBox29, checkBox30});
 
 
 
@@ -192,7 +219,7 @@ namespace Flow.Forms
                 ///////////////////////////////
 
                 uint value1 = bcmEntry.I_04;
-                //thepadding is based of how many bits in the checkbox array, it should be the original full size to maintain
+             
                 string binary1 = Convert.ToString(value1, 2).PadLeft(DirectionalInputFlag.Count, '0');
                 for (int i = 0; i < DirectionalInputFlag.Count; i++)
                     if (DirectionalInputFlag[i] != null)
@@ -203,11 +230,23 @@ namespace Flow.Forms
                 ///////////////////////////////
 
                 uint value2 = bcmEntry.I_12;
-                //thepadding is based of how many bits in the checkbox array, it should be the original full size to maintain
+            
                 string binary2 = Convert.ToString(value2, 2).PadLeft(HoldDownConditionsFlag.Count, '0');
                 for (int i = 0; i < HoldDownConditionsFlag.Count; i++)
                     if (HoldDownConditionsFlag[i] != null)
                         HoldDownConditionsFlag[i].Checked = (binary2[i] == '1') ? true : false;
+
+
+                ///////////////////////////////
+                //PrimaryActivatorConditionsFlag
+                ///////////////////////////////
+
+                uint value3 = bcmEntry.I_24;
+             
+                string binary3 = Convert.ToString(value3, 2).PadLeft(PrimaryActivatorConditionsFlag.Count, '0');
+                for (int i = 0; i < PrimaryActivatorConditionsFlag.Count; i++)
+                    if (PrimaryActivatorConditionsFlag[i] != null)
+                        PrimaryActivatorConditionsFlag[i].Checked = (binary3[i] == '1') ? true : false;
 
             }
 
@@ -222,15 +261,18 @@ namespace Flow.Forms
 
         }
 
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
-        {
+       
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Seperate conditions that be combined to make a new compund condition\nif the first 2 conditions are checked, it will read as 'An Attack has hit target AND the attack belongs to the current running BAC entry'.",
+             "Complementary Conditionst", MessageBoxButtons.OK,
+             MessageBoxIcon.Information);
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
+  
 
-        }
+    
     }
   
  }

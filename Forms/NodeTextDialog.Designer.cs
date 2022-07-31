@@ -108,12 +108,16 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.checkBox32 = new System.Windows.Forms.CheckBox();
             this.button5 = new System.Windows.Forms.Button();
             this.checkBox28 = new System.Windows.Forms.CheckBox();
             this.checkBox27 = new System.Windows.Forms.CheckBox();
             this.checkBox17 = new System.Windows.Forms.CheckBox();
             this.checkBox25 = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.checkBox29 = new System.Windows.Forms.CheckBox();
+            this.checkBox30 = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -219,7 +223,7 @@
             // 
             this.BACGroupBox.Controls.Add(this.groupBox11);
             this.BACGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BACGroupBox.Location = new System.Drawing.Point(6, 1762);
+            this.BACGroupBox.Location = new System.Drawing.Point(6, 1788);
             this.BACGroupBox.Name = "BACGroupBox";
             this.BACGroupBox.Size = new System.Drawing.Size(607, 292);
             this.BACGroupBox.TabIndex = 44;
@@ -552,7 +556,7 @@
             this.checkBox4.TabIndex = 20;
             this.checkBox4.Text = "Heavy";
             this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+       
             // 
             // checkBox3
             // 
@@ -756,7 +760,7 @@
             this.ConditionsGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConditionsGroupBox.Location = new System.Drawing.Point(6, 587);
             this.ConditionsGroupBox.Name = "ConditionsGroupBox";
-            this.ConditionsGroupBox.Size = new System.Drawing.Size(606, 1155);
+            this.ConditionsGroupBox.Size = new System.Drawing.Size(606, 1185);
             this.ConditionsGroupBox.TabIndex = 42;
             this.ConditionsGroupBox.TabStop = false;
             this.ConditionsGroupBox.Text = "Conditions";
@@ -770,7 +774,7 @@
             this.groupBox7.Controls.Add(this.checkBox33);
             this.groupBox7.Controls.Add(this.button7);
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.groupBox7.Location = new System.Drawing.Point(19, 550);
+            this.groupBox7.Location = new System.Drawing.Point(19, 585);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(567, 188);
             this.groupBox7.TabIndex = 40;
@@ -870,8 +874,8 @@
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.numericUpDown1);
             this.groupBox4.Controls.Add(this.button6);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.groupBox4.Location = new System.Drawing.Point(14, 762);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(14, 792);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(567, 387);
             this.groupBox4.TabIndex = 40;
@@ -881,6 +885,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label20.Location = new System.Drawing.Point(11, 329);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(133, 16);
@@ -889,6 +894,7 @@
             // 
             // numericUpDown15
             // 
+            this.numericUpDown15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.numericUpDown15.Location = new System.Drawing.Point(185, 329);
             this.numericUpDown15.Maximum = new decimal(new int[] {
             100000000,
@@ -902,6 +908,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label15.Location = new System.Drawing.Point(12, 242);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(150, 16);
@@ -911,6 +918,7 @@
             // numericUpDown10
             // 
             this.numericUpDown10.DecimalPlaces = 2;
+            this.numericUpDown10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.numericUpDown10.Location = new System.Drawing.Point(186, 242);
             this.numericUpDown10.Maximum = new decimal(new int[] {
             100000000,
@@ -929,6 +937,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label16.Location = new System.Drawing.Point(12, 214);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(99, 16);
@@ -937,6 +946,7 @@
             // 
             // numericUpDown11
             // 
+            this.numericUpDown11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.numericUpDown11.Location = new System.Drawing.Point(186, 214);
             this.numericUpDown11.Maximum = new decimal(new int[] {
             100000000,
@@ -950,6 +960,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label17.Location = new System.Drawing.Point(11, 301);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(83, 16);
@@ -958,6 +969,7 @@
             // 
             // numericUpDown12
             // 
+            this.numericUpDown12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.numericUpDown12.Location = new System.Drawing.Point(185, 301);
             this.numericUpDown12.Maximum = new decimal(new int[] {
             100000000,
@@ -981,6 +993,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label18.Location = new System.Drawing.Point(11, 273);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(77, 16);
@@ -989,6 +1002,7 @@
             // 
             // numericUpDown13
             // 
+            this.numericUpDown13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.numericUpDown13.Hexadecimal = true;
             this.numericUpDown13.Location = new System.Drawing.Point(185, 273);
             this.numericUpDown13.Maximum = new decimal(new int[] {
@@ -1003,6 +1017,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label19.Location = new System.Drawing.Point(12, 186);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(87, 16);
@@ -1011,6 +1026,7 @@
             // 
             // numericUpDown14
             // 
+            this.numericUpDown14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.numericUpDown14.Location = new System.Drawing.Point(186, 186);
             this.numericUpDown14.Maximum = new decimal(new int[] {
             100000000,
@@ -1024,6 +1040,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label21.Location = new System.Drawing.Point(12, 158);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(49, 16);
@@ -1032,6 +1049,7 @@
             // 
             // numericUpDown16
             // 
+            this.numericUpDown16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.numericUpDown16.Location = new System.Drawing.Point(186, 158);
             this.numericUpDown16.Maximum = new decimal(new int[] {
             100000000,
@@ -1045,6 +1063,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label7.Location = new System.Drawing.Point(7, 91);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(126, 16);
@@ -1053,6 +1072,7 @@
             // 
             // numericUpDown3
             // 
+            this.numericUpDown3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.numericUpDown3.Location = new System.Drawing.Point(185, 91);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             100000000,
@@ -1066,6 +1086,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label6.Location = new System.Drawing.Point(7, 63);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(122, 16);
@@ -1074,6 +1095,7 @@
             // 
             // numericUpDown2
             // 
+            this.numericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.numericUpDown2.Location = new System.Drawing.Point(185, 63);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             100000000,
@@ -1087,6 +1109,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label4.Location = new System.Drawing.Point(7, 37);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(143, 16);
@@ -1095,6 +1118,7 @@
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.numericUpDown1.Hexadecimal = true;
             this.numericUpDown1.Increment = new decimal(new int[] {
             65536,
@@ -1123,6 +1147,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.checkBox32);
             this.groupBox6.Controls.Add(this.button5);
             this.groupBox6.Controls.Add(this.checkBox28);
             this.groupBox6.Controls.Add(this.checkBox27);
@@ -1131,15 +1156,26 @@
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.groupBox6.Location = new System.Drawing.Point(19, 390);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(567, 142);
+            this.groupBox6.Size = new System.Drawing.Size(567, 177);
             this.groupBox6.TabIndex = 39;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Other Conditions";
             // 
+            // checkBox32
+            // 
+            this.checkBox32.AutoSize = true;
+            this.checkBox32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox32.Location = new System.Drawing.Point(11, 136);
+            this.checkBox32.Name = "checkBox32";
+            this.checkBox32.Size = new System.Drawing.Size(88, 20);
+            this.checkBox32.TabIndex = 38;
+            this.checkBox32.Text = "STM > 0%";
+            this.checkBox32.UseVisualStyleBackColor = true;
+            // 
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(535, 101);
+            this.button5.Location = new System.Drawing.Point(535, 136);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(27, 32);
             this.button5.TabIndex = 37;
@@ -1185,13 +1221,16 @@
             this.checkBox25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox25.Location = new System.Drawing.Point(10, 108);
             this.checkBox25.Name = "checkBox25";
-            this.checkBox25.Size = new System.Drawing.Size(88, 20);
+            this.checkBox25.Size = new System.Drawing.Size(156, 20);
             this.checkBox25.TabIndex = 36;
-            this.checkBox25.Text = "STM > 0%";
+            this.checkBox25.Text = "Attack Pass on Guard";
             this.checkBox25.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.checkBox29);
+            this.groupBox5.Controls.Add(this.checkBox30);
             this.groupBox5.Controls.Add(this.label8);
             this.groupBox5.Controls.Add(this.label3);
             this.groupBox5.Controls.Add(this.label2);
@@ -1213,11 +1252,45 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Opposite Conditons";
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.label22.Location = new System.Drawing.Point(232, 119);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(66, 16);
+            this.label22.TabIndex = 55;
+            this.label22.Text = "<--OR-->";
+            // 
+            // checkBox29
+            // 
+            this.checkBox29.AutoSize = true;
+            this.checkBox29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.checkBox29.Location = new System.Drawing.Point(314, 115);
+            this.checkBox29.Name = "checkBox29";
+            this.checkBox29.Size = new System.Drawing.Size(63, 20);
+            this.checkBox29.TabIndex = 54;
+            this.checkBox29.Tag = "2nd panel, 3rd box";
+            this.checkBox29.Text = "Flying";
+            this.checkBox29.UseVisualStyleBackColor = true;
+            // 
+            // checkBox30
+            // 
+            this.checkBox30.AutoSize = true;
+            this.checkBox30.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.checkBox30.Location = new System.Drawing.Point(11, 115);
+            this.checkBox30.Name = "checkBox30";
+            this.checkBox30.Size = new System.Drawing.Size(80, 20);
+            this.checkBox30.TabIndex = 53;
+            this.checkBox30.Tag = "2nd panel, 3rd box";
+            this.checkBox30.Text = "Standing";
+            this.checkBox30.UseVisualStyleBackColor = true;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.label8.Location = new System.Drawing.Point(232, 119);
+            this.label8.Location = new System.Drawing.Point(232, 145);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 16);
             this.label8.TabIndex = 52;
@@ -1257,11 +1330,11 @@
             // 
             this.checkBox24.AutoSize = true;
             this.checkBox24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.checkBox24.Location = new System.Drawing.Point(314, 115);
+            this.checkBox24.Location = new System.Drawing.Point(314, 141);
             this.checkBox24.Name = "checkBox24";
             this.checkBox24.Size = new System.Drawing.Size(168, 20);
             this.checkBox24.TabIndex = 46;
-            this.checkBox24.Tag = "2nd panel, 3rd box";
+            this.checkBox24.Tag = "ITS PART OF ACTVATOR STATS BUT ITS PLACED HERE TO MAKE MORE SENSE";
             this.checkBox24.Text = "Not Receiving Damage";
             this.checkBox24.UseVisualStyleBackColor = true;
             // 
@@ -1269,11 +1342,11 @@
             // 
             this.checkBox31.AutoSize = true;
             this.checkBox31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.checkBox31.Location = new System.Drawing.Point(11, 115);
+            this.checkBox31.Location = new System.Drawing.Point(11, 141);
             this.checkBox31.Name = "checkBox31";
             this.checkBox31.Size = new System.Drawing.Size(144, 20);
             this.checkBox31.TabIndex = 43;
-            this.checkBox31.Tag = "2nd panel, 3rd box";
+            this.checkBox31.Tag = "ITS PART OF ACTVATOR STATS BUT ITS PLACED HERE TO MAKE MORE SENSE";
             this.checkBox31.Text = "Receiving Damage";
             this.checkBox31.UseVisualStyleBackColor = true;
             // 
@@ -1286,7 +1359,7 @@
             this.button4.TabIndex = 31;
             this.button4.Text = "?";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+   
             // 
             // checkBox1
             // 
@@ -1377,6 +1450,7 @@
             this.button8.TabIndex = 38;
             this.button8.Text = "?";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // label1
             // 
@@ -1405,9 +1479,9 @@
             this.checkBox18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.checkBox18.Location = new System.Drawing.Point(11, 45);
             this.checkBox18.Name = "checkBox18";
-            this.checkBox18.Size = new System.Drawing.Size(222, 20);
+            this.checkBox18.Size = new System.Drawing.Size(173, 20);
             this.checkBox18.TabIndex = 26;
-            this.checkBox18.Text = "A Previous Attack Has Hit Target";
+            this.checkBox18.Text = "An Attack Has Hit Target";
             this.checkBox18.UseVisualStyleBackColor = true;
             // 
             // NodeTextDialog
@@ -1584,5 +1658,9 @@
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.GroupBox groupBox15;
         private System.Windows.Forms.GroupBox groupBox14;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.CheckBox checkBox29;
+        private System.Windows.Forms.CheckBox checkBox30;
+        private System.Windows.Forms.CheckBox checkBox32;
     }
 }
