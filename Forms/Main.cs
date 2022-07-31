@@ -1837,5 +1837,116 @@ namespace Flow.Forms
 
 
         }
+
+        private void Main_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                if (SelectedNode == null)
+                    return;
+
+                bufferNode = SelectedNode;
+
+
+            }
+            else if (e.Control && e.KeyCode == Keys.V)
+            {
+                if (SelectedNode == null || bufferNode == null)
+                    return;
+
+
+                if (SelectedNode.bd.RemoteChildIndex >= 0)
+                {
+                    MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
+                        "Paste Single Link", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    return;
+                }
+
+                TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), bufferNode.bd, bufferNode.isCollpased);
+
+                newChild.bd.isLayerRoot = false;
+                newChild.bd.bcmentry = bufferNode.bd.bcmentry.Clone();
+
+                newChild.isCollpased = false;
+
+                SelectedNode.AddChild(newChild);
+
+
+
+                reindex();
+                ArrangeTree();
+            }
+
+            else if (e.Control && e.KeyCode == Keys.A)
+            {
+                if (SelectedNode == null)
+                    return;
+
+                if (SelectedNode.bd.RemoteChildIndex >= 0)
+                {
+                    MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
+                        "Add Link", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    return;
+                }
+                NodeTextDialog dlg = new NodeTextDialog();
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    TreeNode<CircleNode> child =
+                        new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+
+                    child.bd.bcmentry = dlg.bcmEntry.Clone();
+
+                    SelectedNode.isCollpased = false;
+                    SelectedNode.AddChild(child);
+
+
+                    reindex();
+
+
+                    ArrangeTree();
+
+
+                  
+
+                }
+            }
+
+            else if (e.Control && e.KeyCode == Keys.E)
+            {
+
+                if (SelectedNode == null)
+                    return;
+
+                NodeTextDialog dlg = new NodeTextDialog(SelectedNode);
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+
+                    SelectedNode.bd.bcmentry = dlg.bcmEntry.Clone();
+
+                    ComboPanel.Refresh();
+                }
+            }
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                LayerDialog dlg = new LayerDialog(fb.root.Children[listView1.SelectedIndices[0]].bd.LayerName);
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    fb.root.Children[listView1.SelectedIndices[0]].bd.LayerName = dlg.layerName;
+                    populateListBox(-1, "", true);
+
+                }
+
+
+
+            }
+        }
     }
 }
