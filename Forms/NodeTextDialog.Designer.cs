@@ -805,10 +805,10 @@
             this.checkBox39.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.checkBox39.Location = new System.Drawing.Point(14, 140);
             this.checkBox39.Name = "checkBox39";
-            this.checkBox39.Size = new System.Drawing.Size(91, 20);
+            this.checkBox39.Size = new System.Drawing.Size(78, 20);
             this.checkBox39.TabIndex = 42;
             this.checkBox39.Tag = "2nd panel, 3rd box";
-            this.checkBox39.Text = "Is Jumping";
+            this.checkBox39.Text = "Jumping";
             this.checkBox39.UseVisualStyleBackColor = true;
             // 
             // checkBox38
@@ -817,10 +817,10 @@
             this.checkBox38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.checkBox38.Location = new System.Drawing.Point(14, 114);
             this.checkBox38.Name = "checkBox38";
-            this.checkBox38.Size = new System.Drawing.Size(95, 20);
+            this.checkBox38.Size = new System.Drawing.Size(82, 20);
             this.checkBox38.TabIndex = 41;
             this.checkBox38.Tag = "2nd panel, 3rd box";
-            this.checkBox38.Text = "Is Guarding";
+            this.checkBox38.Text = "Guarding";
             this.checkBox38.UseVisualStyleBackColor = true;
             // 
             // checkBox37
@@ -829,10 +829,10 @@
             this.checkBox37.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.checkBox37.Location = new System.Drawing.Point(14, 88);
             this.checkBox37.Name = "checkBox37";
-            this.checkBox37.Size = new System.Drawing.Size(93, 20);
+            this.checkBox37.Size = new System.Drawing.Size(80, 20);
             this.checkBox37.TabIndex = 40;
             this.checkBox37.Tag = "2nd panel, 3rd box";
-            this.checkBox37.Text = "Is Boosting";
+            this.checkBox37.Text = "Boosting";
             this.checkBox37.UseVisualStyleBackColor = true;
             // 
             // checkBox35
@@ -841,10 +841,10 @@
             this.checkBox35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.checkBox35.Location = new System.Drawing.Point(14, 62);
             this.checkBox35.Name = "checkBox35";
-            this.checkBox35.Size = new System.Drawing.Size(113, 20);
+            this.checkBox35.Size = new System.Drawing.Size(82, 20);
             this.checkBox35.TabIndex = 39;
             this.checkBox35.Tag = "2nd panel, 3rd box";
-            this.checkBox35.Text = "In Combo/Skill";
+            this.checkBox35.Text = "Attacking";
             this.checkBox35.UseVisualStyleBackColor = true;
             // 
             // checkBox33

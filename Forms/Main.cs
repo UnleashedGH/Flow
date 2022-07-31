@@ -17,6 +17,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Flow.Graph;
 using Flow.ClassExtensions;
 
+
 namespace Flow.Forms
 {
     public partial class Main : Form
@@ -604,7 +605,7 @@ namespace Flow.Forms
                 //if not remove child
                 else
                 {
-                    lblNodeText.Text = $"ButtonInput: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08}, DirectionalInput: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04}";
+                    lblNodeText.Text = $"ButtonInput: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08}/ DirectionalInput: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04}/ ActivatorState: {(Xv2CoreLib.BCM.ActivatorState)SelectedNode.bd.bcmentry.I_28}/ BACEntryPrimary: {SelectedNode.bd.bcmentry.I_32}/ KiCost: {SelectedNode.bd.bcmentry.I_64}/ Stamina Cost: {SelectedNode.bd.bcmentry.I_84}/ CallBackID: {SelectedNode.bd.bcmentry.I_76}/ CUS Aura ID: {SelectedNode.bd.bcmentry.I_102}";
                 }
 
 

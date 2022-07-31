@@ -417,7 +417,7 @@ namespace Flow.Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Various states that the player can be in, or given to by another entity like Target",
+            MessageBox.Show("Various states that the player can be in, or given to by another entity like Target\nExample: normally you won't be activate this entry when you're boosting, Except if the Boosting flag is checked.\nchecking more states allowes this entry to be more 'flexible'",
  "State Conditions", MessageBoxButtons.OK,
  MessageBoxIcon.Information);
         }

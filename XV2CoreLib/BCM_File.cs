@@ -133,21 +133,22 @@ namespace Xv2CoreLib.BCM
     [Flags]
     public enum ActivatorState : uint
     {
+        None = 0,
         //  [YAXEnum("Idle")]
-        idle = 1,
+        Idle = 1,
         // [YAXEnum("Attacking")]
-        attacking = 2,
+        Attacking = 2,
         // [YAXEnum("Boosting")]
-        boosting = 4,
+        Boosting = 4,
         // [YAXEnum("Guarding")]
-        guarding = 8,
+        Guarding = 8,
         // [YAXEnum("ReceiveDamage")]
-        receivedamage = 16,
+        ReceivingDamage = 16,
         // [YAXEnum("Jumping")]
-        jumping = 32,
+        Jumping = 32,
         unk7 = 64,
         // [YAXEnum("TargetAttacking")]
-        targetattacking = 128,
+        TargetAttacking = 128,
         unk9 = 256,
         unk10 = 512,
         unk11 = 1024,
