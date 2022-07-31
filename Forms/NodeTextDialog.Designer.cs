@@ -598,10 +598,10 @@
             // 
             this.tabPage2.AutoScroll = true;
             this.tabPage2.Controls.Add(this.ConditionsGroupBox);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 28);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(638, 530);
+            this.tabPage2.Size = new System.Drawing.Size(638, 527);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Conditions";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1336,9 +1336,9 @@
             // 
             this.tabPage3.AutoScroll = true;
             this.tabPage3.Controls.Add(this.BACGroupBox);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Location = new System.Drawing.Point(4, 28);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(638, 530);
+            this.tabPage3.Size = new System.Drawing.Size(638, 527);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "BAC";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1549,7 +1549,7 @@
             this.MaximizeBox = false;
             this.Name = "NodeTextDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Link";
+            this.Text = "Node Data";
             this.Load += new System.EventHandler(this.NodeTextDialog_Load);
             this.ScrollContainer.ResumeLayout(false);
             this.GroupBoxContainer.ResumeLayout(false);

@@ -687,6 +687,8 @@ namespace Flow.Forms
                 {
                     if (SelectedNode.bd.LayerIndex != -1)
                     {
+                        ensureVisableNode(SelectedNode, fb.root.Children[SelectedNode.bd.LayerIndex], SelectedNode.bd.RemoteChildPointToRef.bd.ID);
+
                         listView1.Items[SelectedNode.bd.LayerIndex].Focused = true;
                         listView1.Items[SelectedNode.bd.LayerIndex].Selected = true;
                         listView1.Items[SelectedNode.bd.LayerIndex].EnsureVisible();
@@ -701,6 +703,21 @@ namespace Flow.Forms
             }
 
             else { }
+
+        }
+
+        void ensureVisableNode(TreeNode<CircleNode> targetNode, TreeNode<CircleNode> r , int desiredID)
+        {
+           // MessageBox.Show($"rootID is {r.bd.ID} / desiredID is {desiredID}");
+            if (r.bd.ID >= desiredID) //it will be already visable
+                return;
+
+
+            r.isCollpased = false;
+            foreach(TreeNode<CircleNode> child in r.Children)
+            {
+                ensureVisableNode(targetNode, child, desiredID);
+            }
 
         }
 
@@ -1863,6 +1880,22 @@ namespace Flow.Forms
 
            else if (e.Control && e.KeyCode == Keys.F)
                 showChildLinkInfoToolStripMenuItem_Click(null, null);
+
+            else if (e.Control && e.KeyCode == Keys.D)
+                ctxNodeDelete_Click(null, null);
+
+            else if (e.Control && e.KeyCode == Keys.B)
+                pasteRemoteLinkToolStripMenuItem_Click(null, null);
+
+            else if (e.Control && e.KeyCode == Keys.X)
+                collapseToolStripMenuItem_Click(null, null);
+
+
+
+
+
+
+
         }
 
         private void listView1_DoubleClick(object sender, EventArgs e)
