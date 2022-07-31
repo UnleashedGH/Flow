@@ -182,35 +182,13 @@ namespace Flow.Forms
 
             /////////////////////////////
 
-            //vars
-
-            //target size conditons
-            bcmEntry.I_16 = (uint)numericUpDown1.Value;
-            //min loop condtions
-            bcmEntry.I_20 = (ushort)numericUpDown2.Value;
-            //max loop condtions
-            bcmEntry.I_22 = (ushort)numericUpDown3.Value;
 
 
 
-            bcmEntry.I_64 = (uint)numericUpDown16.Value;
-            bcmEntry.I_84 = (uint)numericUpDown14.Value;
-            bcmEntry.I_92 = (uint)numericUpDown11.Value;
-            bcmEntry.F_96 = (float)numericUpDown10.Value;
-            bcmEntry.I_76 = (uint)numericUpDown13.Value;
-            bcmEntry.I_102 = (short)numericUpDown12.Value;
-            bcmEntry.I_100 = (short)numericUpDown15.Value;
+
+       
 
 
-            //bac
-
-
-            bcmEntry.I_32 = (short)numericUpDown5.Value;
-            bcmEntry.I_34 = (short)numericUpDown4.Value;
-            bcmEntry.I_42 = (short)numericUpDown9.Value;
-            bcmEntry.I_44 = (ushort)numericUpDown8.Value;
-            bcmEntry.I_38 = (short)numericUpDown7.Value;
-            bcmEntry.I_40 = (short)numericUpDown6.Value;
         }
 
         private void NodeTextDialog_Load(object sender, EventArgs e)
@@ -332,36 +310,38 @@ namespace Flow.Forms
 
             ///////////////////////////////
 
-            //vars
+            //vars, codntions tab
 
             //target size conditions
-            numericUpDown1.Value = bcmEntry.I_16;
+            numericUpDown1.DataBindings.Add("Value", bcmEntry, "I_16", true, DataSourceUpdateMode.OnPropertyChanged);
             //min loop condtions
-            numericUpDown2.Value = bcmEntry.I_20;
+            numericUpDown2.DataBindings.Add("Value", bcmEntry, "I_20", true, DataSourceUpdateMode.OnPropertyChanged);
             //max loop condtions
-            numericUpDown3.Value = bcmEntry.I_22;
+            numericUpDown3.DataBindings.Add("Value", bcmEntry, "I_22", true, DataSourceUpdateMode.OnPropertyChanged);
+
+
+
+            //vars, misc tab
+            numericUpDown16.DataBindings.Add("Value", bcmEntry, "I_64", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown14.DataBindings.Add("Value", bcmEntry, "I_84", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown11.DataBindings.Add("Value", bcmEntry, "I_92", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown10.DataBindings.Add("Value", bcmEntry, "F_96", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown13.DataBindings.Add("Value", bcmEntry, "I_76", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown12.DataBindings.Add("Value", bcmEntry, "I_102", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown15.DataBindings.Add("Value", bcmEntry, "I_100", true, DataSourceUpdateMode.OnPropertyChanged);
 
 
 
 
-            numericUpDown16.Value = bcmEntry.I_64;
-            numericUpDown14.Value = bcmEntry.I_84;
-            numericUpDown11.Value = bcmEntry.I_92;
-            numericUpDown10.Value = (decimal)bcmEntry.F_96;
-            numericUpDown13.Value = bcmEntry.I_76;
-            numericUpDown12.Value = bcmEntry.I_102;
-            numericUpDown15.Value = bcmEntry.I_100;
 
+            //vars, bac tab
+            numericUpDown5.DataBindings.Add("Value", bcmEntry, "I_32", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown4.DataBindings.Add("Value", bcmEntry, "I_34", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown9.DataBindings.Add("Value", bcmEntry, "I_42", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown8.DataBindings.Add("Value", bcmEntry, "I_44", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown7.DataBindings.Add("Value", bcmEntry, "I_38", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown6.DataBindings.Add("Value", bcmEntry, "I_40", true, DataSourceUpdateMode.OnPropertyChanged);
 
-
-
-            //bac
-            numericUpDown5.Value = bcmEntry.I_32;
-            numericUpDown4.Value = bcmEntry.I_34;
-            numericUpDown9.Value = bcmEntry.I_42;
-            numericUpDown8.Value = bcmEntry.I_44;
-            numericUpDown7.Value = bcmEntry.I_38;
-            numericUpDown6.Value = bcmEntry.I_40;
 
 
 

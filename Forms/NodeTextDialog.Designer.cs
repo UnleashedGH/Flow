@@ -281,10 +281,10 @@
             this.numericUpDown8.Size = new System.Drawing.Size(204, 22);
             this.numericUpDown8.TabIndex = 54;
             this.numericUpDown8.Value = new decimal(new int[] {
-            65535,
+            1,
             0,
             0,
-            0});
+            -2147483648});
             // 
             // label14
             // 
@@ -312,10 +312,10 @@
             this.numericUpDown9.Size = new System.Drawing.Size(204, 22);
             this.numericUpDown9.TabIndex = 52;
             this.numericUpDown9.Value = new decimal(new int[] {
-            65535,
+            1,
             0,
             0,
-            0});
+            -2147483648});
             // 
             // label11
             // 

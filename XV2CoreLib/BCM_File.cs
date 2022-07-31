@@ -373,7 +373,7 @@ namespace Xv2CoreLib.BCM
         public Int16 I_40 { get; set; }
         // [YAXAttributeFor("BacEntryUnknown")]
         // [YAXSerializeAs("value")]
-        public UInt16 I_44 { get; set; }
+        public Int16 I_44 { get; set; }
         // [YAXAttributeFor("RandomFlag")]
         // [YAXSerializeAs("value")]
         public UInt16 I_46 { get; set; }
