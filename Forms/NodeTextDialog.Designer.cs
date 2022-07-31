@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NodeTextDialog));
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.ScrollContainer = new System.Windows.Forms.Panel();
@@ -79,6 +80,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.ConditionsGroupBox = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.checkBox40 = new System.Windows.Forms.CheckBox();
             this.checkBox39 = new System.Windows.Forms.CheckBox();
             this.checkBox38 = new System.Windows.Forms.CheckBox();
             this.checkBox37 = new System.Windows.Forms.CheckBox();
@@ -136,7 +138,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox19 = new System.Windows.Forms.CheckBox();
             this.checkBox18 = new System.Windows.Forms.CheckBox();
-            this.checkBox40 = new System.Windows.Forms.CheckBox();
             this.ScrollContainer.SuspendLayout();
             this.GroupBoxContainer.SuspendLayout();
             this.BACGroupBox.SuspendLayout();
@@ -280,10 +281,10 @@
             this.numericUpDown8.Size = new System.Drawing.Size(204, 22);
             this.numericUpDown8.TabIndex = 54;
             this.numericUpDown8.Value = new decimal(new int[] {
-            1,
+            65535,
             0,
             0,
-            -2147483648});
+            0});
             // 
             // label14
             // 
@@ -311,10 +312,10 @@
             this.numericUpDown9.Size = new System.Drawing.Size(204, 22);
             this.numericUpDown9.TabIndex = 52;
             this.numericUpDown9.Value = new decimal(new int[] {
-            1,
+            65535,
             0,
             0,
-            -2147483648});
+            0});
             // 
             // label11
             // 
@@ -600,6 +601,7 @@
             this.button1.TabIndex = 25;
             this.button1.Text = "?";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox2
             // 
@@ -781,6 +783,18 @@
             this.groupBox7.TabIndex = 40;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "State Conditions";
+            // 
+            // checkBox40
+            // 
+            this.checkBox40.AutoSize = true;
+            this.checkBox40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.checkBox40.Location = new System.Drawing.Point(14, 166);
+            this.checkBox40.Name = "checkBox40";
+            this.checkBox40.Size = new System.Drawing.Size(167, 20);
+            this.checkBox40.TabIndex = 43;
+            this.checkBox40.Tag = "2nd panel, 3rd box";
+            this.checkBox40.Text = "Target Attacking Player";
+            this.checkBox40.UseVisualStyleBackColor = true;
             // 
             // checkBox39
             // 
@@ -1484,18 +1498,6 @@
             this.checkBox18.Text = "An Attack Has Hit Target";
             this.checkBox18.UseVisualStyleBackColor = true;
             // 
-            // checkBox40
-            // 
-            this.checkBox40.AutoSize = true;
-            this.checkBox40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.checkBox40.Location = new System.Drawing.Point(14, 166);
-            this.checkBox40.Name = "checkBox40";
-            this.checkBox40.Size = new System.Drawing.Size(167, 20);
-            this.checkBox40.TabIndex = 43;
-            this.checkBox40.Tag = "2nd panel, 3rd box";
-            this.checkBox40.Text = "Target Attacking Player";
-            this.checkBox40.UseVisualStyleBackColor = true;
-            // 
             // NodeTextDialog
             // 
             this.AcceptButton = this.btnOk;
@@ -1507,6 +1509,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "NodeTextDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

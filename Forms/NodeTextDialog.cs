@@ -200,6 +200,17 @@ namespace Flow.Forms
             bcmEntry.I_76 = (uint)numericUpDown13.Value;
             bcmEntry.I_102 = (short)numericUpDown12.Value;
             bcmEntry.I_100 = (short)numericUpDown15.Value;
+
+
+            //bac
+
+
+            bcmEntry.I_32 = (short)numericUpDown5.Value;
+            bcmEntry.I_34 = (short)numericUpDown4.Value;
+            bcmEntry.I_42 = (short)numericUpDown9.Value;
+            bcmEntry.I_44 = (ushort)numericUpDown8.Value;
+            bcmEntry.I_38 = (short)numericUpDown7.Value;
+            bcmEntry.I_40 = (short)numericUpDown6.Value;
         }
 
         private void NodeTextDialog_Load(object sender, EventArgs e)
@@ -332,6 +343,17 @@ namespace Flow.Forms
 
 
 
+            //bac
+            numericUpDown5.Value = bcmEntry.I_32;
+            numericUpDown4.Value = bcmEntry.I_34;
+            numericUpDown9.Value = bcmEntry.I_42;
+            numericUpDown8.Value = bcmEntry.I_44;
+            numericUpDown7.Value = bcmEntry.I_38;
+            numericUpDown6.Value = bcmEntry.I_40;
+
+
+
+
 
 
 
@@ -344,13 +366,16 @@ namespace Flow.Forms
         private void button8_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Seperate conditions that be combined to make a new compund condition\nif the first 2 conditions are checked, it will read as 'An Attack has hit target AND the attack belongs to the current running BAC entry'.",
-             "Complementary Conditionst", MessageBoxButtons.OK,
+             "Complementary Conditions", MessageBoxButtons.OK,
              MessageBoxIcon.Information);
         }
 
-  
-
-    
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Seperate conditions that be combined to make a new compund condition\nif the first 2 conditions are checked, it will read as 'An Attack has hit target AND the attack belongs to the current running BAC entry'.",
+         "Button Input", MessageBoxButtons.OK,
+         MessageBoxIcon.Information);
+        }
     }
   
  }
