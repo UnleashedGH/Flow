@@ -215,6 +215,18 @@ namespace Flow.Forms
 
         private void NodeTextDialog_Load(object sender, EventArgs e)
         {
+
+            //handle scrollwhell
+            foreach (Control ctl in groupBox4.Controls)
+                if (ctl.GetType() == typeof(NumericUpDown))
+                    ctl.MouseWheel += Ctl_MouseWheel;
+
+
+            foreach (Control ctl in groupBox11.Controls)
+                if (ctl.GetType() == typeof(NumericUpDown))
+                    ctl.MouseWheel += Ctl_MouseWheel;
+      
+            /////////////////////////////////////////
             //panel props
             ScrollContainer.AutoScroll = false;
             ScrollContainer.HorizontalScroll.Enabled = false;
@@ -361,7 +373,11 @@ namespace Flow.Forms
 
         }
 
-       
+        private void Ctl_MouseWheel(object sender, MouseEventArgs e)
+        {
+      
+            ((HandledMouseEventArgs)e).Handled = true;
+        }
 
         private void button8_Click(object sender, EventArgs e)
         {
