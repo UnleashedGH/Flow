@@ -182,6 +182,24 @@ namespace Flow.Forms
 
             /////////////////////////////
 
+            //vars
+
+            //target size conditons
+            bcmEntry.I_16 = (uint)numericUpDown1.Value;
+            //min loop condtions
+            bcmEntry.I_20 = (ushort)numericUpDown2.Value;
+            //max loop condtions
+            bcmEntry.I_22 = (ushort)numericUpDown3.Value;
+
+
+
+            bcmEntry.I_64 = (uint)numericUpDown16.Value;
+            bcmEntry.I_84 = (uint)numericUpDown14.Value;
+            bcmEntry.I_92 = (uint)numericUpDown11.Value;
+            bcmEntry.F_96 = (float)numericUpDown10.Value;
+            bcmEntry.I_76 = (uint)numericUpDown13.Value;
+            bcmEntry.I_102 = (short)numericUpDown12.Value;
+            bcmEntry.I_100 = (short)numericUpDown15.Value;
         }
 
         private void NodeTextDialog_Load(object sender, EventArgs e)
@@ -293,7 +311,29 @@ namespace Flow.Forms
 
             //vars
 
-            
+            //target size conditions
+            numericUpDown1.Value = bcmEntry.I_16;
+            //min loop condtions
+            numericUpDown2.Value = bcmEntry.I_20;
+            //max loop condtions
+            numericUpDown3.Value = bcmEntry.I_22;
+
+
+
+
+            numericUpDown16.Value = bcmEntry.I_64;
+            numericUpDown14.Value = bcmEntry.I_84;
+            numericUpDown11.Value = bcmEntry.I_92;
+            numericUpDown10.Value = (decimal)bcmEntry.F_96;
+            numericUpDown13.Value = bcmEntry.I_76;
+            numericUpDown12.Value = bcmEntry.I_102;
+            numericUpDown15.Value = bcmEntry.I_100;
+
+
+
+
+
+
 
 
 

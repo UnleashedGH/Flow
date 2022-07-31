@@ -124,7 +124,7 @@ namespace Xv2CoreLib.BCM
                 I_64 = BitConverter.ToUInt32(rawBytes, offset + 64),
                 I_68 = BitConverter.ToUInt32(rawBytes, offset + 68),
                 I_72 = BitConverter.ToUInt32(rawBytes, offset + 72),
-                I_76 = (BacCases)BitConverter.ToUInt32(rawBytes, offset + 76),
+                I_76 = BitConverter.ToUInt32(rawBytes, offset + 76),
                 I_80 = BitConverter.ToUInt32(rawBytes, offset + 80),
                 I_84 = BitConverter.ToUInt32(rawBytes, offset + 84),
                 I_88 = BitConverter.ToUInt32(rawBytes, offset + 88),

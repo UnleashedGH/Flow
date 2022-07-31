@@ -408,7 +408,7 @@ namespace Xv2CoreLib.BCM
 
         //  [YAXAttributeFor("Bac_Cases")]
         //  [YAXSerializeAs("values")]
-        public BacCases I_76 { get; set; }
+        public UInt32 I_76 { get; set; }
 
         // [YAXAttributeFor("I_80")]
         // [YAXSerializeAs("value")]

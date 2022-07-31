@@ -760,7 +760,7 @@
             this.ConditionsGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConditionsGroupBox.Location = new System.Drawing.Point(6, 587);
             this.ConditionsGroupBox.Name = "ConditionsGroupBox";
-            this.ConditionsGroupBox.Size = new System.Drawing.Size(606, 1185);
+            this.ConditionsGroupBox.Size = new System.Drawing.Size(606, 1191);
             this.ConditionsGroupBox.TabIndex = 42;
             this.ConditionsGroupBox.TabStop = false;
             this.ConditionsGroupBox.Text = "Conditions";
@@ -878,7 +878,7 @@
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(13, 814);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(567, 387);
+            this.groupBox4.Size = new System.Drawing.Size(567, 365);
             this.groupBox4.TabIndex = 40;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "intervals and numerical conditions";
@@ -910,7 +910,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label15.Location = new System.Drawing.Point(12, 242);
+            this.label15.Location = new System.Drawing.Point(11, 244);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(150, 16);
             this.label15.TabIndex = 67;
@@ -1139,7 +1139,7 @@
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(535, 346);
+            this.button6.Location = new System.Drawing.Point(540, 317);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(27, 32);
             this.button6.TabIndex = 37;
