@@ -605,7 +605,7 @@ namespace Flow.Forms
                 //if not remove child
                 else
                 {
-                    lblNodeText.Text = $"Button: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08} / Directional: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04} / State: {(Xv2CoreLib.BCM.ActivatorState)SelectedNode.bd.bcmentry.I_28} / BACPrimary: {SelectedNode.bd.bcmentry.I_32} / KiCost: {SelectedNode.bd.bcmentry.I_64} / Stamina Cost: {SelectedNode.bd.bcmentry.I_84} / CallBackID: {SelectedNode.bd.bcmentry.I_76} / CUS Aura ID: {SelectedNode.bd.bcmentry.I_102}";
+                    lblNodeText.Text = $"Button: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08} / Directional: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04} / Conditions: {(Xv2CoreLib.BCM.PrimaryConditions)SelectedNode.bd.bcmentry.I_24} / State: {(Xv2CoreLib.BCM.ActivatorState)SelectedNode.bd.bcmentry.I_28} / BACPrimary: {SelectedNode.bd.bcmentry.I_32} / KiCost: {SelectedNode.bd.bcmentry.I_64} / Stamina Cost: {SelectedNode.bd.bcmentry.I_84} / CallBackID: {SelectedNode.bd.bcmentry.I_76} / CUS Aura ID: {SelectedNode.bd.bcmentry.I_102}";
                 }
 
 

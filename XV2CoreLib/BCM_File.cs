@@ -131,6 +131,53 @@ namespace Xv2CoreLib.BCM
     }
 
     [Flags]
+    public enum PrimaryConditions : uint
+    {
+        None = 0,
+        // [YAXEnum("Forward")]
+        Standing = 1,
+        // [YAXEnum("Backwards")]
+        Floating = 2,
+        // [YAXEnum("LeftRelative")]
+        unk3 = 4,
+        // [YAXEnum("RightRelative")]
+        AttackHit = 8,
+        // [YAXEnum("SingleActivation")]
+        AttackPassOnGuard = 16,
+        // [YAXEnum("Up")]
+        Close = 32,
+        // [YAXEnum("Down")]
+        Far = 64,
+        // [YAXEnum("Right")]
+        BaseForm = 128,
+        // [YAXEnum("Left")]
+        Transformed = 256,
+        dirunk10 = 512,
+        cunk11 = 1024,
+        cunk12 = 2048,
+        cunk13 = 4096,
+        cunk14 = 8192,
+        KiLessThan100 = 16384,
+        KiBiggerThan0 = 32768,
+        cunk17 = 65536,
+        crunk18 = 131072,
+        cunk19 = 262144,
+        ContactingOpponen = 524288,
+        OnKnockback = 1048576,
+        cunk22 = 2097152,
+        TargettingOpponent = 4194304,
+        cunk24 = 8388608,
+        cunk25 = 16777216,
+        StaminaBiggerThan0 = 33554432,
+        cunk27 = 67108864,
+        cunk28 = 134217728,
+        cunk29 = 268435456,
+        cunk30 = 536870912,
+        AttackFromBACEntry = 1073741824,
+        cunk32 = 2147483648
+    }
+
+    [Flags]
     public enum ActivatorState : uint
     {
         None = 0,
