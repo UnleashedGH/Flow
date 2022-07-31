@@ -1404,7 +1404,7 @@ namespace Flow.Forms
                 oldselectedindex = listView1.SelectedIndices[0];
                 ArrangeTree();
 
-                this.Text = ($"{toolName} ({getToolVersion()}) - Current Selected Layer Index: {listView1.SelectedIndices[0]} ");
+                this.Text = ($"{toolName} ({getToolVersion()}) - ({fb.ProjectName }) / Current Selected Layer Index: {listView1.SelectedIndices[0] + 1} ");
 
 
 
@@ -1580,6 +1580,7 @@ namespace Flow.Forms
                 listView1.Items.Clear();
                 fb.root.Children.Clear();
                 fb.root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+                fb.ProjectName = Path.GetFileNameWithoutExtension(openFileDialog1.SafeFileName);
 
                 bcmInstance = new Xv2CoreLib.BCM.Parser(openFileDialog1.FileName, false);
 
@@ -1749,6 +1750,7 @@ namespace Flow.Forms
                     TreeNode<CircleNode> newRoot = new TreeNode<CircleNode>();
                     fb.root.Children.Clear();
                     fb = new Flow.FlowBinary.FlowBinary();
+                    fb.ProjectName = Path.GetFileNameWithoutExtension(openFileDialog2.SafeFileName);
                     newRoot = fb.readFlowBinary(openFileDialog2.FileName, getToolVersion());
                     
 

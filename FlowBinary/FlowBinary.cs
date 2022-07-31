@@ -16,10 +16,12 @@ namespace Flow.FlowBinary
 
 
         public TreeNode<CircleNode> root;
+        public string ProjectName;
         private List<byte> bytes = new List<byte>();
         public FlowBinary()
         {
             root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+            ProjectName = "New Project";
         }
         #region Write
         public void writeFlowBinary(string path, short vmj, short vmi, short vs)
