@@ -140,6 +140,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
             this.button10 = new System.Windows.Forms.Button();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.checkBox24 = new System.Windows.Forms.CheckBox();
             this.ScrollContainer.SuspendLayout();
             this.GroupBoxContainer.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -180,6 +182,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+            this.groupBox16.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -623,6 +626,7 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.groupBox16);
             this.groupBox7.Controls.Add(this.checkBox40);
             this.groupBox7.Controls.Add(this.checkBox39);
             this.groupBox7.Controls.Add(this.checkBox38);
@@ -1534,6 +1538,28 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.checkBox24);
+            this.groupBox16.Location = new System.Drawing.Point(314, 21);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(200, 191);
+            this.groupBox16.TabIndex = 44;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Dash States";
+            // 
+            // checkBox24
+            // 
+            this.checkBox24.AutoSize = true;
+            this.checkBox24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.checkBox24.Location = new System.Drawing.Point(22, 26);
+            this.checkBox24.Name = "checkBox24";
+            this.checkBox24.Size = new System.Drawing.Size(49, 20);
+            this.checkBox24.TabIndex = 45;
+            this.checkBox24.Tag = "2nd panel, 3rd box";
+            this.checkBox24.Text = "Idle";
+            this.checkBox24.UseVisualStyleBackColor = true;
+            // 
             // NodeTextDialog
             // 
             this.AcceptButton = this.btnOk;
@@ -1603,6 +1629,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1720,5 +1748,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.CheckBox checkBox24;
     }
 }
