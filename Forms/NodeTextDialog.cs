@@ -236,8 +236,10 @@ namespace Flow.Forms
             PrimaryButtonInputFlag.AddRange(new List<CheckBox> {null,null,null,null,     null,null,null,null,                  null, checkBox6, checkBox7,null,                    checkBox26, checkBox5, checkBox4, checkBox3 });
             DirectionalInputFlag.AddRange(new List<CheckBox> { null, null, null, null,    null, null, null, checkBox14,     checkBox13, checkBox10, checkBox11, checkBox12,        checkBox16, checkBox15, checkBox8, checkBox9 });
             HoldDownConditionsFlag.AddRange(new List<CheckBox> { null, null, checkBox36, null,     null, null, null, null,               null, null, null, null,           null, checkBox34, null, null });
+
+
             PrimaryActivatorConditionsFlag.AddRange(new List<CheckBox> { null, checkBox19, null, null,        null, null, checkBox32, null,        null, checkBox27, null, checkBox17,    checkBox28, null, null, null,     checkBox22, checkBox23, null, null,      null, null, null, checkBox1,    checkBox2, checkBox21, checkBox20, checkBox25,    checkBox18, null, checkBox29, checkBox30});
-            ActivatorStateFlag.AddRange(new List<CheckBox> { null, null, null, null,     checkBox40, null, checkBox39, checkBox31,    checkBox38, checkBox37, checkBox35, checkBox33 });
+            ActivatorStateFlag.AddRange(new List<CheckBox> { checkBox44, checkBox43, checkBox42, checkBox24,     checkBox40, null, checkBox39, checkBox31,    checkBox38, checkBox37, checkBox35, checkBox33 });
 
 
 
