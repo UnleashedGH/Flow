@@ -492,6 +492,13 @@ namespace Xv2CoreLib.BCM
         //  [YAXCollection(YAXCollectionSerializationTypes.RecursiveWithNoContainingElement, EachElementName = "BCMEntry")]
         public List<BCM_Entry> BCMEntries { get; set; }
 
+        public BCM_Entry()
+        {
+            I_42 = -1;
+            I_44 = -1;
+
+        }
+
         public BCM_Entry Clone()
         {
             return new BCM_Entry()
