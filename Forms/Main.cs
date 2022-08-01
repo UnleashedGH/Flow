@@ -659,6 +659,7 @@ namespace Flow.Forms
                 pasteNodeToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
                 pasteRemoteLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
                 pasteSingleLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
+                replaceCTRLSToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
 
                 modifyDataToolStripMenuItem.Enabled = (SelectedNode.bd.isRemoteChild == false);
 
@@ -1867,35 +1868,56 @@ namespace Flow.Forms
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Control && e.KeyCode == Keys.C)
-                copyNodeToolStripMenuItem_Click(null, null);
+            if (SelectedNode != null)
+            {
+
+     
+                if (e.Control && e.KeyCode == Keys.C && (SelectedNode != fb.root) && (SelectedNode.bd.isRemoteChild == false))
+                    copyNodeToolStripMenuItem_Click(null, null);
 
 
             
-            else if (e.Control && e.KeyCode == Keys.V)
-                pasteSingleLinkToolStripMenuItem_Click(null, null);
+                else if (e.Control && e.KeyCode == Keys.V && (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false))
+                    pasteSingleLinkToolStripMenuItem_Click(null, null);
             
 
-            else if (e.Control && e.KeyCode == Keys.A)
-                ctxNodeAddChild_Click(null, null);
+                else if (e.Control && e.KeyCode == Keys.A && (SelectedNode.bd.isRemoteChild == false))
+                    ctxNodeAddChild_Click(null, null);
             
 
-            else if (e.Control && e.KeyCode == Keys.E)
-                modifyDataToolStripMenuItem_Click(null, null);
+                else if (e.Control && e.KeyCode == Keys.E && (SelectedNode.bd.isRemoteChild == false))
+                    modifyDataToolStripMenuItem_Click(null, null);
          
 
-           else if (e.Control && e.KeyCode == Keys.F)
-                showChildLinkInfoToolStripMenuItem_Click(null, null);
+               else if (e.Control && e.KeyCode == Keys.F)
+                    showChildLinkInfoToolStripMenuItem_Click(null, null);
 
-            else if (e.Control && e.KeyCode == Keys.D)
-                ctxNodeDelete_Click(null, null);
+                else if (e.Control && e.KeyCode == Keys.D && (SelectedNode.bd.isLayerRoot == false))
+                    ctxNodeDelete_Click(null, null);
 
-            else if (e.Control && e.KeyCode == Keys.B)
-                pasteRemoteLinkToolStripMenuItem_Click(null, null);
+                else if (e.Control && e.KeyCode == Keys.B && e.Shift && (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false))
+                    pasteNodeToolStripMenuItem_Click(null, null);
 
-            else if (e.Control && e.KeyCode == Keys.X)
-                collapseToolStripMenuItem_Click(null, null);
+                else if (e.Control && e.KeyCode == Keys.B && (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false))
+                    pasteRemoteLinkToolStripMenuItem_Click(null, null);
 
+                else if (e.Control && e.KeyCode == Keys.X && (SelectedNode.Children.Count > 0))
+                    collapseToolStripMenuItem_Click(null, null);
+
+                else if (e.Control && e.KeyCode == Keys.S && (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false))
+                    replaceCTRLSToolStripMenuItem_Click(null, null);
+
+            }
+
+        
+
+
+ 
+
+            //    ctxNodeAddChild.Enabled = (SelectedNode.bd.isRemoteChild == false);
+
+            //    collapseToolStripMenuItem.Enabled = (SelectedNode.Children.Count > 0);
+            //    collapseToolStripMenuItem.Text = (SelectedNode.isCollpased) ? "Expand" : "Collapse";
 
 
 
@@ -1919,6 +1941,17 @@ namespace Flow.Forms
 
 
             }
+        }
+
+        private void replaceCTRLSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SelectedNode == null || bufferNode == null)
+                return;
+
+
+            SelectedNode.bd.bcmentry = bufferNode.bd.bcmentry.Clone();
+         
+            ArrangeTree();
         }
     }
 }
