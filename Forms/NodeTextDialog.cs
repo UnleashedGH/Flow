@@ -417,7 +417,7 @@ namespace Flow.Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Various states that the player can be in, or given to by another entity like Target\nExample: normally you won't be activate this entry when you're boosting, Except if the Boosting flag is checked.\nchecking more states allowes this entry to be more 'flexible'.\nthe opposite making it more restrictive.\nThere's an exception when it comes to Idle and Attacking flags, having both of these unchecked will cancel each other out giving no restriction to both",
+            MessageBox.Show("Various states that the player can be in, or given to by another entity like Target\nExample: normally you won't be activate this entry when you're boosting, Except if the Boosting flag is checked.\nchecking more states allowes this entry to be more 'flexible'.\nthe opposite making it more restrictive.\nif all the flags are unchecked, then all states Cancels each other out and everything is allowed",
  "State Conditions", MessageBoxButtons.OK,
  MessageBoxIcon.Information);
         }
