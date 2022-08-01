@@ -1330,6 +1330,7 @@ namespace Flow.Forms
             fb = new Flow.FlowBinary.FlowBinary();
 
             TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+            newLayer.bd.isLayerRoot = true;
             newLayer.bd.LayerName = "New Layer";
             //newLayer.ID = root.Children.Count;
             fb.root.Children.Add(newLayer);
