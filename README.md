@@ -1,2 +1,2 @@
 # Flow
- Combo Creation Tool
+ User-friendly Moveset Editor (BCM) for Dragon Ball Xenoverse 2
