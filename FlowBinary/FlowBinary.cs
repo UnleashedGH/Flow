@@ -166,32 +166,32 @@ namespace Flow.FlowBinary
         }
         #endregion
         #region Read
-        public TreeNode<CircleNode> readFlowBinary(string path, string toolVersionFull)
+        public TreeNode<CircleNode> readFlowBinary(string path, string AcceptedBinaryVersion)
         {
 
             byte[] rawBytes = File.ReadAllBytes(path);
 
 
             string binaryName;
-            string toolVersion;
-            short toolVersionMajor, toolVersionMinor, toolVersionSub = -1;
+            string binaryVersion;
+            short binaryVersionMajor, binaryVersionMinor, binaryVersionSub = -1;
             int counter = -1;
      
 
 
             binaryName = Encoding.ASCII.GetString(rawBytes, 0, 5);
-            toolVersionMajor = BitConverter.ToInt16(rawBytes, 5);
-            toolVersionMinor = BitConverter.ToInt16(rawBytes, 7);
-            toolVersionSub = BitConverter.ToInt16(rawBytes, 9);
-            toolVersion = getToolVersion(toolVersionMajor, toolVersionMinor, toolVersionSub);
+            binaryVersionMajor = BitConverter.ToInt16(rawBytes, 5);
+            binaryVersionMinor = BitConverter.ToInt16(rawBytes, 7);
+            binaryVersionSub = BitConverter.ToInt16(rawBytes, 9);
+            binaryVersion = getBinaryVersion(binaryVersionMajor, binaryVersionMinor, binaryVersionSub);
 
 
             if (binaryName != "#FLOW")
                 return null;
 
-            //need to handle read different versions later (if needed)
-            //if (toolVersion != toolVersionFull)
-            //    return false;
+            //handle different binary version
+            if (binaryVersion != AcceptedBinaryVersion)
+                return null;
 
 
             counter = BitConverter.ToInt32(rawBytes, 0xB);
@@ -298,18 +298,14 @@ namespace Flow.FlowBinary
                 return null;
 
         }
-        public string getToolVersion(short toolVersionMajor, short toolVersionMinor, short toolVersionSub)
-        {
-            return $"{toolVersionMajor}.{toolVersionMinor}.{toolVersionSub}";
-        }
 
-        private BCM_Entry ParseBcmEntry(byte[] rawBytes ,int offset)
+        private BCM_Entry ParseBcmEntry(byte[] rawBytes, int offset)
         {
-           // totalTestCount++;
+            // totalTestCount++;
 
             BCM_Entry bcmEntry = new BCM_Entry()
             {
-                
+
                 I_00 = BitConverter.ToUInt32(rawBytes, offset + 0),
                 I_04 = BitConverter.ToUInt32(rawBytes, offset + 4),
                 I_08 = BitConverter.ToUInt32(rawBytes, offset + 8),
@@ -347,12 +343,21 @@ namespace Flow.FlowBinary
 
             };
 
-   
+
 
             return bcmEntry;
         }
 
 
+
+
+
+        #endregion
+        #region commonFunctions
+        public string getBinaryVersion(short toolVersionMajor, short toolVersionMinor, short toolVersionSub)
+        {
+            return $"{toolVersionMajor}.{toolVersionMinor}.{toolVersionSub}";
+        }
         #endregion
     }
 }

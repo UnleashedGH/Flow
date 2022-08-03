@@ -140,7 +140,7 @@ namespace Flow.Forms
         //binary vars
         short binaryVersionMajor = 0;
         short binaryVersionMinor = 0;
-        short tbinaryVersionSub = 1;
+        short binaryVersionSub = 1;
         //find a solution to scrolling, mousemov?
         int autoScrollMinX = 1000;
         int autoScrollMinY = 1000;
@@ -199,6 +199,11 @@ namespace Flow.Forms
         {
             return $"{toolVersionMajor}.{toolVersionMinor}.{toolVersionSub}";
         }
+        public string getBinaryVersion()
+        {
+            return $"{binaryVersionMajor}.{binaryVersionMinor}.{binaryVersionSub}";
+        }
+
 
         // Make a tree.
         private void Form1_Load(object sender, EventArgs e)
@@ -1205,7 +1210,7 @@ namespace Flow.Forms
             if (saveFileDialog2.ShowDialog() == DialogResult.OK)
             {
 
-                fb.writeFlowBinary(saveFileDialog2.FileName, toolVersionMajor, toolVersionMinor, toolVersionSub);
+                fb.writeFlowBinary(saveFileDialog2.FileName, binaryVersionMajor, binaryVersionMinor, binaryVersionSub);
                 fb.ProjectName = Path.GetFileNameWithoutExtension(saveFileDialog2.FileName);
                 listView1_SelectedIndexChanged(null, null);
                 MessageBox.Show("Saved Successfully",
@@ -1761,7 +1766,7 @@ namespace Flow.Forms
                     fb.root.Children.Clear();
                     fb = new Flow.FlowBinary.FlowBinary();
                     fb.ProjectName = Path.GetFileNameWithoutExtension(openFileDialog2.SafeFileName);
-                    newRoot = fb.readFlowBinary(openFileDialog2.FileName, getToolVersion());
+                    newRoot = fb.readFlowBinary(openFileDialog2.FileName, getBinaryVersion());
                     
 
                     if (newRoot != null)

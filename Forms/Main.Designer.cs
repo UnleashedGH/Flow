@@ -37,9 +37,10 @@
             this.modifyDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxNodeDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteSingleLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteRemoteLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceCTRLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showChildLinkInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -74,7 +75,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
-            this.replaceCTRLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -115,7 +115,7 @@
             this.collapseToolStripMenuItem,
             this.showChildLinkInfoToolStripMenuItem});
             this.ctxNode.Name = "ctxNode";
-            this.ctxNode.Size = new System.Drawing.Size(309, 246);
+            this.ctxNode.Size = new System.Drawing.Size(309, 224);
             this.ctxNode.Text = "ContextMenuNode";
             this.ctxNode.Opening += new System.ComponentModel.CancelEventHandler(this.ctxNode_Opening);
             // 
@@ -147,13 +147,6 @@
             this.ctxNodeDelete.Text = "&Delete Node (CTRL+D)";
             this.ctxNodeDelete.Click += new System.EventHandler(this.ctxNodeDelete_Click);
             // 
-            // pasteNodeToolStripMenuItem
-            // 
-            this.pasteNodeToolStripMenuItem.Name = "pasteNodeToolStripMenuItem";
-            this.pasteNodeToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
-            this.pasteNodeToolStripMenuItem.Text = "Paste With Follow up Links (CTRL+SHIFT+B)";
-            this.pasteNodeToolStripMenuItem.Click += new System.EventHandler(this.pasteNodeToolStripMenuItem_Click);
-            // 
             // pasteSingleLinkToolStripMenuItem
             // 
             this.pasteSingleLinkToolStripMenuItem.Name = "pasteSingleLinkToolStripMenuItem";
@@ -167,6 +160,20 @@
             this.pasteRemoteLinkToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
             this.pasteRemoteLinkToolStripMenuItem.Text = "Paste Remote Link (CTRL+B)";
             this.pasteRemoteLinkToolStripMenuItem.Click += new System.EventHandler(this.pasteRemoteLinkToolStripMenuItem_Click);
+            // 
+            // pasteNodeToolStripMenuItem
+            // 
+            this.pasteNodeToolStripMenuItem.Name = "pasteNodeToolStripMenuItem";
+            this.pasteNodeToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.pasteNodeToolStripMenuItem.Text = "Paste With Follow up Links (CTRL+SHIFT+B)";
+            this.pasteNodeToolStripMenuItem.Click += new System.EventHandler(this.pasteNodeToolStripMenuItem_Click);
+            // 
+            // replaceCTRLSToolStripMenuItem
+            // 
+            this.replaceCTRLSToolStripMenuItem.Name = "replaceCTRLSToolStripMenuItem";
+            this.replaceCTRLSToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.replaceCTRLSToolStripMenuItem.Text = "Replace (CTRL+S)";
+            this.replaceCTRLSToolStripMenuItem.Click += new System.EventHandler(this.replaceCTRLSToolStripMenuItem_Click);
             // 
             // collapseToolStripMenuItem
             // 
@@ -329,7 +336,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(758, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(757, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
@@ -504,13 +511,6 @@
             // 
             this.saveFileDialog2.Filter = "Flow Project files|*.flp";
             this.saveFileDialog2.Title = "Save Flow Project";
-            // 
-            // replaceCTRLSToolStripMenuItem
-            // 
-            this.replaceCTRLSToolStripMenuItem.Name = "replaceCTRLSToolStripMenuItem";
-            this.replaceCTRLSToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
-            this.replaceCTRLSToolStripMenuItem.Text = "Replace (CTRL+S)";
-            this.replaceCTRLSToolStripMenuItem.Click += new System.EventHandler(this.replaceCTRLSToolStripMenuItem_Click);
             // 
             // Main
             // 
