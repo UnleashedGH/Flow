@@ -137,6 +137,10 @@ namespace Flow.Forms
         short toolVersionSub = 2;
         string toolName = "Flow";
 
+        //binary vars
+        short binaryVersionMajor = 0;
+        short binaryVersionMinor = 0;
+        short tbinaryVersionSub = 1;
         //find a solution to scrolling, mousemov?
         int autoScrollMinX = 1000;
         int autoScrollMinY = 1000;
