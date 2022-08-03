@@ -1127,7 +1127,7 @@ namespace Flow.Forms
                             return;
                         }
 
-                        if (fb.root.Children[i].bd.ID > child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
+                       else if (fb.root.Children[i].bd.ID > child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
                         {
 
                             child.bd.LayerIndex = i - 1;
@@ -1140,13 +1140,14 @@ namespace Flow.Forms
                             return;
                         }
 
-                        
-
-
-
 
                     }
 
+                    //loop ended, and layerindex is still -1
+                    if (child.bd.LayerIndex == -1)
+                    {
+                        child.bd.LayerIndex = listView1.Items.Count - 1;
+                    }
 
                     return;
                 }
