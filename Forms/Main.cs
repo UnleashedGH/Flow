@@ -604,12 +604,23 @@ namespace Flow.Forms
                     //might change
 
                     int tmpID = -1;
+                    string StatusPrefix = "";
 
                     if (SelectedNode.bd.isRemoteChild)
-                         tmpID = SelectedNode.bd.ParentRef.bd.RemoteChildIndex;
+                    {
+                        tmpID = SelectedNode.bd.ParentRef.bd.RemoteChildIndex;
+                        StatusPrefix = "Remote Child Link for Node with index";
+                    }
+
 
                     else if (SelectedNode.bd.isRemoteSibling)
+                    {
                         tmpID = SelectedNode.bd.MySiblingRef.bd.RemoteSiblingIndex;
+                        StatusPrefix = "Remote Sibling Link for Node with index";
+                    }
+                   
+
+
 
                     if (!showIndices)
                     {
@@ -617,12 +628,12 @@ namespace Flow.Forms
                         //MessageBox.Show(SelectedNode.bd.LayerIndex.ToString());
                         tmpID = (tmpID - fb.root.Children[SelectedNode.bd.LayerIndex].bd.ID + 1);
                         
-                        lblNodeText.Text = $"Remote Link for Node with index: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex + 1}";
+                        lblNodeText.Text = $"{StatusPrefix}: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex + 1}";
                     }
 
                     else
                     {
-                        lblNodeText.Text = $"Remote Link for Node with index: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex + 1}";
+                        lblNodeText.Text = $"{StatusPrefix}: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex + 1}";
                     }
                
                 }
