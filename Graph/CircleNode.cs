@@ -36,7 +36,7 @@ namespace Flow.Graph
         }
 
         // Draw the object centered at (x, y).
-        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, uint btnInputFlag,  string extra, string extra2, float scale, bool isRemoteChild, bool isGrabEntry)
+        void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font, uint btnInputFlag,  string extra, string extra2, float scale, bool isRemoteChild, bool isRemoteSibling, bool isGrabEntry)
         {
             // Fill and draw an ellipse at our location.
             // SizeF my_size = GetSize(gr, font);
@@ -69,7 +69,7 @@ namespace Flow.Graph
       
 
             //light
-            if (!isRemoteChild)
+            if (!isRemoteChild && !isRemoteSibling)
             {
                 light = Utils.Utils.Light;
             }
@@ -79,7 +79,7 @@ namespace Flow.Graph
             }
 
             //heavy
-            if (!isRemoteChild)
+            if (!isRemoteChild && !isRemoteSibling)
             {
                 heavy = Utils.Utils.heavy;
             }
@@ -88,7 +88,7 @@ namespace Flow.Graph
                 heavy = Utils.Utils.heavyTransparent;
             }
             //ki blast
-            if (!isRemoteChild)
+            if (!isRemoteChild && !isRemoteSibling)
             {
                 kiblast = Utils.Utils.kiblast;
             }
@@ -97,7 +97,7 @@ namespace Flow.Graph
                 kiblast = Utils.Utils.kiblastTransparent; 
             }
             //jump
-            if (!isRemoteChild)
+            if (!isRemoteChild && !isRemoteSibling)
             {
                 jump = Utils.Utils.jump;
             }
@@ -106,7 +106,7 @@ namespace Flow.Graph
                 jump = Utils.Utils.jumpTransparent;
             }
             //multi-input
-            if (!isRemoteChild)
+            if (!isRemoteChild && !isRemoteSibling)
             {
                 multiinput = Utils.Utils.multiinput;
             }
@@ -115,7 +115,7 @@ namespace Flow.Graph
                 multiinput = Utils.Utils.multiinputTransparent;
             }
             //noinput
-            if (!isRemoteChild)
+            if (!isRemoteChild && !isRemoteSibling)
             {
                 noinput = Utils.Utils.noinput;
             }
@@ -152,15 +152,7 @@ namespace Flow.Graph
             }
             if(btnInput != "Other")
             {
-                if (isRemoteChild)
-                {
-                    gr.FillEllipse(bg_brush, rectText);
-                    gr.DrawEllipse(pen, rectText);
-                    //gr.FillEllipse(bg_brush, rectText2);
-                   // gr.DrawEllipse(pen, rectText2);
-
-                }
-                else if (isGrabEntry)
+             if (isGrabEntry)
                 {
                     gr.FillEllipse(bg_brush, rectText);
                     gr.DrawEllipse(pen, rectText);
@@ -203,7 +195,7 @@ namespace Flow.Graph
                     gr.DrawString(extra, font, text_brush, (x + 13) * scale, (y + 13) * scale, string_format);
 
                
-                        if (isRemoteChild)
+                        if (isRemoteChild || isRemoteSibling)
                             gr.DrawString("", font, text_brush2, (x + 40) * scale, (y + 2) * scale, string_format);
                         else
                             gr.DrawString(extra2, font, text_brush2, (x + 40 + (extra2.Length * 4)) * scale, (y + 2) * scale, string_format);

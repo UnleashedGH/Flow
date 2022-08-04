@@ -61,10 +61,10 @@ namespace Flow.FlowBinary
             //public TreeNode<CircleNode> RemoteChildParentRef; -- don't need
             //public TreeNode<CircleNode> RemoteChildPointToRef; -- don't need
 
-            if (r.bd.isRemoteChild)
+            if (r.bd.isRemoteChild || r.bd.isRemoteSibling)
             {
                
-              //  MessageBox.Show(counter.ToString());
+        
                 return;
             }
 
@@ -78,8 +78,9 @@ namespace Flow.FlowBinary
             bytes.AddRange(BitConverter.GetBytes(parentIndex));
             bytes.AddRange(BitConverter.GetBytes(r.bd.ID));
             bytes.AddRange(BitConverter.GetBytes(r.bd.RemoteChildIndex));
+            bytes.AddRange(BitConverter.GetBytes(r.bd.RemoteSiblingIndex));
 
-         
+
 
             if (parentIndex == 0) //if the parent is root, write layer names
             {
@@ -216,6 +217,8 @@ namespace Flow.FlowBinary
                 offsetCounter += 4;
                 newNode.bd.RemoteChildIndex = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
                 offsetCounter += 4;
+                newNode.bd.RemoteSiblingIndex = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                offsetCounter += 4;
                 int stringCount = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
                 offsetCounter += 4;
 
@@ -252,12 +255,12 @@ namespace Flow.FlowBinary
                 if (nodeEntries[i].bd.parentIndex != -1)
                 {
 
-              
+
 
                     //MessageBox.Show(nodeEntries[i].bd.LayerName);
                     //MessageBox.Show(nodeEntries[i].bd.parentIndex.ToString());
-           
 
+                    nodeEntries[i].bd.ParentRef = nodeEntries[nodeEntries[i].bd.parentIndex];
                     nodeEntries[nodeEntries[i].bd.parentIndex].AddChild(nodeEntries[i]);
                     nodeEntries[nodeEntries[i].bd.parentIndex].isCollpased = true;
                 }
@@ -270,12 +273,32 @@ namespace Flow.FlowBinary
                     //newNode.bd.LayerName = nodeEntries[i].bd.LayerName;
 
                     newNode.bd.isRemoteChild = true;
-                    newNode.bd.RemoteChildParentRef = nodeEntries[i];
-                    newNode.bd.RemoteChildPointToRef = nodeEntries[nodeEntries[i].bd.RemoteChildIndex];
+                    newNode.bd.ParentRef = nodeEntries[i];
+                    newNode.bd.RemotePointToRef = nodeEntries[nodeEntries[i].bd.RemoteChildIndex];
                     newNode.isCollpased = false;
 
                     nodeEntries[i].AddChild(newNode);
                     nodeEntries[i].isCollpased = true;
+
+
+                }
+
+                if (nodeEntries[i].bd.RemoteSiblingIndex != -1)
+                {
+                    TreeNode<CircleNode> newNode = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+                    //newNode.bd.bcmentry = nodeEntries[i].bd.bcmentry.Clone();
+                    //newNode.bd.LayerName = nodeEntries[i].bd.LayerName;
+
+                    newNode.bd.isRemoteSibling = true;
+
+                    newNode.bd.ParentRef = nodeEntries[nodeEntries[i].bd.parentIndex]; // fix this
+                    newNode.bd.RemotePointToRef = nodeEntries[nodeEntries[i].bd.RemoteSiblingIndex];
+                    newNode.bd.MySiblingRef = nodeEntries[i];
+
+                    newNode.isCollpased = false;
+
+                    nodeEntries[nodeEntries[i].bd.parentIndex].AddChild(newNode); // fix this
+                    nodeEntries[nodeEntries[i].bd.parentIndex].isCollpased = true; // fix this
 
 
                 }

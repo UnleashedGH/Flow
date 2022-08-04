@@ -14,27 +14,40 @@ namespace Flow.Graph
     [Serializable]
     public struct BinaryData
     {
+        //bcm
        public Xv2CoreLib.BCM.BCM_Entry bcmentry;
      
 
-
+        //main
         public int ID;  //should be initlized as -1, because its index
+        public int parentIndex;
+
         public string LayerName;
         public int LayerIndex;
-        public int parentIndex; //should be only used for Reading
+        public bool isLayerRoot;
+
+        public TreeNode<CircleNode> ParentRef; //the parent node of the remote child
+        public TreeNode<CircleNode> RemotePointToRef; // the node the remote child points to
 
 
 
+        //child
         public int RemoteChildIndex; //should be initlized as -1, because its index
         public bool isRemoteChild;
-        public TreeNode<CircleNode> RemoteChildParentRef; //the parent node of the remote child
-        public TreeNode<CircleNode> RemoteChildPointToRef; // the node the remote child points to
+
+
+
+        //sibling
+        public int RemoteSiblingIndex; //should be initlized as -1, because its index
+        public bool isRemoteSibling;
+        public TreeNode<CircleNode> MySiblingRef; //the parent node of the remote child
 
 
 
 
 
-        public bool isLayerRoot;
+
+
     }
     public class TreeNode<T> where T : IDrawable
     {
@@ -122,15 +135,27 @@ namespace Flow.Graph
             {
 
                 bcmentry = _bd.bcmentry,
+
+
                 LayerName = _LayerName,
                 LayerIndex = _bd.LayerIndex,
-                parentIndex = _bd.parentIndex,
+                isLayerRoot = _bd.isLayerRoot,
+
+
                 ID = _bd.ID,
+                parentIndex = _bd.parentIndex,
+
+                ParentRef = _bd.ParentRef,
+                RemotePointToRef = _bd.RemotePointToRef,
+
                 RemoteChildIndex = _bd.RemoteChildIndex,
                 isRemoteChild = _bd.isRemoteChild,
-                isLayerRoot = _bd.isLayerRoot,
-                RemoteChildParentRef = _bd.RemoteChildParentRef,
-                RemoteChildPointToRef = _bd.RemoteChildPointToRef,
+             
+
+                RemoteSiblingIndex = _bd.RemoteSiblingIndex,
+                isRemoteSibling = _bd.isRemoteSibling,
+                MySiblingRef = _bd.MySiblingRef
+
 
 
 
@@ -139,13 +164,15 @@ namespace Flow.Graph
 
           
             bd.RemoteChildIndex = -1;
+            bd.RemoteSiblingIndex = -1;
             bd.ID = -1;
-
             bd.LayerIndex = -1;
             bd.parentIndex = -1;
 
+
             bd.isLayerRoot = false;
             bd.isRemoteChild = false;
+            bd.isRemoteSibling = false;
 
 
 
@@ -191,11 +218,45 @@ namespace Flow.Graph
             int count = 0;
             foreach (TreeNode<T> child in Children)
             {
-                if (!child.bd.isRemoteChild)
+                if (!child.bd.isRemoteChild && !child.bd.isRemoteSibling)
                     count++;
             }
             return count;
         }
+        public bool RemoteSiblingAlreadyExists()
+        {
+            for (int i = 0; i < Children.Count; i++)
+                    if(Children[i].bd.isRemoteSibling)
+                        return true;
+
+            return false;
+
+        }
+        public void deleteRemoteSibling()
+        {
+            for(int i = 0; i < Children.Count; i++)
+               if (Children[i].bd.isRemoteSibling)
+                    Children.Remove(Children[i]);
+            
+         
+           
+        }
+
+        public bool isLastChild(TreeNode<T> target)
+        {
+            for (int i = 0; i < Children.Count;i++)
+            {
+                // See if it's the child.
+                if (Children[i] == target)
+                {
+                    if (i == Children.Count - 1)
+                        return true;
+                }
+            }
+            return false;
+
+        }
+        
 
         // Arrange the node and its children in the allowed area.
         // Set xmin to indicate the right edge of our subtree.
@@ -411,8 +472,11 @@ namespace Flow.Graph
             //is there a better way to do this
             //the other way i had was adding an EXTRA ref to the "parentPointTo" node that points to the remote child and update
             //it when its own input change, but that will leave 2 extra refs unused inside it. this is better right now
-            if (bd.isRemoteChild)
-                bd.bcmentry.I_08 = bd.RemoteChildPointToRef.bd.bcmentry.I_08;
+            if (bd.isRemoteChild || bd.isRemoteSibling)
+                bd.bcmentry.I_08 = bd.RemotePointToRef.bd.bcmentry.I_08;
+
+   
+                
 
             //for auto expand
             if (DataCenter.Y * s + (50 ) > Main.ComboPanelTotalY - (1000  ) || DataCenter.X * s + (50  ) > Main.ComboPanelTotalX - (1000 ))
@@ -437,10 +501,10 @@ namespace Flow.Graph
             bool isGrabEntry = (bd.bcmentry.I_38 != 0 || bd.bcmentry.I_40 != 0) ? true : false;
        
             if (isCollpased)
-                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "+", tmpID.ToString(), s, bd.isRemoteChild, isGrabEntry);
+                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "+", tmpID.ToString(), s, bd.isRemoteChild, bd.isRemoteSibling, isGrabEntry);
             else
 
-                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "", tmpID.ToString(), s, bd.isRemoteChild, isGrabEntry);
+                Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont, bd.bcmentry.I_08, "", tmpID.ToString(), s, bd.isRemoteChild, bd.isRemoteSibling, isGrabEntry);
             
 
 
