@@ -58,10 +58,10 @@
             this.radioButton3.AutoSize = true;
             this.radioButton3.Location = new System.Drawing.Point(6, 104);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(163, 24);
+            this.radioButton3.Size = new System.Drawing.Size(164, 24);
             this.radioButton3.TabIndex = 2;
             this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Deep Compression";
+            this.radioButton3.Text = "Quick Compression";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
             // radioButton2
@@ -69,10 +69,10 @@
             this.radioButton2.AutoSize = true;
             this.radioButton2.Location = new System.Drawing.Point(6, 74);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(282, 24);
+            this.radioButton2.Size = new System.Drawing.Size(286, 24);
             this.radioButton2.TabIndex = 1;
             this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Light Compression (Recommended)";
+            this.radioButton2.Text = "Deep Compression (Recommended)";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1

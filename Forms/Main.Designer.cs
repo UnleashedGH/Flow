@@ -38,9 +38,9 @@
             this.copyNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxNodeDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteSingleLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteRemoteLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteRemoteSiblingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceCTRLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showChildLinkInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -124,37 +124,44 @@
             // ctxNodeAddChild
             // 
             this.ctxNodeAddChild.Name = "ctxNodeAddChild";
-            this.ctxNodeAddChild.Size = new System.Drawing.Size(308, 22);
+            this.ctxNodeAddChild.Size = new System.Drawing.Size(269, 22);
             this.ctxNodeAddChild.Text = "&Add New Link (CTRL+A)";
             this.ctxNodeAddChild.Click += new System.EventHandler(this.ctxNodeAddChild_Click);
             // 
             // modifyDataToolStripMenuItem
             // 
             this.modifyDataToolStripMenuItem.Name = "modifyDataToolStripMenuItem";
-            this.modifyDataToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.modifyDataToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.modifyDataToolStripMenuItem.Text = "Modifiy Node Data (CTRL+E)";
             this.modifyDataToolStripMenuItem.Click += new System.EventHandler(this.modifyDataToolStripMenuItem_Click);
             // 
             // copyNodeToolStripMenuItem
             // 
             this.copyNodeToolStripMenuItem.Name = "copyNodeToolStripMenuItem";
-            this.copyNodeToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.copyNodeToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.copyNodeToolStripMenuItem.Text = "Copy Node (CTRL+C)";
             this.copyNodeToolStripMenuItem.Click += new System.EventHandler(this.copyNodeToolStripMenuItem_Click);
             // 
             // ctxNodeDelete
             // 
             this.ctxNodeDelete.Name = "ctxNodeDelete";
-            this.ctxNodeDelete.Size = new System.Drawing.Size(308, 22);
+            this.ctxNodeDelete.Size = new System.Drawing.Size(269, 22);
             this.ctxNodeDelete.Text = "&Delete Node (CTRL+D)";
             this.ctxNodeDelete.Click += new System.EventHandler(this.ctxNodeDelete_Click);
             // 
             // pasteSingleLinkToolStripMenuItem
             // 
             this.pasteSingleLinkToolStripMenuItem.Name = "pasteSingleLinkToolStripMenuItem";
-            this.pasteSingleLinkToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.pasteSingleLinkToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.pasteSingleLinkToolStripMenuItem.Text = "Paste Single Link (CTRL+V)";
             this.pasteSingleLinkToolStripMenuItem.Click += new System.EventHandler(this.pasteSingleLinkToolStripMenuItem_Click);
+            // 
+            // pasteNodeToolStripMenuItem
+            // 
+            this.pasteNodeToolStripMenuItem.Name = "pasteNodeToolStripMenuItem";
+            this.pasteNodeToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.pasteNodeToolStripMenuItem.Text = "Paste With Follow up Links (CTRL+B)";
+            this.pasteNodeToolStripMenuItem.Click += new System.EventHandler(this.pasteNodeToolStripMenuItem_Click);
             // 
             // pasteRemoteLinkToolStripMenuItem
             // 
@@ -170,31 +177,24 @@
             this.pasteRemoteSiblingToolStripMenuItem.Text = "Paste Remote Sibling (CTRL+Z)";
             this.pasteRemoteSiblingToolStripMenuItem.Click += new System.EventHandler(this.pasteRemoteSiblingToolStripMenuItem_Click);
             // 
-            // pasteNodeToolStripMenuItem
-            // 
-            this.pasteNodeToolStripMenuItem.Name = "pasteNodeToolStripMenuItem";
-            this.pasteNodeToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
-            this.pasteNodeToolStripMenuItem.Text = "Paste With Follow up Links (CTRL+B)";
-            this.pasteNodeToolStripMenuItem.Click += new System.EventHandler(this.pasteNodeToolStripMenuItem_Click);
-            // 
             // replaceCTRLSToolStripMenuItem
             // 
             this.replaceCTRLSToolStripMenuItem.Name = "replaceCTRLSToolStripMenuItem";
-            this.replaceCTRLSToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.replaceCTRLSToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.replaceCTRLSToolStripMenuItem.Text = "Replace (CTRL+S)";
             this.replaceCTRLSToolStripMenuItem.Click += new System.EventHandler(this.replaceCTRLSToolStripMenuItem_Click);
             // 
             // collapseToolStripMenuItem
             // 
             this.collapseToolStripMenuItem.Name = "collapseToolStripMenuItem";
-            this.collapseToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.collapseToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.collapseToolStripMenuItem.Text = "Collapse (CTRL+X)";
             this.collapseToolStripMenuItem.Click += new System.EventHandler(this.collapseToolStripMenuItem_Click);
             // 
             // showChildLinkInfoToolStripMenuItem
             // 
             this.showChildLinkInfoToolStripMenuItem.Name = "showChildLinkInfoToolStripMenuItem";
-            this.showChildLinkInfoToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.showChildLinkInfoToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.showChildLinkInfoToolStripMenuItem.Text = "Show More Info (CTRL+F)";
             this.showChildLinkInfoToolStripMenuItem.Click += new System.EventHandler(this.showChildLinkInfoToolStripMenuItem_Click);
             // 
@@ -345,7 +345,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(755, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(754, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
