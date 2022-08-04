@@ -39,6 +39,7 @@
             this.ctxNodeDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteSingleLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteRemoteLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteRemoteSiblingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceCTRLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -109,13 +110,14 @@
             this.copyNodeToolStripMenuItem,
             this.ctxNodeDelete,
             this.pasteSingleLinkToolStripMenuItem,
-            this.pasteRemoteLinkToolStripMenuItem,
             this.pasteNodeToolStripMenuItem,
+            this.pasteRemoteLinkToolStripMenuItem,
+            this.pasteRemoteSiblingToolStripMenuItem,
             this.replaceCTRLSToolStripMenuItem,
             this.collapseToolStripMenuItem,
             this.showChildLinkInfoToolStripMenuItem});
             this.ctxNode.Name = "ctxNode";
-            this.ctxNode.Size = new System.Drawing.Size(309, 224);
+            this.ctxNode.Size = new System.Drawing.Size(270, 246);
             this.ctxNode.Text = "ContextMenuNode";
             this.ctxNode.Opening += new System.ComponentModel.CancelEventHandler(this.ctxNode_Opening);
             // 
@@ -157,15 +159,22 @@
             // pasteRemoteLinkToolStripMenuItem
             // 
             this.pasteRemoteLinkToolStripMenuItem.Name = "pasteRemoteLinkToolStripMenuItem";
-            this.pasteRemoteLinkToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
-            this.pasteRemoteLinkToolStripMenuItem.Text = "Paste Remote Link (CTRL+B)";
+            this.pasteRemoteLinkToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.pasteRemoteLinkToolStripMenuItem.Text = "Paste Remote Child (CTRL+Q)";
             this.pasteRemoteLinkToolStripMenuItem.Click += new System.EventHandler(this.pasteRemoteLinkToolStripMenuItem_Click);
+            // 
+            // pasteRemoteSiblingToolStripMenuItem
+            // 
+            this.pasteRemoteSiblingToolStripMenuItem.Name = "pasteRemoteSiblingToolStripMenuItem";
+            this.pasteRemoteSiblingToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.pasteRemoteSiblingToolStripMenuItem.Text = "Paste Remote Sibling (CTRL+Z)";
+            this.pasteRemoteSiblingToolStripMenuItem.Click += new System.EventHandler(this.pasteRemoteSiblingToolStripMenuItem_Click);
             // 
             // pasteNodeToolStripMenuItem
             // 
             this.pasteNodeToolStripMenuItem.Name = "pasteNodeToolStripMenuItem";
-            this.pasteNodeToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
-            this.pasteNodeToolStripMenuItem.Text = "Paste With Follow up Links (CTRL+SHIFT+B)";
+            this.pasteNodeToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.pasteNodeToolStripMenuItem.Text = "Paste With Follow up Links (CTRL+B)";
             this.pasteNodeToolStripMenuItem.Click += new System.EventHandler(this.pasteNodeToolStripMenuItem_Click);
             // 
             // replaceCTRLSToolStripMenuItem
@@ -336,7 +345,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(757, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(755, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
@@ -601,6 +610,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.ToolStripMenuItem replaceCTRLSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteRemoteSiblingToolStripMenuItem;
     }
 }
 

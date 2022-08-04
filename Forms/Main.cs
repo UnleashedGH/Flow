@@ -322,6 +322,13 @@ namespace Flow.Forms
                     MessageBoxIcon.Error);
                 return;
             }
+            if (SelectedNode.RemoteSiblingAlreadyExists())
+            {
+                MessageBox.Show("A remote sibling link already exist in the parent node",
+                 "Paste Remote Sibling Link", MessageBoxButtons.OK,
+                 MessageBoxIcon.Error);
+                return;
+            }
             NodeTextDialog dlg = new NodeTextDialog();
 
             if (dlg.ShowDialog() == DialogResult.OK)
@@ -330,7 +337,7 @@ namespace Flow.Forms
                     new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
 
                 child.bd.bcmentry = dlg.bcmEntry.Clone();
-
+                child.bd.ParentRef = SelectedNode;
                 SelectedNode.isCollpased = false;
                 SelectedNode.AddChild(child);
 
@@ -376,7 +383,10 @@ namespace Flow.Forms
 
                 if (SelectedNode.bd.isRemoteChild)
                 {
-                    SelectedNode.bd.RemoteChildParentRef.bd.RemoteChildIndex = -1;
+                    SelectedNode.bd.ParentRef.bd.RemoteChildIndex = -1;
+                }
+                else if (SelectedNode.bd.isRemoteSibling) {
+                    SelectedNode.bd.MySiblingRef.bd.RemoteSiblingIndex = -1;
                 }
 
                 // Delete the node and its subtree.
@@ -588,30 +598,48 @@ namespace Flow.Forms
             else
             {
 
-                if (SelectedNode.bd.isRemoteChild)
+                if (SelectedNode.bd.isRemoteChild || SelectedNode.bd.isRemoteSibling)
                 {
                     //there's 2 ways to get the ID now that we have 2 refs in bd..
                     //might change
 
-                    int tmpID = SelectedNode.bd.RemoteChildParentRef.bd.RemoteChildIndex;
+                    int tmpID = -1;
+                    string StatusPrefix = "";
+
+                    if (SelectedNode.bd.isRemoteChild)
+                    {
+                        tmpID = SelectedNode.bd.ParentRef.bd.RemoteChildIndex;
+                        StatusPrefix = "Remote Child Link for Node with index";
+                    }
+
+
+                    else if (SelectedNode.bd.isRemoteSibling)
+                    {
+                        tmpID = SelectedNode.bd.MySiblingRef.bd.RemoteSiblingIndex;
+                        StatusPrefix = "Remote Sibling Link for Node with index";
+                    }
+                   
+
+
+
                     if (!showIndices)
                     {
-                     
-                      
+
+                        //MessageBox.Show(SelectedNode.bd.LayerIndex.ToString());
                         tmpID = (tmpID - fb.root.Children[SelectedNode.bd.LayerIndex].bd.ID + 1);
                         
-                        lblNodeText.Text = $"Remote Link for Node with index: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex + 1}";
+                        lblNodeText.Text = $"{StatusPrefix}: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex + 1}";
                     }
 
                     else
                     {
-                        lblNodeText.Text = $"Remote Link for Node with index: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex + 1}";
+                        lblNodeText.Text = $"{StatusPrefix}: {tmpID}  On Layer Index: {SelectedNode.bd.LayerIndex + 1}";
                     }
                
                 }
 
 
-                //if not remove child
+                //if not remove child or sibling
                 else
                 {
                     // lblNodeText.Text = $"Button: {(Xv2CoreLib.BCM.ButtonInput)SelectedNode.bd.bcmentry.I_08} / Directional: {(Xv2CoreLib.BCM.DirectionalInput)SelectedNode.bd.bcmentry.I_04} / Conditions: {(Xv2CoreLib.BCM.PrimaryConditions)SelectedNode.bd.bcmentry.I_24} / State: {(Xv2CoreLib.BCM.ActivatorState)SelectedNode.bd.bcmentry.I_28} / BACPrimary: {SelectedNode.bd.bcmentry.I_32} / KiCost: {SelectedNode.bd.bcmentry.I_64} / Stamina Cost: {SelectedNode.bd.bcmentry.I_84} / CallBackID: {SelectedNode.bd.bcmentry.I_76} / CUS Aura ID: {SelectedNode.bd.bcmentry.I_102}";
@@ -662,17 +690,20 @@ namespace Flow.Forms
 
                 ctxNodeDelete.Enabled = (SelectedNode.bd.isLayerRoot == false);
 
-                ctxNodeAddChild.Enabled = (SelectedNode != fb.root);
 
-                copyNodeToolStripMenuItem.Enabled = (SelectedNode != fb.root) && (SelectedNode.bd.isRemoteChild == false);
-                pasteNodeToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
-                pasteRemoteLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
-                pasteSingleLinkToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
-                replaceCTRLSToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false);
 
-                modifyDataToolStripMenuItem.Enabled = (SelectedNode.bd.isRemoteChild == false);
+                copyNodeToolStripMenuItem.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+                pasteNodeToolStripMenuItem.Enabled = (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+                pasteRemoteLinkToolStripMenuItem.Enabled = (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+                pasteSingleLinkToolStripMenuItem.Enabled = (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+                pasteRemoteSiblingToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isLayerRoot == false) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+                replaceCTRLSToolStripMenuItem.Enabled = (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
 
-                ctxNodeAddChild.Enabled = (SelectedNode.bd.isRemoteChild == false);
+                modifyDataToolStripMenuItem.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+
+                ctxNodeAddChild.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+
+                showChildLinkInfoToolStripMenuItem.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
 
                 collapseToolStripMenuItem.Enabled = (SelectedNode.Children.Count > 0);
                 collapseToolStripMenuItem.Text = (SelectedNode.isCollpased) ? "Expand" : "Collapse";
@@ -693,11 +724,11 @@ namespace Flow.Forms
 
 
                 // Display the context menu.
-                if (SelectedNode.bd.isRemoteChild)
+                if (SelectedNode.bd.isRemoteChild || SelectedNode.bd.isRemoteSibling)
                 {
                     if (SelectedNode.bd.LayerIndex != -1)
                     {
-                        ensureVisableNode(SelectedNode, fb.root.Children[SelectedNode.bd.LayerIndex], SelectedNode.bd.RemoteChildPointToRef.bd.ID);
+                        ensureVisableNode(SelectedNode, fb.root.Children[SelectedNode.bd.LayerIndex], SelectedNode.bd.RemotePointToRef.bd.ID);
 
                         listView1.Items[SelectedNode.bd.LayerIndex].Focused = true;
                         listView1.Items[SelectedNode.bd.LayerIndex].Selected = true;
@@ -766,6 +797,7 @@ namespace Flow.Forms
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), pasteChild.bd, false);
             newChild.bd.isLayerRoot = false;
             newChild.bd.bcmentry = pasteChild.bd.bcmentry.Clone();
+            newChild.bd.ParentRef = pasteChild;
 
             if (pasteChild.Children.Count > 0)
                 if (pasteChild.Children[0].bd.isRemoteChild == false)
@@ -776,7 +808,7 @@ namespace Flow.Forms
             {
                 //because the contructor of treenode sets child index to -1, this should be safe and not copy remote child
                 //but do this too, this feels right
-                if (child.bd.isRemoteChild)
+                if (child.bd.isRemoteChild || child.bd.isRemoteSibling)
                     return newChild;
 
                 newChild.AddChild(pasterecursive(child));
@@ -845,7 +877,7 @@ namespace Flow.Forms
 
 
 
-        private TreeNode<CircleNode> traverseAndAddChild(Xv2CoreLib.BCM.BCM_Entry e, ref int index, ref Dictionary<int, TreeNode<CircleNode>> nodemappings)
+        private TreeNode<CircleNode> traverseAndAddChild(Xv2CoreLib.BCM.BCM_Entry e, ref int index, ref Dictionary<int, TreeNode<CircleNode>> nodemappings, TreeNode<CircleNode> parentNode)
         {
 
             // MessageBox.Show(e.Index);
@@ -858,7 +890,7 @@ namespace Flow.Forms
             f.bd.ID = index;
 
             //f.bd.bcmentry.I_08 = (uint)e.I_08;
-
+            f.bd.ParentRef = parentNode;
             f.bd.bcmentry = e.Clone();
 
             nodemappings[index] = f;
@@ -880,10 +912,10 @@ namespace Flow.Forms
                     f.bd.RemoteChildIndex = Convert.ToInt32(e.LoopAsChild);
 
                     newChild.bd.isRemoteChild = true;
-                    newChild.bd.RemoteChildParentRef = f;
+                    newChild.bd.ParentRef = f;
                     if (nodemappings.ContainsKey(f.bd.RemoteChildIndex))
                     {
-                        newChild.bd.RemoteChildPointToRef = nodemappings[f.bd.RemoteChildIndex];
+                        newChild.bd.RemotePointToRef = nodemappings[f.bd.RemoteChildIndex];
                     }
 
 
@@ -901,7 +933,7 @@ namespace Flow.Forms
 
             index++;
             foreach (Xv2CoreLib.BCM.BCM_Entry child in e.BCMEntries)
-                f.AddChild(traverseAndAddChild(child, ref index, ref nodemappings));
+                f.AddChild(traverseAndAddChild(child, ref index, ref nodemappings, f));
 
 
 
@@ -921,7 +953,7 @@ namespace Flow.Forms
             foreach (TreeNode<CircleNode> child in root.Children)
             {
 
-                if (child.bd.isRemoteChild)
+                if (child.bd.isRemoteChild || child.bd.isRemoteSibling)
                     return;
 
                 Xv2CoreLib.BCM.BCM_Entry cEntry = new Xv2CoreLib.BCM.BCM_Entry();
@@ -938,6 +970,14 @@ namespace Flow.Forms
 
 
                     cEntry.LoopAsChild = child.bd.RemoteChildIndex.ToString();
+                }
+
+                string SiblingGoto = child.bd.RemoteSiblingIndex.ToString();
+                if (SiblingGoto != "-1")
+                {
+
+
+                    cEntry.LoopAsSibling = child.bd.RemoteSiblingIndex.ToString();
                 }
 
 
@@ -981,6 +1021,7 @@ namespace Flow.Forms
                 TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
                 newLayer.bd.LayerName = dlg.layerName;
                 newLayer.bd.isLayerRoot = true;
+                newLayer.bd.parentIndex = fb.root.bd.ID;
 
                 //newLayer.ID = root.Children.Count;
                 fb.root.Children.Add(newLayer);
@@ -1094,7 +1135,7 @@ namespace Flow.Forms
 
             foreach (TreeNode<CircleNode> child in r.Children)
             {
-                if (child.bd.isRemoteChild)
+                if (child.bd.isRemoteChild || child.bd.isRemoteSibling)
                 {
                     //child.bd.ID = 999;
                     return;
@@ -1120,6 +1161,8 @@ namespace Flow.Forms
                     //find layer index
                     for (int i = 0; i < listView1.Items.Count; i++)
                     {
+                        //MessageBox.Show(fb.root.Children[i].bd.ID.ToString());
+                        //MessageBox.Show(child.bd.ParentRef.bd.RemoteChildIndex.ToString());
 
                         if (listView1.Items.Count == 1)
                         {
@@ -1127,13 +1170,13 @@ namespace Flow.Forms
                             return;
                         }
 
-                       else if (fb.root.Children[i].bd.ID > child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
+                       else if (fb.root.Children[i].bd.ID > child.bd.ParentRef.bd.RemoteChildIndex)
                         {
 
                             child.bd.LayerIndex = i - 1;
                             return;
                         }
-                        else if (fb.root.Children[i].bd.ID == child.bd.RemoteChildParentRef.bd.RemoteChildIndex)
+                        else if (fb.root.Children[i].bd.ID == child.bd.ParentRef.bd.RemoteChildIndex)
                         {
 
                             child.bd.LayerIndex = i;
@@ -1143,15 +1186,57 @@ namespace Flow.Forms
 
                     }
 
-                    //loop ended, and layerindex is still -1
+                    //check
                     if (child.bd.LayerIndex == -1)
-                    {
                         child.bd.LayerIndex = listView1.Items.Count - 1;
+                
+                    return;
+                }
+
+
+
+
+                //remote sibling layer index 
+                if (child.bd.isRemoteSibling)
+                {
+                    // child.bd.ID = 666;
+
+                    //find layer index
+                    for (int i = 0; i < listView1.Items.Count; i++)
+                    {
+                        //MessageBox.Show(fb.root.Children[i].bd.ID.ToString());
+                        //MessageBox.Show(child.bd.ParentRef.bd.RemoteChildIndex.ToString());
+
+                        if (listView1.Items.Count == 1)
+                        {
+                            child.bd.LayerIndex = i;
+                            return;
+                        }
+
+                        else if (fb.root.Children[i].bd.ID > child.bd.MySiblingRef.bd.RemoteSiblingIndex)
+                        {
+
+                            child.bd.LayerIndex = i - 1;
+                            return;
+                        }
+                        else if (fb.root.Children[i].bd.ID == child.bd.MySiblingRef.bd.RemoteSiblingIndex)
+                        {
+
+                            child.bd.LayerIndex = i;
+                            return;
+                        }
+
+
                     }
+
+                    //check
+                    if (child.bd.LayerIndex == -1)
+                        child.bd.LayerIndex = listView1.Items.Count - 1;
 
                     return;
                 }
 
+                //remote child deletion or update
                 if (child.bd.RemoteChildIndex >= 0)
                 {
                     if (mappings.ContainsKey(child.bd.RemoteChildIndex))
@@ -1164,11 +1249,22 @@ namespace Flow.Forms
                         //    if (child.Children.Count() > 0)
                         if (child.Children[0] != null) // should always be true if all went well..
                             fb.root.DeleteNode(child.Children[0]);
-
-
                     }
+                }
 
+                //remote sibling deletion or update
+                if (child.bd.RemoteSiblingIndex >= 0)
+                {
+                    if (mappings.ContainsKey(child.bd.RemoteSiblingIndex))
+                        child.bd.RemoteSiblingIndex = mappings[child.bd.RemoteSiblingIndex];
 
+                    else
+                    {
+                        MessageBox.Show("sibling index not found");
+                        child.bd.RemoteSiblingIndex = -1;
+                        child.bd.ParentRef.deleteRemoteSibling();
+                        return; // need to return so we don't continue child loop of parent
+                    }
                 }
 
 
@@ -1342,6 +1438,7 @@ namespace Flow.Forms
             TreeNode<CircleNode> newLayer = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
             newLayer.bd.isLayerRoot = true;
             newLayer.bd.LayerName = "New Layer";
+            newLayer.bd.ParentRef = fb.root;
             //newLayer.ID = root.Children.Count;
             fb.root.Children.Add(newLayer);
             populateListBox();
@@ -1373,7 +1470,7 @@ namespace Flow.Forms
 
             if (SelectedNode.bd.RemoteChildIndex >= 0)
             {
-                MessageBox.Show("A Node cannot have more than 1 remote link",
+                MessageBox.Show("A Node cannot have more than 1 remote child link",
                     "Paste Remote Link", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
@@ -1384,8 +1481,9 @@ namespace Flow.Forms
             newChild.bd.isLayerRoot = false;
 
             newChild.bd.isRemoteChild = true;
-            newChild.bd.RemoteChildParentRef = SelectedNode;
-            newChild.bd.RemoteChildPointToRef = bufferNode;
+            newChild.bd.ParentRef = SelectedNode;
+            newChild.bd.RemotePointToRef = bufferNode;
+
 
             int index = SelectedNode.AddChild(newChild);
             SelectedNode.bd.RemoteChildIndex = bufferNode.bd.ID;
@@ -1635,7 +1733,7 @@ namespace Flow.Forms
 
                 int index = 0;
 
-                fb.root.Children.AddRange(traverseAndAddChild(r, ref index, ref nodemappings).Children);
+                fb.root.Children.AddRange(traverseAndAddChild(r, ref index, ref nodemappings, fb.root).Children);
 
 
 
@@ -1744,7 +1842,7 @@ namespace Flow.Forms
             newChild.bd.bcmentry = bufferNode.bd.bcmentry.Clone();
 
             newChild.isCollpased = false;
-
+            newChild.bd.ParentRef = SelectedNode;
             SelectedNode.AddChild(newChild);
 
 
@@ -1883,52 +1981,65 @@ namespace Flow.Forms
             {
 
      
-                if (e.Control && e.KeyCode == Keys.C && (SelectedNode != fb.root) && (SelectedNode.bd.isRemoteChild == false))
+                if (e.Control && e.KeyCode == Keys.C && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
                     copyNodeToolStripMenuItem_Click(null, null);
 
 
             
-                else if (e.Control && e.KeyCode == Keys.V && (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false))
+                else if (e.Control && e.KeyCode == Keys.V && (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
                     pasteSingleLinkToolStripMenuItem_Click(null, null);
-            
 
-                else if (e.Control && e.KeyCode == Keys.A && (SelectedNode.bd.isRemoteChild == false))
+                else if (e.Control && e.KeyCode == Keys.B && (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
+                    pasteNodeToolStripMenuItem_Click(null, null);
+
+
+                else if (e.Control && e.KeyCode == Keys.A && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
                     ctxNodeAddChild_Click(null, null);
             
 
-                else if (e.Control && e.KeyCode == Keys.E && (SelectedNode.bd.isRemoteChild == false))
+                else if (e.Control && e.KeyCode == Keys.E && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
                     modifyDataToolStripMenuItem_Click(null, null);
          
 
-               else if (e.Control && e.KeyCode == Keys.F)
+               else if (e.Control && e.KeyCode == Keys.F && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
                     showChildLinkInfoToolStripMenuItem_Click(null, null);
 
                 else if (e.Control && e.KeyCode == Keys.D && (SelectedNode.bd.isLayerRoot == false))
                     ctxNodeDelete_Click(null, null);
 
-                else if (e.Control && e.KeyCode == Keys.B && e.Shift && (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false))
-                    pasteNodeToolStripMenuItem_Click(null, null);
 
-                else if (e.Control && e.KeyCode == Keys.B && (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false))
+
+                else if (e.Control && e.KeyCode == Keys.Q && (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
                     pasteRemoteLinkToolStripMenuItem_Click(null, null);
+                else if (e.Control && e.KeyCode == Keys.Z  && (bufferNode != null) && (SelectedNode.bd.isLayerRoot == false) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
+                    pasteRemoteSiblingToolStripMenuItem_Click(null, null);
 
                 else if (e.Control && e.KeyCode == Keys.X && (SelectedNode.Children.Count > 0))
                     collapseToolStripMenuItem_Click(null, null);
 
-                else if (e.Control && e.KeyCode == Keys.S && (bufferNode != null) && (SelectedNode.bd.isRemoteChild == false))
+                else if (e.Control && e.KeyCode == Keys.S && (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
                     replaceCTRLSToolStripMenuItem_Click(null, null);
 
             }
 
-        
 
 
- 
 
-            //    ctxNodeAddChild.Enabled = (SelectedNode.bd.isRemoteChild == false);
 
-            //    collapseToolStripMenuItem.Enabled = (SelectedNode.Children.Count > 0);
-            //    collapseToolStripMenuItem.Text = (SelectedNode.isCollpased) ? "Expand" : "Collapse";
+            //ctxNodeDelete.Enabled = (SelectedNode.bd.isLayerRoot == false);
+
+
+
+            //copyNodeToolStripMenuItem.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+            //pasteNodeToolStripMenuItem.Enabled = (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+            //pasteRemoteLinkToolStripMenuItem.Enabled = (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+            //pasteSingleLinkToolStripMenuItem.Enabled = (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+            //pasteRemoteSiblingToolStripMenuItem.Enabled = (bufferNode != null) && (SelectedNode.bd.isLayerRoot == false) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+            //replaceCTRLSToolStripMenuItem.Enabled = (bufferNode != null) && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+
+            //modifyDataToolStripMenuItem.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+
+            //ctxNodeAddChild.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
 
 
 
@@ -1962,6 +2073,57 @@ namespace Flow.Forms
 
             SelectedNode.bd.bcmentry = bufferNode.bd.bcmentry.Clone();
          
+            ArrangeTree();
+        }
+
+        private void pasteRemoteSiblingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SelectedNode == null || bufferNode == null)
+                return;
+
+            
+            if (SelectedNode.bd.ParentRef.RemoteSiblingAlreadyExists())
+            {
+                MessageBox.Show("A remote sibling link already exist in the parent node",
+                 "Paste Remote Sibling Link", MessageBoxButtons.OK,
+                 MessageBoxIcon.Error);
+                return;
+            }
+
+            if (SelectedNode.bd.RemoteSiblingIndex >= 0)
+            {
+                MessageBox.Show("A Node cannot have more than 1 remote sibling link",
+                    "Paste Remote Sibling Link", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!SelectedNode.bd.ParentRef.isLastChild(SelectedNode))
+            {
+                MessageBox.Show("Only the last child node may have a remote sibling link",
+                    "Paste Remote Sibling Link", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+
+            TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), bufferNode.isCollpased);
+            newChild.bd.isLayerRoot = false;
+
+            newChild.bd.isRemoteSibling = true;
+            newChild.bd.ParentRef = SelectedNode.bd.ParentRef;
+            newChild.bd.RemotePointToRef = bufferNode;
+            newChild.bd.MySiblingRef = SelectedNode;
+
+            int index = SelectedNode.bd.ParentRef.AddChild(newChild);
+            SelectedNode.bd.RemoteSiblingIndex = bufferNode.bd.ID;
+
+
+          
+
+
+
+            reindex();
             ArrangeTree();
         }
     }
