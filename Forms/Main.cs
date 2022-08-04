@@ -1260,7 +1260,7 @@ namespace Flow.Forms
 
                     else
                     {
-                        MessageBox.Show("sibling index not found");
+             
                         child.bd.RemoteSiblingIndex = -1;
                         child.bd.ParentRef.deleteRemoteSibling();
                         return; // need to return so we don't continue child loop of parent
