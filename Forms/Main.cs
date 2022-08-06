@@ -134,7 +134,7 @@ namespace Flow.Forms
         Bitmap mBuffer;
         short toolVersionMajor = 0;
         short toolVersionMinor = 0;
-        short toolVersionSub = 2;
+        short toolVersionSub = 3;
         string toolName = "Flow";
 
         //binary vars
