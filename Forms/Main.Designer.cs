@@ -76,6 +76,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
+            this.unleashedTheCitadelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -204,7 +205,8 @@
             this.fileToolStripMenuItem,
             this.bCMToolStripMenuItem,
             this.viewToolStripMenuItem,
-            this.unleashedTheCitadelToolStripMenuItem});
+            this.unleashedTheCitadelToolStripMenuItem,
+            this.unleashedTheCitadelToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1091, 24);
@@ -345,7 +347,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(754, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(753, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
@@ -521,6 +523,13 @@
             this.saveFileDialog2.Filter = "Flow Project files|*.flp";
             this.saveFileDialog2.Title = "Save Flow Project";
             // 
+            // unleashedTheCitadelToolStripMenuItem1
+            // 
+            this.unleashedTheCitadelToolStripMenuItem1.Name = "unleashedTheCitadelToolStripMenuItem1";
+            this.unleashedTheCitadelToolStripMenuItem1.Size = new System.Drawing.Size(148, 20);
+            this.unleashedTheCitadelToolStripMenuItem1.Text = "Unleashed @ TheCitadel";
+            this.unleashedTheCitadelToolStripMenuItem1.Click += new System.EventHandler(this.unleashedTheCitadelToolStripMenuItem1_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -611,6 +620,7 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.ToolStripMenuItem replaceCTRLSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteRemoteSiblingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unleashedTheCitadelToolStripMenuItem1;
     }
 }
 

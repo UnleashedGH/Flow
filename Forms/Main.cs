@@ -1480,6 +1480,8 @@ namespace Flow.Forms
             TreeNode<CircleNode> newChild = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), bufferNode.isCollpased);
             newChild.bd.isLayerRoot = false;
 
+            newChild.isCollpased = false;
+
             newChild.bd.isRemoteChild = true;
             newChild.bd.ParentRef = SelectedNode;
             newChild.bd.RemotePointToRef = bufferNode;
@@ -2115,6 +2117,8 @@ namespace Flow.Forms
             newChild.bd.RemotePointToRef = bufferNode;
             newChild.bd.MySiblingRef = SelectedNode;
 
+            newChild.isCollpased = false;
+
             int index = SelectedNode.bd.ParentRef.AddChild(newChild);
             SelectedNode.bd.RemoteSiblingIndex = bufferNode.bd.ID;
 
@@ -2125,6 +2129,11 @@ namespace Flow.Forms
 
             reindex();
             ArrangeTree();
+        }
+
+        private void unleashedTheCitadelToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://discord.gg/UK8AJH6");
         }
     }
 }
