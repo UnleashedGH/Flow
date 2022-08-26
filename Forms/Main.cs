@@ -2259,5 +2259,51 @@ namespace Flow.Forms
 
         
         }
+
+        private void insertNewLinkCTRLWToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SelectedNode == null)
+                return;
+
+            if (SelectedNode.bd.RemoteChildIndex >= 0)
+            {
+                MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
+                    "Add Link", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+            if (SelectedNode.RemoteSiblingAlreadyExists())
+            {
+                MessageBox.Show("A remote sibling link already exist in the parent node",
+                 "Paste Remote Sibling Link", MessageBoxButtons.OK,
+                 MessageBoxIcon.Error);
+                return;
+            }
+            NodeTextDialog dlg = new NodeTextDialog();
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                TreeNode<CircleNode> child =
+                    new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+
+                child.bd.bcmentry = dlg.bcmEntry.Clone();
+                child.bd.ParentRef = SelectedNode;
+                SelectedNode.isCollpased = false;
+                int index = SelectedNode.bd.ParentRef.Children.IndexOf(SelectedNode);
+                SelectedNode.bd.ParentRef.InsertChild(child,index);
+
+
+
+                reindex();
+
+
+                ArrangeTree();
+
+
+      
+
+
+            }
+        }
     }
 }

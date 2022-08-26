@@ -198,6 +198,15 @@ namespace Flow.Graph
             //return Children.Count-1;
         }
 
+        public int InsertChild(TreeNode<T> child, int index)
+        {
+     
+
+            Children.Insert(index,child);
+            return 0;
+      
+        }
+
         //TODO : fix
         public int getTotalChildCount(ref int count)
         {

@@ -51,6 +51,7 @@
             this.saveFlowFileflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decompileExistingBCMExpirementalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToBCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +78,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
-            this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.insertNewLinkCTRLWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -108,6 +109,7 @@
             // 
             this.ctxNode.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ctxNodeAddChild,
+            this.insertNewLinkCTRLWToolStripMenuItem,
             this.modifyDataToolStripMenuItem,
             this.copyNodeToolStripMenuItem,
             this.ctxNodeDelete,
@@ -119,7 +121,7 @@
             this.collapseToolStripMenuItem,
             this.showChildLinkInfoToolStripMenuItem});
             this.ctxNode.Name = "ctxNode";
-            this.ctxNode.Size = new System.Drawing.Size(270, 246);
+            this.ctxNode.Size = new System.Drawing.Size(270, 290);
             this.ctxNode.Text = "ContextMenuNode";
             this.ctxNode.Opening += new System.ComponentModel.CancelEventHandler(this.ctxNode_Opening);
             // 
@@ -263,6 +265,13 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // findToolStripMenuItem
+            // 
+            this.findToolStripMenuItem.Name = "findToolStripMenuItem";
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
+            this.findToolStripMenuItem.Text = "Find";
+            this.findToolStripMenuItem.Click += new System.EventHandler(this.findToolStripMenuItem_Click);
+            // 
             // bCMToolStripMenuItem
             // 
             this.bCMToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -356,7 +365,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(752, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(751, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
@@ -532,12 +541,12 @@
             this.saveFileDialog2.Filter = "Flow Project files|*.flp";
             this.saveFileDialog2.Title = "Save Flow Project";
             // 
-            // findToolStripMenuItem
+            // insertNewLinkCTRLWToolStripMenuItem
             // 
-            this.findToolStripMenuItem.Name = "findToolStripMenuItem";
-            this.findToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
-            this.findToolStripMenuItem.Text = "Find";
-            this.findToolStripMenuItem.Click += new System.EventHandler(this.findToolStripMenuItem_Click);
+            this.insertNewLinkCTRLWToolStripMenuItem.Name = "insertNewLinkCTRLWToolStripMenuItem";
+            this.insertNewLinkCTRLWToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.insertNewLinkCTRLWToolStripMenuItem.Text = "Insert New Link (CTRL+W)";
+            this.insertNewLinkCTRLWToolStripMenuItem.Click += new System.EventHandler(this.insertNewLinkCTRLWToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -631,6 +640,7 @@
         private System.Windows.Forms.ToolStripMenuItem pasteRemoteSiblingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unleashedTheCitadelToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem insertNewLinkCTRLWToolStripMenuItem;
     }
 }
 
