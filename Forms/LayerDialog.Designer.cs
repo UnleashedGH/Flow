@@ -61,6 +61,7 @@
             this.ClientSize = new System.Drawing.Size(322, 98);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnOK);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "LayerDialog";
