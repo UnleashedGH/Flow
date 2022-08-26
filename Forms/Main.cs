@@ -708,6 +708,7 @@ namespace Flow.Forms
                 modifyDataToolStripMenuItem.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
 
                 ctxNodeAddChild.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
+                insertNewLinkCTRLWToolStripMenuItem.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)) && (SelectedNode.bd.isLayerRoot == false);
 
                 showChildLinkInfoToolStripMenuItem.Enabled = ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false));
 
@@ -2003,7 +2004,9 @@ namespace Flow.Forms
 
                 else if (e.Control && e.KeyCode == Keys.A && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
                     ctxNodeAddChild_Click(null, null);
-            
+
+                else if (e.Control && e.KeyCode == Keys.W && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)) && (SelectedNode.bd.isLayerRoot == false))
+                insertNewLinkCTRLWToolStripMenuItem_Click(null, null);
 
                 else if (e.Control && e.KeyCode == Keys.E && ((SelectedNode.bd.isRemoteChild == false) && (SelectedNode.bd.isRemoteSibling == false)))
                     modifyDataToolStripMenuItem_Click(null, null);
@@ -2265,13 +2268,13 @@ namespace Flow.Forms
             if (SelectedNode == null)
                 return;
 
-            if (SelectedNode.bd.RemoteChildIndex >= 0)
-            {
-                MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
-                    "Add Link", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return;
-            }
+            //if (SelectedNode.bd.RemoteChildIndex >= 0)
+            //{
+            //    MessageBox.Show("A Node cannot have any phyiscal links if it has a remote link",
+            //        "Add Link", MessageBoxButtons.OK,
+            //        MessageBoxIcon.Error);
+            //    return;
+            //}
             if (SelectedNode.RemoteSiblingAlreadyExists())
             {
                 MessageBox.Show("A remote sibling link already exist in the parent node",
@@ -2287,9 +2290,10 @@ namespace Flow.Forms
                     new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
 
                 child.bd.bcmentry = dlg.bcmEntry.Clone();
-                child.bd.ParentRef = SelectedNode;
-                SelectedNode.isCollpased = false;
+                child.bd.ParentRef = SelectedNode.bd.ParentRef;
+                SelectedNode.bd.ParentRef.isCollpased = false;
                 int index = SelectedNode.bd.ParentRef.Children.IndexOf(SelectedNode);
+               // MessageBox.Show(index.ToString());
                 SelectedNode.bd.ParentRef.InsertChild(child,index);
 
 
