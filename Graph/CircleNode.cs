@@ -191,14 +191,24 @@ namespace Flow.Graph
                 if (btnInput != "Root")
                     gr.DrawString(btnInput, font, text_brush, x * scale , y * scale, string_format);
                     
+                //plus
                 if (extra != "")
-                    gr.DrawString(extra, font, text_brush, (x + 13) * scale, (y + 13) * scale, string_format);
+                {
+                    //offset the plus on the grab node a little ibt
+                    if (isGrabEntry)
+                         gr.DrawString(extra, font, text_brush, (x + 15) * scale, (y + 15) * scale, string_format);
+                    else
+                        gr.DrawString(extra, font, text_brush, (x + 13) * scale, (y + 13) * scale, string_format);
+                }
+                
 
                
-                        if (isRemoteChild || isRemoteSibling)
-                            gr.DrawString("", font, text_brush2, (x + 40) * scale, (y + 2) * scale, string_format);
-                        else
-                            gr.DrawString(extra2, font, text_brush2, (x + 40 + (extra2.Length * 4)) * scale, (y + 2) * scale, string_format);
+
+                //id
+                if (isRemoteChild || isRemoteSibling)
+                    gr.DrawString("", font, text_brush2, (x + 40) * scale, (y + 2) * scale, string_format);
+                else
+                    gr.DrawString(extra2, font, text_brush2, (x + 40 + (extra2.Length * 4)) * scale, (y + 2) * scale, string_format);
 
                 
                  
