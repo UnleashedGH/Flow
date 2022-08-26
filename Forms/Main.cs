@@ -185,8 +185,14 @@ namespace Flow.Forms
         //paint
         bool needsClearSelection = false;
 
+        //find vars
+        int lastFoundID = -1;
+        int lastBacEntryPrimary = 0;
+
         //dbg
         // public static string check;
+
+       
 
 
 
@@ -728,7 +734,7 @@ namespace Flow.Forms
                 {
                     if (SelectedNode.bd.LayerIndex != -1)
                     {
-                        ensureVisableNode(SelectedNode, fb.root.Children[SelectedNode.bd.LayerIndex], SelectedNode.bd.RemotePointToRef.bd.ID);
+                        ensureVisableNode(fb.root.Children[SelectedNode.bd.LayerIndex], SelectedNode.bd.RemotePointToRef.bd.ID);
 
                         listView1.Items[SelectedNode.bd.LayerIndex].Focused = true;
                         listView1.Items[SelectedNode.bd.LayerIndex].Selected = true;
@@ -747,7 +753,7 @@ namespace Flow.Forms
 
         }
 
-        void ensureVisableNode(TreeNode<CircleNode> targetNode, TreeNode<CircleNode> r , int desiredID)
+        void ensureVisableNode(TreeNode<CircleNode> r , int desiredID)
         {
            // MessageBox.Show($"rootID is {r.bd.ID} / desiredID is {desiredID}");
             if (r.bd.ID >= desiredID) //it will be already visable
@@ -757,7 +763,7 @@ namespace Flow.Forms
             r.isCollpased = false;
             foreach(TreeNode<CircleNode> child in r.Children)
             {
-                ensureVisableNode(targetNode, child, desiredID);
+                ensureVisableNode( child, desiredID);
             }
 
         }
@@ -1430,7 +1436,7 @@ namespace Flow.Forms
 
         private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            clearFindInfo();
             listView1.Items.Clear();
             fb.root.Children.Clear();
             fb = new Flow.FlowBinary.FlowBinary();
@@ -1692,7 +1698,7 @@ namespace Flow.Forms
             {
 
 
-
+                clearFindInfo();
                 listView1.Items.Clear();
                 fb.root.Children.Clear();
                 fb.root = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
@@ -1872,7 +1878,7 @@ namespace Flow.Forms
 
                     if (newRoot != null)
                     {
-                        
+                        clearFindInfo();
                         fb.root = newRoot;
                         listView1.Items.Clear();
                         populateListBox();
@@ -2134,6 +2140,124 @@ namespace Flow.Forms
         private void unleashedTheCitadelToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://discord.gg/UK8AJH6");
+        }
+
+        void clearFindInfo()
+        {
+            lastFoundID = -1;
+            lastBacEntryPrimary = 0;
+        }
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FindNode dlg = new FindNode(lastBacEntryPrimary);
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                bool found = false;
+                int layerIndex = -1;
+
+                if (dlg.BacPrimaryEntry != -1)
+                {
+
+                    lastBacEntryPrimary = dlg.BacPrimaryEntry;
+
+                    //recursive loop though all nodes till we find node with bac entry (or any specificed condition)
+                    //find the layer index of the node (reusing the code from reindexremote)
+                    //then, we ensure that, that node is visable (reusing more code)
+                    TreeNode<CircleNode> foundNode = null;
+                    findNodeWithBacEntry(fb.root, dlg.BacPrimaryEntry, ref foundNode);
+
+
+
+            
+                    if (foundNode != null)
+                    {
+
+
+                 
+                        for (int i = 0; i < listView1.Items.Count; i++)
+                        {
+                            //MessageBox.Show(fb.root.Children[i].bd.ID.ToString());
+                            //MessageBox.Show(child.bd.ParentRef.bd.RemoteChildIndex.ToString());
+
+                            if (listView1.Items.Count == 1)
+                            {
+                                layerIndex = i;
+                                break;
+                            }
+
+                            else if (fb.root.Children[i].bd.ID > foundNode.bd.ID)
+                            {
+
+                                layerIndex = i - 1;
+                                break;
+                            }
+                            else if (fb.root.Children[i].bd.ID == foundNode.bd.ID)
+                            {
+
+                                layerIndex = i;
+                                break;
+                            }
+
+
+                        }
+
+                   
+
+                        if (layerIndex != -1)
+                        {
+
+                            ensureVisableNode( fb.root.Children[layerIndex], foundNode.bd.ID);
+
+                            listView1.Items[layerIndex].Focused = true;
+                            listView1.Items[layerIndex].Selected = true;
+                            listView1.Items[layerIndex].EnsureVisible();
+                            found = true;
+                        }
+
+
+                    }
+
+
+                }
+
+                if (!found)
+                {
+                    MessageBox.Show("Couldn't Find Node", "Find Node", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    lastFoundID = -1;
+                }
+              
+            }
+        }
+
+        private void findNodeWithBacEntry(TreeNode<CircleNode> r, int BACEntry, ref TreeNode<CircleNode> foundNode)
+        {
+
+      
+
+            if (r.bd.isRemoteChild || r.bd.isRemoteSibling)
+                return;
+
+            if (r.bd.bcmentry.I_32 == BACEntry && r.bd.ID > lastFoundID )
+            {
+                foundNode = r;
+                lastFoundID = r.bd.ID;
+                //MessageBox.Show($"{foundNode == null}");
+                return;
+            }
+               
+
+          // MessageBox.Show($"{r.bd.bcmentry.I_32}");
+
+            if (foundNode == null)
+                foreach (TreeNode<CircleNode> child in r.Children)
+                {
+                    if (foundNode == null)
+                        findNodeWithBacEntry(child, BACEntry, ref foundNode);
+                }
+                   
+
+        
         }
     }
 }

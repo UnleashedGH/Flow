@@ -73,6 +73,12 @@
     <Compile Include="Forms\DecompileSetting.Designer.cs">
       <DependentUpon>DecompileSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FindNode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FindNode.Designer.cs">
+      <DependentUpon>FindNode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LayerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DecompileSetting.resx">
       <DependentUpon>DecompileSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FindNode.resx">
+      <DependentUpon>FindNode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LegendForm.resx">
       <DependentUpon>LegendForm.cs</DependentUpon>

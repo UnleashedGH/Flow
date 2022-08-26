@@ -59,6 +59,7 @@
             this.showIndicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unleashedTheCitadelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unleashedTheCitadelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.ComboPanel = new System.Windows.Forms.Panel();
@@ -76,7 +77,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
-            this.unleashedTheCitadelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.ctxNode.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -203,6 +204,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.findToolStripMenuItem,
             this.bCMToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.unleashedTheCitadelToolStripMenuItem,
@@ -327,6 +329,13 @@
             this.unleashedTheCitadelToolStripMenuItem.Visible = false;
             this.unleashedTheCitadelToolStripMenuItem.Click += new System.EventHandler(this.unleashedTheCitadelToolStripMenuItem_Click);
             // 
+            // unleashedTheCitadelToolStripMenuItem1
+            // 
+            this.unleashedTheCitadelToolStripMenuItem1.Name = "unleashedTheCitadelToolStripMenuItem1";
+            this.unleashedTheCitadelToolStripMenuItem1.Size = new System.Drawing.Size(148, 20);
+            this.unleashedTheCitadelToolStripMenuItem1.Text = "Unleashed @ TheCitadel";
+            this.unleashedTheCitadelToolStripMenuItem1.Click += new System.EventHandler(this.unleashedTheCitadelToolStripMenuItem1_Click);
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.Filter = "BCM files|*.bcm";
@@ -347,7 +356,7 @@
             this.ComboPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ComboPanel.Location = new System.Drawing.Point(3, 3);
             this.ComboPanel.Name = "ComboPanel";
-            this.ComboPanel.Size = new System.Drawing.Size(753, 516);
+            this.ComboPanel.Size = new System.Drawing.Size(752, 516);
             this.ComboPanel.TabIndex = 8;
             this.ComboPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ComboPanel_Scroll);
             this.ComboPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ComboPanel_Paint);
@@ -523,12 +532,12 @@
             this.saveFileDialog2.Filter = "Flow Project files|*.flp";
             this.saveFileDialog2.Title = "Save Flow Project";
             // 
-            // unleashedTheCitadelToolStripMenuItem1
+            // findToolStripMenuItem
             // 
-            this.unleashedTheCitadelToolStripMenuItem1.Name = "unleashedTheCitadelToolStripMenuItem1";
-            this.unleashedTheCitadelToolStripMenuItem1.Size = new System.Drawing.Size(148, 20);
-            this.unleashedTheCitadelToolStripMenuItem1.Text = "Unleashed @ TheCitadel";
-            this.unleashedTheCitadelToolStripMenuItem1.Click += new System.EventHandler(this.unleashedTheCitadelToolStripMenuItem1_Click);
+            this.findToolStripMenuItem.Name = "findToolStripMenuItem";
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
+            this.findToolStripMenuItem.Text = "Find";
+            this.findToolStripMenuItem.Click += new System.EventHandler(this.findToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -621,6 +630,7 @@
         private System.Windows.Forms.ToolStripMenuItem replaceCTRLSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteRemoteSiblingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unleashedTheCitadelToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
     }
 }
 
