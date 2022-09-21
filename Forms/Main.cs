@@ -134,13 +134,13 @@ namespace Flow.Forms
         Bitmap mBuffer;
         short toolVersionMajor = 0;
         short toolVersionMinor = 0;
-        short toolVersionSub = 4;
+        short toolVersionSub = 5;
         string toolName = "Flow";
 
         //binary vars
         short binaryVersionMajor = 0;
         short binaryVersionMinor = 0;
-        short binaryVersionSub = 1;
+        short binaryVersionSub = 2;
         //find a solution to scrolling, mousemov?
         int autoScrollMinX = 1000;
         int autoScrollMinY = 1000;
@@ -1909,7 +1909,7 @@ namespace Flow.Forms
            "Error On Load", MessageBoxButtons.OK,
            MessageBoxIcon.Error);
             }
-}
+        }
 
         private void decompileSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {

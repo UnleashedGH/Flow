@@ -28,7 +28,7 @@ namespace Flow.FlowBinary
         {
 
             int counter = 0;
-
+            bytes = new List<byte>();
             bytes.AddRange(Encoding.ASCII.GetBytes("#FLOW"));
 
             bytes.AddRange(BitConverter.GetBytes(vmj));
@@ -85,7 +85,7 @@ namespace Flow.FlowBinary
             if (parentIndex == 0) //if the parent is root, write layer names
             {
                 bytes.AddRange(BitConverter.GetBytes(r.bd.LayerName.Count()));
-                bytes.AddRange(Encoding.ASCII.GetBytes(r.bd.LayerName));
+                bytes.AddRange(Encoding.UTF32.GetBytes(r.bd.LayerName));
             }else
             {
                 bytes.AddRange(BitConverter.GetBytes((int)0));
@@ -166,7 +166,7 @@ namespace Flow.FlowBinary
        
         }
         #endregion
-        #region Read
+        #region Read_0_0_2
         public TreeNode<CircleNode> readFlowBinary(string path, string AcceptedBinaryVersion)
         {
 
@@ -192,7 +192,14 @@ namespace Flow.FlowBinary
 
             //handle different binary version
             if (binaryVersion != AcceptedBinaryVersion)
-                return null;
+                switch (binaryVersion)
+                {
+                    case "0.0.1":
+                        {
+                            return readFlowBinary_0_0_1(path);
+                            break;
+                        }
+                }
 
 
             counter = BitConverter.ToInt32(rawBytes, 0xB);
@@ -219,7 +226,7 @@ namespace Flow.FlowBinary
                 offsetCounter += 4;
                 newNode.bd.RemoteSiblingIndex = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
                 offsetCounter += 4;
-                int stringCount = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                int stringCount = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset) * 4;
                 offsetCounter += 4;
 
              
@@ -229,7 +236,7 @@ namespace Flow.FlowBinary
                 if (stringCount != 0)
                 {
                    
-                        newNode.bd.LayerName = Encoding.ASCII.GetString(rawBytes, baseNodeOffset + offsetCounter + nodeOffset, stringCount);
+                        newNode.bd.LayerName = Encoding.UTF32.GetString(rawBytes, baseNodeOffset + offsetCounter + nodeOffset, stringCount);
                    
                 }
                 
@@ -370,6 +377,168 @@ namespace Flow.FlowBinary
 
             return bcmEntry;
         }
+
+
+
+
+
+        #endregion
+        #region Read_0_0_1
+        public TreeNode<CircleNode> readFlowBinary_0_0_1(string path)
+        {
+       
+
+            byte[] rawBytes = File.ReadAllBytes(path);
+
+
+            string binaryName;
+            string binaryVersion;
+            short binaryVersionMajor, binaryVersionMinor, binaryVersionSub = -1;
+            int counter = -1;
+
+
+
+            binaryName = Encoding.ASCII.GetString(rawBytes, 0, 5);
+            binaryVersionMajor = BitConverter.ToInt16(rawBytes, 5);
+            binaryVersionMinor = BitConverter.ToInt16(rawBytes, 7);
+            binaryVersionSub = BitConverter.ToInt16(rawBytes, 9);
+            binaryVersion = getBinaryVersion(binaryVersionMajor, binaryVersionMinor, binaryVersionSub);
+
+
+            if (binaryName != "#FLOW")
+                return null;
+
+            
+
+
+            counter = BitConverter.ToInt32(rawBytes, 0xB);
+
+            if (counter == -1)
+                return null;
+
+            int nodeOffset = 0;
+            int baseNodeOffset = 0xF;
+            List<TreeNode<CircleNode>> nodeEntries = new List<TreeNode<CircleNode>>();
+
+            //build node entries
+            for (int i = 0; i < counter; i++)
+            {
+                int offsetCounter = 0;
+                TreeNode<CircleNode> newNode = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+
+                newNode.bd.parentIndex = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                //MessageBox.Show(newNode.bd.parentIndex.ToString());
+                offsetCounter += 4;
+                newNode.bd.ID = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                offsetCounter += 4;
+                newNode.bd.RemoteChildIndex = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                offsetCounter += 4;
+                newNode.bd.RemoteSiblingIndex = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                offsetCounter += 4;
+                int stringCount = BitConverter.ToInt32(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+                offsetCounter += 4;
+
+
+                //MessageBox.Show(newNode.bd.ID.ToString());
+                //MessageBox.Show((baseNodeOffset + offsetCounter + nodeOffset).ToString());
+
+                if (stringCount != 0)
+                {
+
+                    newNode.bd.LayerName = Encoding.ASCII.GetString(rawBytes, baseNodeOffset + offsetCounter + nodeOffset, stringCount);
+
+                }
+
+                offsetCounter += stringCount;
+
+                //read bcm
+                newNode.bd.bcmentry = ParseBcmEntry(rawBytes, baseNodeOffset + offsetCounter + nodeOffset);
+
+                //MessageBox.Show(((Xv2CoreLib.BCM.ButtonInput)newNode.bd.bcmentry.I_08).ToString());
+                offsetCounter += 112;
+
+
+                nodeEntries.Add(newNode);
+
+                nodeOffset += offsetCounter;
+            }
+
+            //resolve tree
+
+            for (int i = 0; i < nodeEntries.Count; i++)
+            {
+                //node has parent, go to parent index and add that node as its child
+                if (nodeEntries[i].bd.parentIndex != -1)
+                {
+
+
+
+                    //MessageBox.Show(nodeEntries[i].bd.LayerName);
+                    //MessageBox.Show(nodeEntries[i].bd.parentIndex.ToString());
+
+                    nodeEntries[i].bd.ParentRef = nodeEntries[nodeEntries[i].bd.parentIndex];
+                    nodeEntries[nodeEntries[i].bd.parentIndex].AddChild(nodeEntries[i]);
+                    nodeEntries[nodeEntries[i].bd.parentIndex].isCollpased = true;
+                }
+
+                //node should have a remote child added
+                if (nodeEntries[i].bd.RemoteChildIndex != -1)
+                {
+                    TreeNode<CircleNode> newNode = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+                    //newNode.bd.bcmentry = nodeEntries[i].bd.bcmentry.Clone();
+                    //newNode.bd.LayerName = nodeEntries[i].bd.LayerName;
+
+                    newNode.bd.isRemoteChild = true;
+                    newNode.bd.ParentRef = nodeEntries[i];
+                    newNode.bd.RemotePointToRef = nodeEntries[nodeEntries[i].bd.RemoteChildIndex];
+                    newNode.isCollpased = false;
+
+                    nodeEntries[i].AddChild(newNode);
+                    nodeEntries[i].isCollpased = true;
+
+
+                }
+
+                if (nodeEntries[i].bd.RemoteSiblingIndex != -1)
+                {
+                    TreeNode<CircleNode> newNode = new TreeNode<CircleNode>(new CircleNode(), new BinaryData(), false);
+                    //newNode.bd.bcmentry = nodeEntries[i].bd.bcmentry.Clone();
+                    //newNode.bd.LayerName = nodeEntries[i].bd.LayerName;
+
+                    newNode.bd.isRemoteSibling = true;
+
+                    newNode.bd.ParentRef = nodeEntries[nodeEntries[i].bd.parentIndex]; // fix this
+                    newNode.bd.RemotePointToRef = nodeEntries[nodeEntries[i].bd.RemoteSiblingIndex];
+                    newNode.bd.MySiblingRef = nodeEntries[i];
+
+                    newNode.isCollpased = false;
+
+                    nodeEntries[nodeEntries[i].bd.parentIndex].AddChild(newNode); // fix this
+                    nodeEntries[nodeEntries[i].bd.parentIndex].isCollpased = true; // fix this
+
+
+                }
+            }
+
+
+
+            //end
+
+
+
+            for (int i = 0; i < nodeEntries[0].Children.Count; i++)
+                nodeEntries[0].Children[i].bd.isLayerRoot = true;
+
+
+
+            if (nodeEntries.Count > 0)
+                return nodeEntries[0];
+            else
+                return null;
+
+        }
+
+      
 
 
 
